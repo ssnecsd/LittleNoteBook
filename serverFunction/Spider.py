@@ -29,7 +29,41 @@ def get_text_picture(url):
                 result_1.append(img[0])
     return result_1;
 
+def get_title(url):
+    page = requests.get(url).text
+    pattern_t = re.compile(r'<title>((.*?\n*?)*?)</title>')
+    res = pattern_t.findall(page)
+    result = []
+    for item in res:
+        result+=item
+    return ''.join(result).strip()
 
+def get_profile_nickname(url):
+    page = requests.get(url).text
+    pattern_n = re.compile(r'<.*?profile_nickname.*?>(.+?)<.*?>')
+    res = pattern_n.findall(page)
+    return res[0]
+
+def Spider(url):
+    title=get_title(url)
+    profile_nickname=get_profile_nickname(url)
+    content=get_text_picture(url)
+    for item in content:
+        try:
+            hea=item[0:8]
+        except:
+            pass
+        if 'https://'==hea:
+            image_url=item
+            break
+
+    article_dic={
+        'title':title,
+        'profile_nickname':profile_nickname,
+        'content':content,
+        'image_url':image_url
+    }
+    return article_dic
 # 调试时使用
 if __name__ == '__main__':
     url_list = ['https://mp.weixin.qq.com/s/G11wlj1tVg8A-7o4NKR-aQ',
@@ -42,3 +76,5 @@ if __name__ == '__main__':
     result_json = json.dumps(result)
     for item in result:
         print(item)
+    print(get_title(url))
+    print(Spider(url))
