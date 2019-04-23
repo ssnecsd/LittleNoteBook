@@ -1,0 +1,24 @@
+{
+  "pages":[
+    
+    "pages/articleSearch/articleSearch"
+    
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "文章搜索",
+    "navigationBarTextStyle":"black"
+  },
+
+  "usingComponents": {
+    "wux-swipe-action-group": "../../dist/swipe-action-group/index",
+    "wux-swipe-action": "../../dist/swipe-action/index",
+    "wux-cell-group": "../../dist/cell-group/index",
+    "wux-cell": "../../dist/cell/index",
+    "wux-icon": "../../dist/icon/index",
+    "wux-toptips": "../../dist/toptips/index"
+    
+  }
+ 
+}

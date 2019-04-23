@@ -1,0 +1,51 @@
+<!--pages/articleSearch/articleSearch.wxml-->
+<view>
+  <!-- navigatorWithBack -->
+
+
+ <!-- 内容 -->
+ <view class="containerView">
+ <wux-toptips  id="wux-toptips" />
+  <!-- 顶部搜索 -->
+  <view class="topView1">
+    <view class="searchView"  style="{{inputWidth}}" >
+      <view class="searchIconView">
+        <image src="../icon/search.png" class="searchIconImg"></image>
+      </view>
+      <view class="searchInputView">
+        <input class="searchInput" placeholder='文章名称/关键字' placeholder-class='placeholderCls' bindfocus="focusinput" bindconfirm="finishInput" bindinput="Nowinput" value="{{valid?inputValue:blank}}" bindblur="loseFocus" focus="{{focus}}"/>
+      </view>
+      <view class="cancelIconView"  hidden="{{cclHidden}}" catchtap='cancelFunction'>
+        <image src="../icon/cancel.png" class="cancelIconImg"></image>
+      </view>
+    </view> 
+    <view class="searchBtnView" hidden="{{btnHidden}}" id="searchbtn">
+        <button class="searchBtn" catchtap="search" >搜索</button>
+    </view>
+  </view>
+    <!-- 结果显示 -->
+  <view class="resView" >
+  <!-- 时间轴列表显示 -->
+    <view class="articleList"  hidden="{{resHidden}}">
+      <block wx:for="{{articles}}" wx:key="{{index}}" >
+       <wux-swipe-action style="height:175rpx" autoClose right="{{ right }}" catch:click="leftAction" data-id="{{item.article_id}}" data-index="{{index}}">
+        <view class="itemView">
+          <view class="dateLine"></view>
+          <view class="timeItem">{{item.create_time}}</view>
+          <view class="smallCircle"></view>
+          <view class="articleItem">
+            <view class="titleText"><text>{{item.title}}</text></view>
+            <image src="{{item.image_url}}" class="article_image" mode="scaleToFill"/>
+          </view>
+        </view>
+      </wux-swipe-action>
+      </block>
+    </view>
+    <view class='no_more'  hidden="{{hintHidden}}">
+      <text>{{hint}}</text>
+    </view>
+  </view>
+
+ </view>
+</view>
+<navigator url='../index/index'>456465</navigator>
