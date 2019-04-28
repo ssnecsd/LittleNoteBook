@@ -1,4 +1,5 @@
 /* pages/article_group/article_group_list/article_group_list.wxss */
+/*一个方框加一个名字加数字*/
 .itemView{
   position:relative;
   padding-left: 5rpx;
@@ -23,14 +24,17 @@
   position: relative;
   font-size:inherit;
 }
-
+/*增加一个分组的按钮*/
 .add_group_image{
   height: 150rpx;
   width: 150rpx;
   margin-left: 70%;
 }
 
-
+/*弹窗的确定按钮和取消按钮*/
+.buttonsOfPopup{
+  margin-top: -250rpx;
+}
 .confirmButton{
   width: 200rpx;
   height: 100rpx;
@@ -46,4 +50,37 @@
   margin-left: 100rpx;
   position: relative;
   top:100rpx;
+}
+
+/*颜色选择器*/
+.totalContainer{
+  position: relative;
+  margin-top: 30rpx;
+}
+.circleContainer{
+  width:340rpx;
+  height:120rpx;
+  white-space: nowrap;
+  position:relative;
+  top:-100rpx;
+  left:100rpx;
+}
+.imageView{
+  width:100rpx;
+  height:100rpx;
+}
+.circle{
+  width:100rpx;
+  height:100rpx;
+  border-radius: 50%;
+  margin: 10rpx;
+  display: inline-block;
+}
+.active{
+  border:1rpx solid red;
+}
+.nextView{
+  position:relative;
+  top:-210rpx;
+  left:430rpx;
 }

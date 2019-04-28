@@ -44,14 +44,18 @@ Page({
     tpye:'',
     //输入框中默认出现的文字
     contentInInput:'',
-    //----------------------------------------------------------------------
+    //-----------------------颜色选择器-----------------------------------------------
+    cur: 0,
+    scroll: 0,
+    //------------------------------------------------------------------------------
   },
   
   /*
   *  点击增加新的分类
   */
-  add_group:function(e){
+  add_group(e){
     //将show_window设置为1
+    console.log(e)
     this.setData({
       show_window:1,
       type:'新建分类',
@@ -61,7 +65,7 @@ Page({
   },
 
   /**
-   * 右滑出线的两个按钮
+   * 右滑出现的两个按钮
    */
 
   onClick(e){
@@ -125,7 +129,7 @@ Page({
     if(this.data.type=='新建分类'){
       var newitem=[{
         'group_name': this.data.contentInInput,
-        'group_color': 'ccffcc',//颜色待定
+        'group_color': this.data.color[this.data.cur],//颜色待定
         'article_count': 0
       }]
       this.data.article_group_list = this.data.article_group_list.concat(newitem)
@@ -134,6 +138,42 @@ Page({
         show_window: 0,
       })
     }
+    //向服务器发送更改内容
+  },
+  /*颜色选择器*/
+  choose: function (e) {
+    var that = this;
+    var index = e.target.dataset.index;
+    //console.log(index)
+    that.setData({ cur: index })
+  },
+  update: function (e) {
+    //console.log(e.detail);
+    var scroll = e.detail.scrollLeft;
+    //console.log(scroll);
+    this.setData({ scroll: scroll });
+  },
+  prevTap: function () {
+    var that = this;
+    var scroll = that.data.scroll;
+    console.log(that.data.scroll)
+    if (scroll > 60) {
+      scroll -= 60;
+    } else {
+      scroll = 0;
+    }
+    this.setData({ scroll: scroll });
+  },
+  nextTap: function () {
+    var that = this;
+    var scroll = that.data.scroll;
+    console.log(that.data.scroll)
+    if (scroll + 60 < 300) {
+      scroll += 60;
+    } else {
+      scroll = 331;
+    }
+    this.setData({ scroll: scroll });
   },
   /**
    * 生命周期函数--监听页面加载

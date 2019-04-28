@@ -16,20 +16,28 @@
     >
     </image>
     
+
   </view>
   <view>
-    <wux-popup closable visible="{{ show_window }}" title="{{type}}"bind:close="onClose1">
+    <wux-popup closable visible="{{ show_window }}" title="{{type}}"bind:close="onClose1"class='popup'>
     <wux-cell hover-class="none">
       <wux-input wux-input label="分组名字" placeholder="{{contentInInput}}" bind:blur="onBlur"/>
     </wux-cell>
-      <view class="section section_gap">
-        <scroll-view class="scroll-view_H" scroll-x style="width: 20%">
-          <view id="green" class="scroll-view-item_H bc_green"></view>
-          <view id="red" class="scroll-view-item_H bc_red"></view>
-          <view id="yellow" class="scroll-view-item_H bc_yellow"></view>
-          <view id="blue" class="scroll-view-item_H bc_blue"></view>
-        </scroll-view>
+
+    <view class="totalContainer">
+      <view class="imageView prevView" catchtap='prevTap'>
+        <image src="../image/prev.png" mode="scaleToFill" class="imageView"></image>
       </view>
+      <scroll-view class="circleContainer" scroll-x scroll-left="{{scroll}}" bindscroll="update">
+        <block wx:for="{{color}}" wx:key="*this">
+          <view class="circle {{index==cur?'active':''}}" style="background-color:#{{item}}" catchtap='choose' data-index="{{index}}"></view>
+        </block>
+      </scroll-view>
+      <view class="imageView nextView" catchtap='nextTap'>
+        <image src="../image/next.png" mode="scaleToFill" class="imageView"></image>
+      </view>
+    </view>
+
     <view class='buttonsOfPopup'>
       <button class='cancelButton' bindtap='cancle'>
         取消
