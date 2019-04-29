@@ -2,7 +2,6 @@
 import json
 import socket
 import re
-import ssl
 
 from multiprocessing import Process
 
@@ -13,7 +12,6 @@ from urllib.parse import unquote
 import requests
 
 from serverFunction.functionManager import FunctionManager
-from textSpider import get_text_picture
 
 HTML_ROOT_DIR = "./html"
 
