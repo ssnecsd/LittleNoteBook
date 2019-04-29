@@ -1,0 +1,36 @@
+/*滑动部分*/
+
+page{
+  margin:0px;
+  padding:0px;
+}
+.totalContainer{
+  position: relative;
+}
+.circleContainer{
+  width:540rpx;
+  height:120rpx;
+  white-space: nowrap;
+  position:relative;
+  top:-100rpx;
+  left:100rpx;
+}
+.imageView{
+  width:100rpx;
+  height:100rpx;
+}
+.circle{
+  width:100rpx;
+  height:100rpx;
+  border-radius: 50%;
+  margin: 10rpx;
+  display: inline-block;
+}
+.active{
+  border:1rpx solid red;
+}
+.nextView{
+  position:relative;
+  top:-210rpx;
+  left:650rpx;
+}
