@@ -23,25 +23,25 @@ class FunctionManager(object):
         if '/get_article_group' == file_name:
             response_body = get_article_group(self.request_params)
 
-        elif '/get_article_info' ==file_name:
+        elif '/get_article_info' == file_name:
             response_body = get_article_info(self.request_params)
 
-        elif '/get_articles_by_group' ==file_name:
+        elif '/get_articles_by_group' == file_name:
             response_body = get_articles_by_group(self.request_params)
 
-        elif '/get_recent_articles' ==file_name:
+        elif '/get_recent_articles' == file_name:
             response_body  = get_recent_articles(self.request_params)
 
-        elif '/load_article' ==file_name:
+        elif '/load_article' == file_name:
             response_body = load_article(self.request_params)
 
         elif '/login' == file_name:
             response_body = login(self.request_params)
 
-        elif '/search_article_by_date' ==file_name:
+        elif '/search_article_by_date' == file_name:
             response_body = search_article_by_date(self.request_params)
 
-        elif '/search_article_by_key' ==file_name:
+        elif '/search_article_by_key' == file_name:
             response_body = search_article_by_key(self.request_params)
 
         elif '/sign_in' == file_name:

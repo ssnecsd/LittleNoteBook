@@ -1,16 +1,16 @@
 import json
 
-from serverFunction.dbHelper import db_excute
+from serverFunction.dbHelper import db_excute_select
 
 
 def get_article_group(request_params):
     user_id=request_params['user_id']
     group_lists=[]
     sql = "SELECT * FROM userdb.article_info where user_id='%s'" % user_id
-    res = db_excute(sql)
+    res = db_excute_select(sql)
     name_to_count={}
     for item in res:
-        name=item[7]
+        name = item[7]
         if name not in name_to_count.keys():
             name_to_count[name]=1
         else:

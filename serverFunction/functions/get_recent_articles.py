@@ -1,7 +1,7 @@
 import datetime
 import json
 
-from serverFunction.dbHelper import db_excute
+from serverFunction.dbHelper import db_excute_select
 
 # 重写构造json类
 class CJsonEncoder(json.JSONEncoder):
@@ -18,7 +18,7 @@ def get_recent_articles(request_params):
     recent_article_list=[]
 
     sql = "SELECT * FROM userdb.article_info where user_id='%s'" % user_id
-    res = db_excute(sql)
+    res = db_excute_select(sql)
     for item in res:
         article_dic={}
         article_dic['title']=item[1]

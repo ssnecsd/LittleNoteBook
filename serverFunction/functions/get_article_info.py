@@ -1,13 +1,13 @@
 import json
 
-from serverFunction.dbHelper import db_excute
+from serverFunction.dbHelper import db_excute_select
 
 
 def get_article_info(request_params):
     user_id=request_params['user_id']
     article_id=request_params['article_id']
     sql = "SELECT * FROM userdb.article_info where user_id='%s' and article_id='%s'" % (user_id, article_id)
-    res = db_excute(sql)
+    res = db_excute_select(sql)
     path=res[0][6]
     # ----------------------------------------测试用-------------------------------------------------
     path = "C:" + path

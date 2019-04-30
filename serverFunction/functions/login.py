@@ -1,13 +1,16 @@
 import json
-import pymysql
 import requests
 
-from serverFunction.dbHelper import db_excute
+from serverFunction.dbHelper import db_excute_select
 
 
 def login(request_params):
     js_code = request_params['js_code']  # 从请求参数中获取js_code
     # 登录的请求参数
+    # appid:小程序的appId
+    # secret:小程序的appSecret
+    # js_code 登陆时获取的code
+    # grant_type 授权类型，此处只需填写 authorization_code
     data = {
         'appid': 'wx3a065be8530e53d2',
         'secret': '0971e05d99d908f2382c8bc321d687fa',
@@ -22,7 +25,7 @@ def login(request_params):
     openid = json.loads(json_openid)['openid']
     # 查询数据库确认是否是新用户，如果不是新用户，返回user_id
     sql = "SELECT * FROM userdb.user_info where open_id='%s'" % openid
-    res = db_excute(sql)
+    res = db_excute_select(sql)
     # 是新用户
     if len(res) == 0:
         is_new = 1

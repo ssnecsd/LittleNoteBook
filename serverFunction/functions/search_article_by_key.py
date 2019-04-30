@@ -8,7 +8,7 @@ def search_article_by_key(request_params):
     article_key = '%'+article_key+'%'
 
     #对文章进行模糊搜索
-    sql = "SELECT * FROM userdb.article_info where user_id='%s' and title LIKE  %s "% (user_id,article_key)
+    sql = "SELECT * FROM userdb.article_info where user_id='%s' and title LIKE  '%s' "% (user_id,article_key)
     title_list = db_excute(sql)
 
     #打包返回

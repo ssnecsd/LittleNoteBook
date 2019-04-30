@@ -6,10 +6,7 @@ import re
 from multiprocessing import Process
 
 # 设置静态文件根目录
-from urllib import request
 from urllib.parse import unquote
-
-import requests
 
 from serverFunction.functionManager import FunctionManager
 
@@ -63,18 +60,27 @@ class HTTPServer(object):
 
         # 获取客户端请求数据
         request_data = client_socket.recv(1024)
-        print("request data:", request_data)
         request_lines = request_data.splitlines()
+
+        # # 打印调试信息
+        # for line in request_lines:
+        #     print(line)
+
         # 解析请求报文
         request_start_line = request_lines[0]
         # 提取用户请求的文件名
         file_name = re.match(r"\w+ +(/[^ ]*) ", request_start_line.decode("utf-8")).group(1)
         # 获取请求的参数
-        request_params=get_request_params(request_lines)
+        request_params = get_request_params(request_lines)
+
+        # 打印调试信息
+        print(request_params)
 
         fm = FunctionManager(file_name,request_params)
         response = fm.response_maker()
-        print("response data:", response)
+
+        # 打印调试信息
+        # print("\nresponse data:", response)
 
         # 向客户端返回响应数据
         client_socket.send(bytes(response, "utf-8"))
