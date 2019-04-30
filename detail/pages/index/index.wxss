@@ -1,0 +1,80 @@
+.pageView{
+  padding: 0px;
+  margin:0px;
+  width: 100%;
+  height: 100%;
+  line-height:1.5em;    
+}
+
+.title{
+  font-size:42rpx;
+  font-weight:bold; 
+  text-align: center;
+}
+.author{
+  font-size:36rpx;
+  text-align: center;
+}
+
+.contentImage{
+  text-align: center;
+}
+.menuView{
+  font-size:32rpx;
+  width: 430rpx;
+  position: absolute;
+  background-color: lightpink;
+}
+.menuItem{
+  float:left;
+  display: block;
+  padding-left:10rpx;
+  padding-right: 10rpx;
+}
+.itemborder{
+  border-left: 1px solid bisque;
+}
+.active{
+  background-color: lightblue;
+}
+.highlightview{
+  width: 100%;
+  height:70rpx;
+  position: fixed;
+  bottom: 0rpx;
+  left:0rpx;
+}
+.imageView{
+  height: 60rpx;
+  width: 60rpx;
+}
+.imageposition{
+  position:relative;
+  left:90%;
+  top:-200rpx;
+  bottom:0rpx
+}
+.noteView{
+  position:absolute;
+}
+.notedetail{
+  background-color: lemonchiffon;
+  font-size: 32rpx;
+  width: 500rpx;
+  height:300rpx;
+}
+.noteImagePos{
+  position: absolute;
+  top:0px;
+  right: 0px;
+}
+.noteText{
+  border-bottom:2rpx dashed rgb(38, 50, 161);
+}
+.editView{
+  width: 100%;
+  height: 200rpx;
+  background-color: #ee0;
+  position: absolute;
+  bottom: 0px;
+}

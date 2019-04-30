@@ -1,0 +1,22 @@
+<view>
+  <view>
+    <view class="totalContainer">
+      <view class="imageView prevView" catchtap='prevTap'>
+        <image src="../image/prev.png" mode="scaleToFill" class="imageView"></image>
+      </view>
+      <scroll-view class="circleContainer" id="colorset" scroll-x scroll-left="{{scroll}}" >
+        <block wx:for="{{colorSet}}" wx:key="*this">
+          <view class="circle {{index==cur?'active':''}}" style="{{item}}" catchtap='choose' data-index="{{index}}"></view>
+        </block>
+      </scroll-view>
+      <view class="imageView nextView" catchtap='nextTap'>
+        <image src="../image/next.png" mode="scaleToFill" class="imageView"></image>
+      </view>
+    </view>
+  </view>
+  <slot></slot>
+</view>
+
+
+
+

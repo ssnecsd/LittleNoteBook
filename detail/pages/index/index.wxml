@@ -1,0 +1,45 @@
+<view  class="pageView" >
+  <view>456
+    <text class="title">{{title}}\n</text>
+    <text class="author">{{author}}</text>
+    <block wx:for="{{content}}" wx:key='*this'>
+      <view wx:if="{{item[0]==0}}" class="contentImage">
+        <image src="{{item[1]}}"></image>
+      </view>
+      <!-- catchtap='review'catchlongtap='menu' -->
+      <text class="{{index==cur?'active':''}}" wx:if="{{item[0]==1}}" 
+      data-index="{{index}}"  space="emsp" 
+      catchtouchstart="touchstart" catchtouchend="touchend"
+      style="background-color:{{marker[index].key1==1?marker[index].value1:''}}" 
+      >{{item[1]}}</text>
+    </block> 
+  </view>
+
+  <view class = "menuView" hidden='{{menuHidden}}' style='{{menuStyle}}'>
+    <view class="menuItem" catchtap='copy'>复制</view>
+    <view class="menuItem itemborder" catchtap='highlight'>高亮</view>
+    <view class="menuItem itemborder" catchtap='edit'>笔记</view>
+    <view class="menuItem itemborder" catchtap='excerpt'>摘抄</view>
+    <view class="menuItem itemborder" catchtap='erase'>擦除</view>   
+  </view>
+
+  <view class="highlightview" hidden='{{highlightHidden}}'>
+    <view>
+     <colorChoose class="" bindmychoose='mychoose'></colorChoose>
+    </view>
+    <view class="imageView imageposition">
+      <image src='../image/OK.png' class = "imageView" catchtap='confirm'></image>
+    </view>
+  </view>
+
+  <view class="noteView" hidden='{{noteHidden}}' style='{{noteStyle}}'>
+    <view class="notedetail" >{{note}}</view>
+    <image src='../image/edit.png' class="imageView noteImagePos" catchtap="edit"></image>
+  </view>
+
+  <view hidden='{{editHidden}}' class="editView">
+    <textarea class="editdetail" value = "{{noteValue}}" focus="{{autoFocus}}" maxlength="512" placeholder='不多于512个字'></textarea>
+    <image src='../image/ok.png' class="imageView noteImagePos" catchtap="ok"></image>
+  </view>
+
+</view>
