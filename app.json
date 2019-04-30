@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/article/article",
-    "pages/index/index",
     "pages/excerpt/excerpt",
     "pages/mine/mine",
     "pages/test/test",
@@ -21,7 +20,7 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/article_group/article_group_list/article_group_list",
+        "pagePath": "pages/eccerpt_group/eccerpt_group_list/eccerpt_group_list",
         "text": "首页",
         "iconPath": "pages/icon/icon_dating.png",
         "selectedIconPath": "pages/icon/icon_dating-2.png"

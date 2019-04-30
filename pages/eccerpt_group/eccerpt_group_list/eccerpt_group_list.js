@@ -101,6 +101,7 @@ Page({
           show_success_delete: 1,
           article_group_list: this.data.article_group_list,
         })
+        //向服务器发送通知
       }
     }
   },
@@ -210,33 +211,43 @@ Page({
     //console.log(index)
     that.setData({ cur: index })
   },
-  update: function (e) {
-    //console.log(e.detail);
-    var scroll = e.detail.scrollLeft;
-    //console.log(scroll);
-    this.setData({ scroll: scroll });
-  },
   prevTap: function () {
     var that = this;
-    var scroll = that.data.scroll;
-    console.log(that.data.scroll)
-    if (scroll > 60) {
-      scroll -= 60;
-    } else {
-      scroll = 0;
-    }
-    this.setData({ scroll: scroll });
+    var scroll = 0;
+    const query = wx.createSelectorQuery();
+    query.select('#colorset').fields({
+      scrollOffset: true,
+    }, function (res) {
+      res.scrollLeft
+    }).exec(function (e) {
+      scroll = e[0].scrollLeft;
+      console.log(that.data.scroll)
+      if (scroll > 60) {
+        scroll -= 60;
+      } else {
+        scroll = 0;
+      }
+      that.setData({ scroll: scroll });
+    })
   },
   nextTap: function () {
     var that = this;
-    var scroll = that.data.scroll;
-    console.log(that.data.scroll)
-    if (scroll + 60 < 300) {
-      scroll += 60;
-    } else {
-      scroll = 331;
-    }
-    this.setData({ scroll: scroll });
+    var scroll = 0;
+    const query = wx.createSelectorQuery();
+    query.select('#colorset').fields({
+      scrollOffset: true,
+    }, function (res) {
+      res.scrollLeft
+    }).exec(function (e) {
+      scroll = e[0].scrollLeft;
+      console.log(that.data.scroll)
+      if (scroll + 60 < 300) {
+        scroll += 60;
+      } else {
+        scroll = 331;
+      }
+      that.setData({ scroll: scroll });
+    })
   },
 
   /**
@@ -248,6 +259,7 @@ Page({
     //   group_color：分组颜色（string），
     //   article_count：分类中文章数量（int）
     // }
+
   },
 
   /**
