@@ -12,13 +12,14 @@ def initial_article_group_list(request_params):
 
     for item in res:
         group_dict = {
-            'name' : item[0],
-            'count' : item[3]
+            'group_name' : item[0],
+            'group_color': item[2],
+            'article_count' : item[3]
         }
         group_lists.append(group_dict)
 
     response = {
-        'group_lists': group_lists,
+        'article_group_lists': group_lists,
     }
     response_body = json.dumps(response)
     return response_body

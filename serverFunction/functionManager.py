@@ -8,6 +8,10 @@ from serverFunction.functions.load_article import load_article
 from serverFunction.functions.search_article_by_date import search_article_by_date
 from serverFunction.functions.search_article_by_key import search_article_by_key
 from serverFunction.functions.sign_in import sign_in
+from serverFunction.functions.delete_article_group import delete_article_group
+from serverFunction.functions.initial_article_group_list import initial_article_group_list
+from serverFunction.functions.new_article_group import new_article_group
+from serverFunction.functions.rename_article_group import rename_article_group
 
 
 
@@ -49,6 +53,18 @@ class FunctionManager(object):
 
         elif '/testSpider' == file_name:
             response_body = testSpider(self.request_params)
+
+        elif '/delete_article_group' == file_name:
+            response_body = delete_article_group(self.request_params)
+
+        elif '/initial_article_group_list' == file_name:
+            response_body = initial_article_group_list(self.request_params)
+
+        elif '/new_article_group' == file_name:
+            response_body = new_article_group(self.request_params)
+
+        elif '/rename_article_group' == file_name:
+            response_body = rename_article_group(self.request_params)
 
         else:
             response_body = 0

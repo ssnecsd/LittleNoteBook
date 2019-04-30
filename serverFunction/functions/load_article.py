@@ -12,7 +12,7 @@ def load_article(request_params):
     url = request_params['url']
     user_id = request_params['user_id']
     article_dic = Spider(url)
-    state_code = 1  # （1 成功，0 失败）
+    status_code = 1  # （1 成功，0 失败）
 
     # 插入数据库
 
@@ -39,12 +39,12 @@ def load_article(request_params):
             (group_name, user_id, group_color, group_count)
         #插入失败
         if not db_excute_insert(sql):
-            state_code = 0
+            status_code = 0
     else:
         #分类存在
         sql = "update article_group set article_count = article_count+ 1 where group_name ='未分类' and user_id = '%s'"% user_id
         if not db_excute_insert(sql):
-            state_code = 0
+            status_code = 0
 
     #插入文章信息
     # title
@@ -63,7 +63,7 @@ def load_article(request_params):
     sql = "insert into article_info values( '%s','%s','%s','%s','%s','%s','%s','%s','%s')" % \
           (article_id, title, image_url, profile_nickname, ts, ts, path, group_name, user_id)
     if not db_excute_insert(sql):
-        state_code = 0
+        status_code = 0
 
     # 保存文章
     dire = "//root//weixin//data//" + user_id
@@ -77,10 +77,10 @@ def load_article(request_params):
     # 爬虫返回值验证值是否有效
     for value in article_dic.values():
         if len(value) == 0:
-            state_code = 0
+            status_code = 0
     response = {
         'article_dic': article_dic,
-        'state_code': state_code
+        'state_code': status_code
     }
     response_body = json.dumps(response)
     return response_body
