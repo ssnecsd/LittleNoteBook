@@ -18,7 +18,7 @@ def get_articles_by_group(request_params):
     group_name = request_params['group_name']
     article_list = []
 
-    sql = "SELECT * FROM userdb.article_info where user_id='%s' and group_name='%s'" % (user_id,group_name)
+    sql = "SELECT * FROM article_info where user_id='%s' and group_name='%s'" % (user_id,group_name)
     res = db_excute_select(sql)
     for item in res:
         article_dic ={}

@@ -24,16 +24,27 @@ def load_article(request_params):
         if len(res) == 0:
             break
 
-    #插入文章的分类
+    #文章的分类表
+    global group_name
     group_name = '未分类'
-    #默认的分组颜色为白色
+    # 默认的分组颜色为白色
     group_color = 'ffffff'
     group_count = 1
-    sql = "insert into article_group values('%s','%s','%s','%d')" % \
-          (group_name, user_id, group_color, group_count)
-
-    if not db_excute_insert(sql):
-        state_code = 0
+    #未分类 是否已经存在
+    sql = "SELECT * FROM userdb.article_group where group_name ='未分类' and user_id = '%s'"% user_id
+    res = db_excute_select(sql)
+    if len(res) == 0:
+        #分类不存在
+        sql = "insert into article_group values('%s','%s','%s','%d')" % \
+            (group_name, user_id, group_color, group_count)
+        #插入失败
+        if not db_excute_insert(sql):
+            state_code = 0
+    else:
+        #分类存在
+        sql = "update article_group set article_count = article_count+ 1 where group_name ='未分类' and user_id = '%s'"% user_id
+        if not db_excute_insert(sql):
+            state_code = 0
 
     #插入文章信息
     # title
@@ -44,6 +55,7 @@ def load_article(request_params):
     profile_nickname = article_dic['profile_nickname']
     # path  存在待定项group_name
     path = "//root//weixin//data//" + user_id + "//" + article_id
+
     # user_id
     user_id = user_id
     # 将数据插入数据库
@@ -56,9 +68,9 @@ def load_article(request_params):
     # 保存文章
     dire = "//root//weixin//data//" + user_id
 
-
     if not os.path.exists(dire):
         os.makedirs(dire)
+
     with open(path + '.txt', 'w') as f:
         f.write(json.dumps(article_dic))
 

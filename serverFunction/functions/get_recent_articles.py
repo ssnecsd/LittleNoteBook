@@ -20,7 +20,7 @@ def get_recent_articles(request_params):
     sql = "SELECT * FROM userdb.article_info where user_id='%s'" % user_id
     res = db_excute_select(sql)
     for item in res:
-        article_dic={}
+        article_dic = {}
         article_dic['title']=item[1]
         article_dic['image_url']=item[2]
         article_dic['article_id'] = item[0]

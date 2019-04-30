@@ -16,7 +16,13 @@ class CJsonEncoder(json.JSONEncoder):
 def search_article_by_date(request_params):
     user_id = request_params['user_id']
     article_date=request_params['article_date']
-    sql = "SELECT * FROM userdb.article_info where user_id='%s' and article_date='%s'" % (user_id, article_date)
+    #转化date
+    article_date_begin = article_date+' 00:00:00'
+    article_date_end = article_date+' 23:59:59'
+    sql = "SELECT * FROM userdb.article_info where user_id='%s' and(create_time>='%s'" \
+          "and create_time<='%s')" %(user_id,article_date_begin,article_date_end)
+
+
     info = db_excute_select(sql)
     article_dic = []
     for article_info in info:
@@ -29,5 +35,5 @@ def search_article_by_date(request_params):
     response = {
         'article_dic': article_dic,
     }
-    response_body = json.dumps(response)
+    response_body = json.dumps(response, cls=CJsonEncoder)
     return response_body
