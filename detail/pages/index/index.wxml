@@ -1,17 +1,13 @@
 <view  class="pageView" >
-  <view>
+  <view>456
+    <text class="title">{{title}}\n</text>
+    <text class="author">{{author}}</text>
     <block wx:for="{{content}}" wx:key='*this'>
-      <text class="title" wx:if="{{item[0]==1}}">{{item[1]}}</text>
-      <view wx:if="{{item[0]==2}}" class="contentImage">
+      <view wx:if="{{item[0]==0}}" class="contentImage">
         <image src="{{item[1]}}"></image>
       </view>
       <!-- catchtap='review'catchlongtap='menu' -->
-      <text class="{{index==cur?'active':''}}" wx:if="{{item[0]==3}}" 
-      data-index="{{index}}"  space="emsp" 
-      catchtouchstart="touchstart" catchtouchend="touchend"
-      style="background-color:{{marker[index].key1==1?marker[index].value1:''}}" 
-      >  {{item[1]}}</text>
-      <text class="{{index==cur?'active':''}} {{marker[index].key2==1?'noteText':''}}" wx:if="{{item[0]==4}}" 
+      <text class="{{index==cur?'active':''}}" wx:if="{{item[0]==1}}" 
       data-index="{{index}}"  space="emsp" 
       catchtouchstart="touchstart" catchtouchend="touchend"
       style="background-color:{{marker[index].key1==1?marker[index].value1:''}}" 

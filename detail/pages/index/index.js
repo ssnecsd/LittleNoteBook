@@ -39,7 +39,7 @@ Page({
         that.setData({ windowHeight: res.windowHeight, windowWidth: res.windowWidth});//设备宽高
       }
     });
-    this.load_articletest();
+    //this.load_articletest();
 
   },
   load_articletest: function () {
@@ -51,7 +51,7 @@ Page({
         'user_id': user_id
       },
       success: function (res) {
-        //console.log(res.data)
+        console.log(res.data)
         
       }
     })

@@ -11,6 +11,10 @@
   font-weight:bold; 
   text-align: center;
 }
+.author{
+  font-size:36rpx;
+  text-align: center;
+}
 
 .contentImage{
   text-align: center;
