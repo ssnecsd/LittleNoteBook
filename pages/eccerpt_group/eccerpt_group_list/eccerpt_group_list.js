@@ -1,6 +1,6 @@
 // pages/article_group/article_group_list/article_group_list.js
 //全局变量用来确定点击事件点击的哪一个按钮
-var y=0
+var y = 0
 Page({
 
   /**
@@ -8,21 +8,21 @@ Page({
    */
   data: {
     //--------------------测试用数据----------------------
-    article_group_list:[
+    article_group_list: [
       {
-        'group_name':'最近',
-        'group_color':'ccffcc',
-        'article_count':10
+        'group_name': '最近',
+        'group_color': 'ccffcc',
+        'article_count': 10
       },
       {
-        'group_name':'文学',
-        'group_color':'ef7a82',
-        'article_count':12
+        'group_name': '文学',
+        'group_color': 'ef7a82',
+        'article_count': 12
       },
       {
-        'group_name':'旅游',
-        'group_color':'ffcccc',
-        'article_count':12
+        'group_name': '旅游',
+        'group_color': 'ffcccc',
+        'article_count': 12
       },
     ],
     //---------------------滑动组件绑定数据----------------------
@@ -36,81 +36,80 @@ Page({
     }],
     //---------------------测试用颜色-----------------------------------
     color: ["ccffcc", "ef7a82", "ffcccc", "ffffcc", "99ffcc",
-     "99ffee", "66ffcc", "3f9", "3fc", "c9e", "FFFAF0"],
+      "99ffee", "66ffcc", "3f9", "3fc", "c9e", "FFFAF0"],
     //---------------------弹出修改和新建的窗口--------------------------------
     //0是不弹出，1是弹出
-    show_window:0,
+    show_window: 0,
     //修改还是新建
-    tpye:'',
+    tpye: '',
     //输入框中默认出现的文字
-    contentInInput:'',
+    contentInInput: '',
     //名字过长警告框
-    show_long_name:0,
+    show_long_name: 0,
     //删除成功提示框
-    show_success_delete:0,
+    show_success_delete: 0,
     //删除失败提示框
-    show_fail_delete:0,
+    show_fail_delete: 0,
     //-----------------------颜色选择器-----------------------------------------------
     cur: 0,
     scroll: 0,
     //------------------------------------------------------------------------------
   },
-  
+
   /*
   *  点击增加新的分类
   */
-  add_group(e){
+  add_group(e) {
     //将show_window设置为1
     console.log(e)
     this.setData({
-      show_window:1,
-      type:'新建分类',
-      contentInInput:'一个好名字',
+      show_window: 1,
+      type: '新建分类',
+      contentInInput: '一个好名字',
     });
-    
+
   },
 
   /**
    * 右滑出现的两个按钮
    */
 
-  onClick(e){
+  onClick(e) {
     console.log('onClick', e);
     //定位点击的是哪一个，y是article_group_list数组的角标
-    y=e.target.dataset.y
+    y = e.target.dataset.y
     //定位点击的是重命名还是删除,0重命名，1删除
-    var index=e.detail.index
-    if (index==0){
+    var index = e.detail.index
+    if (index == 0) {
       this.setData({
-        type:'重命名',
+        type: '重命名',
         show_window: 1,
-        contentInInput:this.data.article_group_list[y].group_name,
+        contentInInput: this.data.article_group_list[y].group_name,
       })
     }
-    if(index==1){
+    if (index == 1) {
       //删除失败
-      if (this.data.article_group_list[y].article_count>0){
+      if (this.data.article_group_list[y].article_count > 0) {
         this.setData({
-          show_fail_delete:1,
+          show_fail_delete: 1,
         })
       }
       //删除成功
-      else{
+      else {
         this.data.article_group_list.splice(y, 1)
         this.setData({
           show_success_delete: 1,
           article_group_list: this.data.article_group_list,
         })
-        //向服务器发送通知
       }
     }
   },
 
-  
+
   /**
    * 输入框失去焦点时
    */
-  onBlur(e){
+  onBlur(e) {
     console.log(e)
     console.log(e.detail.value)
     this.setData({
@@ -121,7 +120,7 @@ Page({
   /**
    * 点击取消键
    */
-  cancle(e){
+  cancle(e) {
     this.setData({
       show_window: 0,
     })
@@ -129,22 +128,22 @@ Page({
   /**
    * 点击确定键
    */
-  confirm(e){
+  confirm(e) {
     //检查组名长度
-    if (this.data.contentInInput.length>10){
+    if (this.data.contentInInput.length > 10) {
       this.setData({
-        show_long_name:1,
-        })
+        show_long_name: 1,
+      })
       return
-      }
-    else{
+    }
+    else {
       this.setData({
         show_long_name: 0,
       })
     }
     //重命名
-    if(this.data.type=='重命名'){
-      this.data.article_group_list[y].group_name=this.data.contentInInput
+    if (this.data.type == '重命名') {
+      this.data.article_group_list[y].group_name = this.data.contentInInput
       this.data.article_group_list[y].group_color = this.data.color[this.data.cur]
       console.log(y)
       console.log(this.data.article_group_list)
@@ -154,8 +153,8 @@ Page({
       })
     }
     //新建分类
-    if(this.data.type=='新建分类'){
-      var newitem=[{
+    if (this.data.type == '新建分类') {
+      var newitem = [{
         'group_name': this.data.contentInInput,
         'group_color': this.data.color[this.data.cur],//颜色待定
         'article_count': 0
@@ -211,43 +210,33 @@ Page({
     //console.log(index)
     that.setData({ cur: index })
   },
+  update: function (e) {
+    //console.log(e.detail);
+    var scroll = e.detail.scrollLeft;
+    //console.log(scroll);
+    this.setData({ scroll: scroll });
+  },
   prevTap: function () {
     var that = this;
-    var scroll = 0;
-    const query = wx.createSelectorQuery();
-    query.select('#colorset').fields({
-      scrollOffset: true,
-    }, function (res) {
-      res.scrollLeft
-    }).exec(function (e) {
-      scroll = e[0].scrollLeft;
-      console.log(that.data.scroll)
-      if (scroll > 60) {
-        scroll -= 60;
-      } else {
-        scroll = 0;
-      }
-      that.setData({ scroll: scroll });
-    })
+    var scroll = that.data.scroll;
+    console.log(that.data.scroll)
+    if (scroll > 60) {
+      scroll -= 60;
+    } else {
+      scroll = 0;
+    }
+    this.setData({ scroll: scroll });
   },
   nextTap: function () {
     var that = this;
-    var scroll = 0;
-    const query = wx.createSelectorQuery();
-    query.select('#colorset').fields({
-      scrollOffset: true,
-    }, function (res) {
-      res.scrollLeft
-    }).exec(function (e){
-      scroll=e[0].scrollLeft;
-      console.log(that.data.scroll)
-      if (scroll + 60 < 300) {
-        scroll += 60;
-      } else {
-        scroll = 331;
-      }
-      that.setData({ scroll: scroll });
-    })
+    var scroll = that.data.scroll;
+    console.log(that.data.scroll)
+    if (scroll + 60 < 300) {
+      scroll += 60;
+    } else {
+      scroll = 331;
+    }
+    this.setData({ scroll: scroll });
   },
 
   /**
@@ -255,11 +244,10 @@ Page({
    */
   onLoad: function (options) {
     //   request获取list里面是一个字典{
-  //   group_name：分组名称（string），
-  //   group_color：分组颜色（string），
-  //   article_count：分类中文章数量（int）
-  // }
-    
+    //   group_name：分组名称（string），
+    //   group_color：分组颜色（string），
+    //   article_count：分类中文章数量（int）
+    // }
   },
 
   /**
@@ -267,7 +255,7 @@ Page({
    */
   onReady: function () {
 
-  
+
 
   },
 

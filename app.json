@@ -7,7 +7,8 @@
     "pages/test/test",
     "pages/article_group/article_group_list/article_group_list",
     "pages/article_detail/article_detail",
-    "pages/articleSearch/articleSearch"
+    "pages/articleSearch/articleSearch",
+    "pages/eccerpt_group/eccerpt_group_list/eccerpt_group_list"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -20,7 +21,7 @@
     "backgroundColor": "#ffffff",
     "list": [
       {
-        "pagePath": "pages/test/test",
+        "pagePath": "pages/article_group/article_group_list/article_group_list",
         "text": "首页",
         "iconPath": "pages/icon/icon_dating.png",
         "selectedIconPath": "pages/icon/icon_dating-2.png"

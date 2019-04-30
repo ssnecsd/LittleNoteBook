@@ -1,0 +1,16 @@
+{
+  "navigationBarBackgroundColor": "#ffffff",
+  "navigationBarTextStyle": "black",
+  "navigationBarTitleText": "摘抄分类",
+  "backgroundColor": "#fff",
+  "backgroundTextStyle": "light",
+  "usingComponents": {
+    "wux-cell-group": "../../dist/cell-group/index",
+    "wux-cell": "../../dist/cell/index",
+    "wux-button": "../../dist/button/index",
+    "wux-popup": "../../dist/popup/index",
+    "wux-input": "../../dist/input/index",
+    "wux-dialog": "../../dist/dialog/index",
+    "wux-fab-button": "../../dist/fab-button/index"
+  }
+}

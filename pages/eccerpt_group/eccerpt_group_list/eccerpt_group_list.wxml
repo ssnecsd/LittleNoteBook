@@ -28,7 +28,7 @@
       <view class="imageView prevView" catchtap='prevTap'>
         <image src="../image/prev.png" mode="scaleToFill" class="imageView"></image>
       </view>
-      <scroll-view id="colorset"class="circleContainer" scroll-x scroll-left="{{scroll}}">
+      <scroll-view class="circleContainer" scroll-x scroll-left="{{scroll}}" bindscroll="update">
         <block wx:for="{{color}}" wx:key="*this">
           <view class="circle {{index==cur?'active':''}}" style="background-color:#{{item}}" catchtap='choose' data-index="{{index}}"></view>
         </block>
