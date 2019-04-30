@@ -65,22 +65,45 @@ def load_article(request_params):
     if not db_excute_insert(sql):
         status_code = 0
 
+    # 生成一个空的mark_list
+    mark_dic = {
+        'key1': 0,
+        'value': 'ffffff',
+        'key2': 0,
+        'value2': ''
+    }
+    mark_list = []
+    # 对每一句，添加一个dict (独立的)
+    for sentence in article_dic['content']:
+        mark_list.append(mark_dic)
+
     # 保存文章
+    article_file = [article_dic['content'], mark_list]
     dire = "//root//weixin//data//" + user_id
 
     if not os.path.exists(dire):
         os.makedirs(dire)
 
     with open(path + '.txt', 'w') as f:
-        f.write(json.dumps(article_dic))
+        try:
+            f.write(json.dumps(article_file))
+        except:
+            status_code = 0
+
+    f.close()
 
     # 爬虫返回值验证值是否有效
     for value in article_dic.values():
         if len(value) == 0:
             status_code = 0
+
+    #构造返回json
+
     response = {
         'article_dic': article_dic,
-        'state_code': status_code
+        'state_code': status_code,
+        'mark_list': mark_dic,
+        'article_id': article_id
     }
     response_body = json.dumps(response)
     return response_body
