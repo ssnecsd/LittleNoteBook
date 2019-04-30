@@ -3,7 +3,7 @@ import json
 from serverFunction.dbHelper import db_excute_select
 
 
-def initial_article_group_list(request_params):
+def get_article_group(request_params):
     user_id=request_params['user_id']
     group_lists=[]
     sql = "SELECT * FROM article_group where user_id='%s'" % user_id
