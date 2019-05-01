@@ -11,7 +11,7 @@ from serverFunction.functions.sign_in import sign_in
 from serverFunction.functions.delete_article_group import delete_article_group
 from serverFunction.functions.initial_article_group_list import initial_article_group_list
 from serverFunction.functions.new_article_group import new_article_group
-from serverFunction.functions.reset_article_group import rename_article_group
+from serverFunction.functions.reset_article_group import reset_article_group
 from serverFunction.functions.save_article import save_article
 from serverFunction.functions.delete_article import delete_article
 from serverFunction.functions.move_article import move_article
@@ -65,8 +65,8 @@ class FunctionManager(object):
         elif '/new_article_group' == file_name:
             response_body = new_article_group(self.request_params)
 
-        elif '/rename_article_group' == file_name:
-            response_body = rename_article_group(self.request_params)
+        elif '/reset_article_group' == file_name:
+            response_body = reset_article_group(self.request_params)
 
         elif '/save_article' == file_name:
             response_body = save_article(self.request_params)
@@ -93,10 +93,6 @@ class FunctionManager(object):
             response_headers = "Server: My server\r\n"
             response_body = "the name is not define"
         # 返回response
-        print('\n')
-        print(response_body)
-        print('\n')
-
         response = response_start_line + response_headers + "\r\n" + response_body
         return response
 

@@ -3,7 +3,7 @@ import json
 from serverFunction.dbHelper import db_excute_insert, db_excute_select
 
 
-def rename_article_group(request_params):
+def reset_article_group(request_params):
     user_id = request_params['user_id']
     new_group_name = request_params['new_group_name']
     old_group_name = request_params['old_group_name']
