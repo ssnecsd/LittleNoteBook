@@ -58,4 +58,7 @@
   <wux-popup closable visible="{{ show_success_delete }}" title="删除成功"bind:close="onClose4"class='popup'>
       <button bindtap='onClose4'class='close_button2'>确定</button>
   </wux-popup>
+  <wux-popup closable visible="{{ show_name_exist }}" title="提示"content="名字已经存在请重新命名"bind:close="onClose5"class='popup'>
+      <button bindtap='onClose5'class='close_button2'>确定</button>
+  </wux-popup>
 </view>

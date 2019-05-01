@@ -1,6 +1,9 @@
 // pages/article_group/article_group_list/article_group_list.js
 //全局变量用来确定点击事件点击的哪一个按钮
 var y=0
+var serverUrl = 'http://148.70.115.138:8000'
+var app=getApp()
+
 Page({
 
   /**
@@ -46,6 +49,8 @@ Page({
     contentInInput:'',
     //名字过长警告框
     show_long_name:0,
+    //名字重复警告框
+    show_name_exist:0,
     //删除成功提示框
     show_success_delete:0,
     //删除失败提示框
@@ -61,7 +66,7 @@ Page({
   */
   add_group(e){
     //将show_window设置为1
-    console.log(e)
+    // console.log(e)
     this.setData({
       show_window:1,
       type:'新建分类',
@@ -75,7 +80,7 @@ Page({
    */
 
   onClick(e){
-    console.log('onClick', e);
+    // console.log('onClick', e);
     //定位点击的是哪一个，y是article_group_list数组的角标
     y=e.target.dataset.y
     //定位点击的是重命名还是删除,0重命名，1删除
@@ -88,6 +93,7 @@ Page({
       })
     }
     if(index==1){
+      var group_name = this.data.article_group_list[y].group_name
       //删除失败
       if (this.data.article_group_list[y].article_count>0){
         this.setData({
@@ -102,6 +108,16 @@ Page({
           article_group_list: this.data.article_group_list,
         })
         //向服务器发送通知
+        wx.request({
+          url: serverUrl + '/delete_article_group',
+          data: {
+            'user_id': app.globalData.user_id,
+            'group_name': group_name,
+          },
+          success: function (res) {
+            console.log(res.data)
+          }
+        })
       }
     }
   },
@@ -111,8 +127,8 @@ Page({
    * 输入框失去焦点时
    */
   onBlur(e){
-    console.log(e)
-    console.log(e.detail.value)
+    // console.log(e)
+    // console.log(e.detail.value)
     this.setData({
       //保存框中值
       contentInInput: e.detail.value
@@ -136,21 +152,50 @@ Page({
         show_long_name:1,
         })
       return
+      }else{
+        this.setData({
+          show_long_name: 0,
+        })
       }
-    else{
-      this.setData({
-        show_long_name: 0,
-      })
+    //检查是否重名
+    for (var index in this.data.article_group_list){
+      var item = this.data.article_group_list[index]
+      if (this.data.contentInInput == item.group_name){
+        this.setData({
+          show_name_exist:1,
+        })
+        return
+      }else{
+        this.setData({
+          show_name_exist: 0,
+        })
+      }
     }
     //重命名
     if(this.data.type=='重命名'){
+      var old_group_name = this.data.article_group_list[y].group_name
+      var new_group_name = this.data.contentInInput
+      var group_color = this.data.color[this.data.cur]
       this.data.article_group_list[y].group_name=this.data.contentInInput
       this.data.article_group_list[y].group_color = this.data.color[this.data.cur]
-      console.log(y)
-      console.log(this.data.article_group_list)
+      // console.log(y)
+      // console.log(this.data.article_group_list)
       this.setData({
         article_group_list: this.data.article_group_list,
         show_window: 0,
+      })
+      //向服务器发送通知
+      wx.request({
+        url: serverUrl + '/reset_article_group',
+        data: {
+          'user_id': app.globalData.user_id,
+          'new_group_name': new_group_name,
+          'group_color': group_color,
+          'old_group_name': old_group_name
+        },
+        success: function (res) {
+          console.log(res.data)
+        }
       })
     }
     //新建分类
@@ -164,6 +209,19 @@ Page({
       this.setData({
         article_group_list: this.data.article_group_list,
         show_window: 0,
+      })
+      //向服务器端发送新建分类的通知
+      // console.log(newitem)
+      wx.request({
+        url: serverUrl + '/new_article_group',
+        data: {
+          'user_id': app.globalData.user_id,
+          'group_name': newitem[0].group_name,
+          'group_color': newitem[0].group_color
+        },
+        success: function (res) {
+          console.log(res.data)
+        }
       })
     }
     //向服务器发送更改内容
@@ -204,6 +262,15 @@ Page({
     }
     )
   },
+  /**
+   * 关闭名字存在提示窗口
+   */
+  onClose5() {
+    this.setData({
+      show_name_exist: 0,
+    }
+    )
+  },
   /*颜色选择器*/
   choose: function (e) {
     var that = this;
@@ -221,7 +288,7 @@ Page({
       res.scrollLeft
     }).exec(function (e) {
       scroll = e[0].scrollLeft;
-      console.log(that.data.scroll)
+      // console.log(that.data.scroll)
       if (scroll > 60) {
         scroll -= 60;
       } else {
@@ -240,7 +307,7 @@ Page({
       res.scrollLeft
     }).exec(function (e){
       scroll=e[0].scrollLeft;
-      console.log(that.data.scroll)
+      // console.log(that.data.scroll)
       if (scroll + 60 < 300) {
         scroll += 60;
       } else {
@@ -259,6 +326,24 @@ Page({
   //   group_color：分组颜色（string），
   //   article_count：分类中文章数量（int）
   // }
+    //初始化页面数据
+    var that=this
+    if (app.globalData.user_id!=null){
+      wx.request({
+        url: serverUrl + '/initial_article_group_list',
+        data: {
+          'user_id': app.globalData.user_id
+        },
+        success: function (res) {
+          console.log(res.data)
+          that.setData({
+            article_group_list: res.data.article_group_lists
+          })
+        }
+      })
+    }else{
+      //处理user_id获取异常的错误
+    }
     
   },
 
