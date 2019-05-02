@@ -102,12 +102,8 @@ Page({
   */
   getUserInfo: function (e) {
     console.log(e)
+    var that=this
     app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      //关闭弹出的请求授权微信小程序窗口
-      show_authorize:0
-    })
-
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
@@ -132,6 +128,10 @@ Page({
             app.globalData.user_id = res.data.user_id
             console.log('获取用户数据成功')
             console.log('用户id为' + app.globalData.user_id)
+            that.setData({
+              //关闭弹出的请求授权微信小程序窗口
+              show_authorize: 0
+            })
           }
         })
       }
