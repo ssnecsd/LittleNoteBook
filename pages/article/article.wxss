@@ -146,4 +146,9 @@
   border-bottom: 1px solid #efefef;
   padding: 10rpx;
 }
-
+/*授权登陆小程序*/
+.close_button2{
+  height: 40%;
+  width: 40%;
+  margin-top:100rpx;
+}

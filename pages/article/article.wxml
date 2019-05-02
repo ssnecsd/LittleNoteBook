@@ -34,4 +34,7 @@
       <text>没有更多了 (ฅ• . •ฅ)</text>
     </view>
   </view>
+  <wux-popup closable visible="{{ show_authorize }}" title="提示"content="请授权登陆小程序"bind:close="onClose1"class='popup'>
+      <button bindtap='onClose1'open-type="getUserInfo" bindgetuserinfo="getUserInfo"class='close_button2'>确定</button>
+  </wux-popup>
 </view>

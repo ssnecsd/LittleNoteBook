@@ -1,5 +1,5 @@
 var app = getApp();
-
+var serverUrl = 'http://148.70.115.138:8000'
 Page({
   /**
    * 页面的初始数据
@@ -47,7 +47,9 @@ Page({
       text: '删除',
       style: 'background-color: #ff9999; color: white;font-size:16px',
     }],
- 
+    //--------------授权登陆微信小程序-------------------------
+    show_authorize:0,//0表示不显示授权登陆页面，1表示显示授权登陆页面
+
   },
 // 处理左滑事件
   onClick(e) {
@@ -86,7 +88,55 @@ Page({
       selectShow: !this.data.selectShow
     });
   },
+  /**
+   * 关闭弹出的请求授权微信小程序窗口
+   */
+  onClose1() {
+    this.setData({
+      show_window: 0,
+    }
+    )
+  },
+  /*
+  获取用户信息
+  */
+  getUserInfo: function (e) {
+    console.log(e)
+    app.globalData.userInfo = e.detail.userInfo
+    this.setData({
+      //关闭弹出的请求授权微信小程序窗口
+      show_authorize:0
+    })
 
+    wx.login({
+      success: res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        // 调用服务器的sign_in接口
+        wx.request({
+          url: serverUrl + '/sign_in',
+          data: {
+            'js_code': res.code,
+            'user_nickname': app.globalData.userInfo.nickName,
+            'avatar_url': app.globalData.userInfo.avatarUrl,
+            'gender': app.globalData.userInfo.gender,
+            'country': app.globalData.userInfo.country,
+            'province': app.globalData.userInfo.province,
+            'city': app.globalData.userInfo.city,
+            'language': app.globalData.userInfo.language,
+            'test': 'test'
+          },
+          method: 'post',
+          dataType: 'json',
+          responseType: 'text',
+          success: res => {
+            app.globalData.user_id = res.data.user_id
+            console.log('获取用户数据成功')
+            console.log('用户id为' + app.globalData.user_id)
+          }
+        })
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -110,6 +160,15 @@ Page({
       selectData: array,
       last: last-1
     });
+    wx.getSetting({
+      success: res => {
+        if (!res.authSetting['scope.userInfo']){
+          that.setData({
+            show_authorize:1,
+          })
+        }
+      }
+    })
   },
 
   /**

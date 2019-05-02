@@ -3,5 +3,12 @@
   "navigationBarTextStyle": "black",
   "navigationBarTitleText": "文章列表",
   "backgroundColor": "#fff",
-  "backgroundTextStyle": "light"
+  "backgroundTextStyle": "light",
+  "usingComponents": {
+    "wux-cell-group": "../../dist/cell-group/index",
+    "wux-cell": "../../dist/cell/index",
+    "wux-button": "../../dist/button/index",
+    "wux-popup": "../../dist/popup/index"
+
+  }
 }
