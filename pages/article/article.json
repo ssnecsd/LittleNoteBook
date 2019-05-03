@@ -8,7 +8,7 @@
     "wux-cell-group": "../../dist/cell-group/index",
     "wux-cell": "../../dist/cell/index",
     "wux-button": "../../dist/button/index",
-    "wux-popup": "../../dist/popup/index"
-
+    "wux-popup": "../../dist/popup/index",
+    "wux-spin": "../../dist/spin/index"
   }
 }
