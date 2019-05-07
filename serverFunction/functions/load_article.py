@@ -68,7 +68,7 @@ def load_article(request_params):
     # 生成一个空的mark_list
     mark_dic = {
         'key1': 0,
-        'value': 'ffffff',
+        'value1': 'ffffff',
         'key2': 0,
         'value2': ''
     }
@@ -102,7 +102,7 @@ def load_article(request_params):
     response = {
         'article_dic': article_dic,
         'state_code': status_code,
-        'mark_list': mark_dic,
+        'mark_list': mark_list,
         'article_id': article_id
     }
     response_body = json.dumps(response)

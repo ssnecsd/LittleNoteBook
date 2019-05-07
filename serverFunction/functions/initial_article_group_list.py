@@ -19,7 +19,7 @@ def initial_article_group_list(request_params):
         group_lists.append(group_dict)
 
     response = {
-        'article_group_lists': group_lists,
+        'article_group_list': group_lists,
     }
     response_body = json.dumps(response)
     return response_body

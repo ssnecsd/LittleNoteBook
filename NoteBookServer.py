@@ -70,6 +70,7 @@ class HTTPServer(object):
         request_start_line = request_lines[0]
         # 提取用户请求的文件名
         file_name = re.match(r"\w+ +(/[^ ]*) ", request_start_line.decode("utf-8")).group(1)
+
         # 获取请求的参数
         request_params = get_request_params(request_lines)
 
