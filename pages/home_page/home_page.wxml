@@ -1,0 +1,46 @@
+<!--pages/home_page/home_page.wxml-->
+
+<view>
+  <view class='recent_article'>
+    <text>最近文章</text>
+    <block wx:for="{{recent_article_list}}" wx:key="{{index}}" >
+      <view wx:if="{{index<1}}"class='itemView'>
+        <view class="articleItem" style="background:#{{article_group_list[index].group_color}}" bindtap='navigateToDetail'>
+          <view class="titleText"><text>{{item.title}}</text></view>
+          <image src="{{item.image_url}}" class="article_image" mode="scaleToFill"/>
+      </view>
+      </view>
+    </block>
+  </view>
+  <!--授权登录小程序的弹框-->
+  <wux-popup closable visible="{{ show_authorize }}" title="提示"content="请授权登陆小程序"bind:close="onClose2"class='popup'>
+        <button bindtap='onClose1'open-type="getUserInfo" bindgetuserinfo="getUserInfo"class='close_button2'>确定</button>
+    </wux-popup>
+    <!--等待框-->
+    <view class='spinning'>
+      <wux-spin nested spinning="{{ spinning }}" tip="Loading..."></wux-spin>
+    </view>
+  <!-- !-- 蒙板view --> 
+    <view class = "evil" hidden='{{evilHidden}}' style = "{{promptstyle}}" catchtouchstart='{}' catchtouchend='{}' catchtouchmove='{}'></view>
+
+  <image src='/pages/icon/add.png' 
+      class='add_article'
+      bindtap='add_article'
+  >
+  </image>
+  <!--增加一篇文章-->
+  <wux-popup closable visible="{{ show_window }}" title="请输入文章链接"bind:close="onClose3"class='popup'>
+    
+    <wux-cell hover-class="none">
+      <wux-input wux-input  placeholder="{{contentInInput}}" bind:blur="onBlur"/>
+    </wux-cell>
+    <view class='buttonsOfPopup'>
+      <button class='cancelButton' bindtap='onClose3'>
+        取消
+      </button>
+      <button class='confirmButton'bindtap='confirm'>
+        确定
+      </button>
+    </view>
+  </wux-popup>
+</view>

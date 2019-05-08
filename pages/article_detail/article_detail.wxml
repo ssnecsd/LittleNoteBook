@@ -1,2 +1,87 @@
-<!--pages/article_detail/article_detail.wxml-->
-<text>pages/article_detail/article_detail.wxml</text>
+<view  class="pageView" bindtap="refresh">
+<!-- 页面view -->
+  <view>
+    <text class="title">{{title}}\n</text>
+    <text class="author">{{author}}</text>
+    <block wx:for="{{content}}" wx:key='{{index}}'>
+      <view wx:if="{{item[0]==0}}" class="contentImage">
+        <image src="{{item[1]}}"></image>
+      </view>
+      <!-- catchtap='review'catchlongtap='menu' -->
+      <text class="{{index==cur && active?'active':''}} {{marker[index].key2==1?'noteText':''}}" wx:if="{{item[0]==1}}" 
+      data-index="{{index}}"  space="emsp" 
+      catchtouchstart="touchstart" catchtouchend="touchend"
+      style="background-color:{{marker[index].key1==1?marker[index].value1:''}}" 
+      >{{item[1]}}</text>
+    </block> 
+  </view>
+
+<!-- 菜单view -->
+  <view class = "menuView" hidden='{{menuHidden}}' style='{{menuStyle}}'>
+    <view class="menuItem" catchtap='copy'>复制</view>
+    <view class="menuItem itemborder" catchtap='highlight'>高亮</view>
+    <view class="menuItem itemborder" catchtap='edit'>笔记</view>
+    <view class="menuItem itemborder" catchtap='excerpt'>摘抄</view>
+    <view class="menuItem itemborder" catchtap='erase'>擦除</view>   
+  </view>
+
+  <!-- 高亮选择view -->
+  <view class="highlightview white" hidden='{{highlightHidden}}' >
+    <view>
+     <colorChoose class="" bindmychoose='mychoose'></colorChoose>
+    </view>
+    <view class="imageView imageposition">
+      <image src='../icon/OK.png' class = "imageView" catchtap='confirm' ></image>
+    </view>
+  </view>
+
+  <!-- 笔记显示 -->
+  <view class="noteView" hidden='{{noteHidden}}' style='{{noteStyle}}'>
+    <view class="notedetail" >{{note}}</view>
+    <image src='../icon/edit.png' class="imageView noteImagePos" catchtap="edit"></image>
+  </view>
+
+
+  <!-- 保存按钮 -->
+  <view class = "imageView saveView " catchtap='prompt'>
+    <image src ="../icon/save.png" class = "imageView"></image>
+  </view>
+  <!-- 蒙板view -->
+  <view class = "evil" hidden='{{evilHidden}}' style = "{{promptStyle}}" catchtouchstart='{}' catchtouchend='{}' catchtouchmove='{}'></view>
+  <!-- 文章保存view -->
+  <view class = "savabox" hidden='{{promptHidden}}'>
+    <text>保存文章</text>
+    <view class="rightbox"><text>选择分组</text></view>
+    <view class='select_box'>
+    <view class='select' catchtap='selectTap'>
+        <text class='select_text'>{{article_group_list[index].group_name}}</text>
+        <image class='select_img {{selectShow&&"select_img_rotate"}}' src='../icon/icon-arrow-bottom2.png'  background-size="contain"></image> 
+    </view>
+    <view class='option_box' style='height:{{selectShow?(article_group_list.length>5?325:article_group_list.length*50):0}}rpx;'>
+      <block wx:for='{{article_group_list}}' wx:key='this' >
+      <view class='option' data-index='{{index}}' catchtap='optionTap'>
+        <view class='groupColor' style="background:#{{article_group_list[index].group_color}}"></view>
+        <text class='groupName'>{{article_group_list[index].group_name}}({{article_group_list[index].article_count}})</text>
+      </view>
+     </block>
+    </view>
+    </view>
+    <button type="default"  class = "cancel" catchtap='refresh'>取消</button>
+    <button type="primary" class = "confirm" catchtap='save'>保存</button>
+  </view>
+  <!-- <wux-dialog id="wux-dialog" /> -->
+  <!-- 保存成功提示view -->
+  <view>
+    <wux-toptips id="wux-toptips" />
+  </view>
+</view>
+<!-- style = "{{editStyle}}" bindfocus="modifyStyle"   -->
+  <view class="editView" style="{{editStyle}}" hidden='{{editHidden}}'>
+    <textarea class="editdetail" style="{{editStyle}}" value = "{{noteValue}}" maxlength="512" placeholder='不多于512个字'   style="{{editStyle}}" show-confirm-bar='{{false}}' bindfocus="modifyStyle" bindinput="update" bindblur='losefocus'></textarea>
+    <!-- <wux-textarea hasCount rows="4" cursorSpacing="80"  placeholder='不多于512个字'  /> -->
+    <image src='../icon/ok.png' class="imageView noteImagePos" catchtap="finishNote"></image>
+  </view>
+
+
+
+  

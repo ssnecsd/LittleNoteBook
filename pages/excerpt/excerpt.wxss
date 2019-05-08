@@ -1,0 +1,161 @@
+.mainContent{
+  width: 98%;
+  height:auto;
+  position: relative;
+  padding: 0 15rpx 0 15rpx;
+}
+
+.topTitle{
+  position: absolute;
+  height:80rpx;
+  width:98%;
+}
+
+.calander{
+  position: relative;
+  padding-left: 60rpx;
+  width:60rpx;
+  height: 60rpx;
+}
+
+
+.search{
+  height: 50rpx;
+  width:50rpx;
+  position:relative;
+  left:300rpx;
+  top:-40rpx;
+}
+
+.excerptList{
+  top:100rpx;
+}
+.itemView{
+  position:relative;
+  padding-left: 5rpx;
+  width:98%;
+  height:175rpx;
+}
+.dateLine{
+  width:5rpx;
+  height: 100%;
+  background-color: #eee;
+  position:absolute;
+  left:235rpx;
+  z-index:2;
+}
+.timeItem{
+  width: 200rpx;
+  position:relative;
+  top:32rpx;
+}
+
+.smallCircle{
+  width:20rpx;
+  height: 20rpx;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 5rpx solid #20B2AA;
+  position: relative;
+  top:0rpx;
+  left:220rpx;
+  z-index:3;
+}
+.excerptItem{
+  position: relative;
+  width: 410rpx;
+  height: 125rpx;
+  top:-60rpx;
+  left:280rpx;
+  background-color: #ccffcc;
+  border-radius: 10rpx;
+  z-index: 2;
+}
+.titleText{
+  width: 350rpx;
+  height:90rpx;
+  overflow: hidden;
+  font-size: 30rpx;
+  position: relative;
+  top:20rpx;
+  left:10rpx;
+}
+
+.no_more{
+  text-align: center;
+}
+
+.select_box{
+  width:45%;
+  height:70%;
+  border-radius: 14rpx;
+  position: relative;
+  text-align: center;
+  z-index: 4;
+  left:220rpx;
+  top:-50rpx;
+}
+.select_box .select{
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 10rpx;
+}
+.select_box .select .select_text{
+  font-size: 26rpx;
+  color: #777777;
+  line-height: 28rpx;
+  flex: 1;
+}
+.select_box .select .select_img{
+  width: 30rpx;
+  height: 30rpx;
+  display: block;
+  transition:transform 0.3s;
+}
+.select_box .select .select_img_rotate{
+  transform:rotate(180deg); 
+}
+.select_box .option_box{
+  position: absolute;
+  top: calc(100% - 1px);
+  width: 100%;
+  box-sizing: border-box;
+  height: 0;
+  overflow-y: auto;
+  background: #fff;
+  transition: height 0.3s;
+  border-left:1px solid #efefef;
+  border-right:1px solid #efefef;
+}
+.select_box .option_box .option{
+  display: block;
+  line-height: 30rpx; 
+  font-size: 26rpx;
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+  padding: 10rpx;
+}
+.option{
+  position:relative;
+  height: 40rpx;
+}
+ .groupColor{
+  height: 30rpx;
+  width: 30rpx;
+  border-radius: 50%;
+  margin: 5rpx;
+  left:30rpx;
+  top:5rpx;
+  position:relative;
+}
+
+.groupName{
+  position: relative;
+  top: -30rpx;
+  /* left:50rpx; */
+}
+

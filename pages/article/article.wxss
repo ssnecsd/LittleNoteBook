@@ -67,7 +67,7 @@
   height: 125rpx;
   top:-60rpx;
   left:280rpx;
-  background-color: #ccffcc;
+  /* background-color: #ccffcc; */
   border-radius: 10rpx;
   z-index: 2;
 }
@@ -99,7 +99,7 @@
   position: relative;
   text-align: center;
   z-index: 4;
-  left:180rpx;
+  left:220rpx;
   top:-50rpx;
 }
 .select_box .select{
@@ -146,9 +146,37 @@
   border-bottom: 1px solid #efefef;
   padding: 10rpx;
 }
+.option{
+  position:relative;
+  height: 40rpx;
+}
+ .groupColor{
+  height: 30rpx;
+  width: 30rpx;
+  border-radius: 50%;
+  margin: 5rpx;
+  left:30rpx;
+  top:5rpx;
+  position:relative;
+}
+
+.groupName{
+  position: relative;
+  top: -30rpx;
+  /* left:50rpx; */
+}
+
 /*授权登陆小程序*/
 .close_button2{
   height: 40%;
   width: 40%;
   margin-top:100rpx;
+}
+.evil{
+  background-color: #000;
+  opacity: 0.5;
+  position:fixed;
+  left:0px;
+  top:0px;
+  z-index: 3;
 }

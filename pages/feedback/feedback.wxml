@@ -1,0 +1,23 @@
+<!--pages/feedback/feedback.wxml-->
+ <view class="page__bd">
+        <wux-cell-group title="问题描述">
+            <wux-cell hover-class="none">
+                <wux-textarea hasCount rows="3" cursorSpacing="80" placeholder="请填写十个字以上的问题反馈，以便我们为您提供更好的服务=)" />
+            </wux-cell>
+        </wux-cell-group>
+        <wux-cell-group title="相关截图（选填）">
+        <wux-upload listType="picture-card" max="4" url="https://www.skyvow.cn/api/common/file" bind:change="onChange2" bind:success="onSuccess" bind:fail="onFail" bind:complete="onComplete" bind:preview="onPreview" bind:remove="onRemove">
+            <text>上传</text>
+        </wux-upload>
+        </wux-cell-group>
+        <wux-cell-group title="联系方式">
+            <wux-cell hover-class="none">
+                <wux-textarea clear label="邮箱" placeholder='somebody@example.com'/>
+            </wux-cell>
+            <wux-cell hover-class="none">
+                <wux-textarea clear label="微信号" placeholder="wechatId" />
+            </wux-cell>
+        </wux-cell-group>
+    </view>
+    <button class='submit' bindtap='confirm'>提交</button>
+

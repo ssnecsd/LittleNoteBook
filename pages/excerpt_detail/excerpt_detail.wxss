@@ -1,0 +1,62 @@
+/* pages/excerpt_detail/excerpt_detail.wxss */
+.topTitle{
+  position: relative;
+  width: auto;
+  height: 50rpx;
+}
+
+.timeView{
+  position: relative;
+  top: 10rpx;
+  left:150rpx;
+  font-size: 30rpx;
+}
+
+.titleView{
+  position: relative;
+  top:-30rpx;
+  left:350rpx;
+  font-family: 30rpx;
+}
+ .edit{
+   position:absolute;
+   top:1000rpx;
+  left:50rpx;
+   width:140rpx;
+   height:70rpx;
+   background-color: #20B2AA;
+   font-size: 25rpx;
+   color: aliceblue;
+ }
+
+ .delete{
+   position:absolute;
+   top:1000rpx;
+  left:300rpx;
+   width:140rpx;
+   height:70rpx;
+   background-color: #20B2AA;
+   font-size: 25rpx;
+   color: aliceblue;
+ }
+
+ .share{
+   position:absolute;
+   top:1000rpx;
+  left:560rpx;
+   width:140rpx;
+   height:70rpx;
+   background-color: #20B2AA;
+   font-size: 25rpx;
+   color: aliceblue;
+ }
+
+ .excerpt{
+   position:relative;
+   top:40rpx;
+  left:20rpx;
+  width:90%;
+  height:90%;
+  text-align: center;
+ }
+

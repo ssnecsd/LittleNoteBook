@@ -1,7 +1,7 @@
 <!--pages/article_group/article_group_list/article_group_list.wxml-->
 <view class="mainContent">
   <view class="articleList">
-    <block wx:for="{{article_group_list}}" wx:key="{{index}}" >
+    <block wx:for="{{excerpt_group_list}}" wx:key="{{index}}" >
       <wux-swipe-action autoClose right="{{ right }}" bind:click="onClick" data-y="{{index}}">
         <view class='itemView'>
           <view class='group_color'style="background-color:#{{item.group_color}}"></view>

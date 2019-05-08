@@ -1,1 +1,217 @@
-/* pages/article_detail/article_detail.wxss */
+.pageView{
+  padding: 0px;
+  margin:0px;
+  width: 100%;
+  height: 100%;
+  line-height:1.5em;    
+}
+
+.title{
+  font-size:42rpx;
+  font-weight:bold; 
+  text-align: center;
+}
+.author{
+  font-size:36rpx;
+  text-align: center;
+}
+.white{
+  background-color: white;
+}
+.contentImage{
+  text-align: center;
+}
+.menuView{
+  font-size:32rpx;
+  width: 430rpx;
+  position: absolute;
+  background-color: lightpink;
+}
+.menuItem{
+  float:left;
+  display: block;
+  padding-left:10rpx;
+  padding-right: 10rpx;
+}
+.itemborder{
+  border-left: 1px solid bisque;
+}
+.active{
+  background-color: lightblue;
+}
+.highlightview{
+  width: 100%;
+  height:70rpx;
+  position: fixed;
+  bottom: 0rpx;
+  left:0rpx;
+}
+.imageView{
+  height: 60rpx;
+  width: 60rpx;
+}
+.imageposition{
+  position:relative;
+  left:90%;
+  top:-200rpx;
+  bottom:0rpx
+}
+.noteView{
+  position:absolute;
+}
+.notedetail{
+  background-color: lemonchiffon;
+  font-size: 32rpx;
+  width: 500rpx;
+  height:300rpx;
+}
+.noteImagePos{
+  position: absolute;
+  top:0px;
+  right: 0px;
+}
+.noteText{
+  border-bottom:2rpx dashed rgb(38, 50, 161);
+}
+.editView{
+  width: 100%;
+  height: 200rpx;
+  position:fixed;
+  bottom: 0rpx;
+  background-color:white;
+}
+.editdetail{
+  width: 100%;
+  height: 200rpx;
+  position:fixed;
+  background-color: #eee;
+
+}
+.saveView{
+  padding: 10rpx;
+  border: 1px solid #bfbfbf;
+  border-radius: 50%;
+  position:fixed;
+  right: 20rpx;
+  bottom: 250rpx;
+}
+.savabox{
+  text-align: center;
+  background-color: white;
+  width:60%;
+  height: 300rpx;
+  border:1rpx solid #eee;
+  position: fixed;
+  top:500rpx;
+  left:20%;
+  z-index:3;
+} 
+.cancel{
+  width: 50%;
+  position: absolute;
+  bottom: 0rpx;
+  left:0rpx;
+}
+.confirm{
+  width: 50%;
+  position: absolute;
+  bottom: 0rpx;
+  right:0rpx;
+}
+.evil{
+  background-color: #000;
+  opacity: 0.5;
+  position:fixed;
+  left:0px;
+  top:0px;
+  z-index: 2;
+}
+
+.select_box{
+  width:50%;
+  height:20%;
+  border-radius: 14rpx;
+  border: 1rpx solid #eee;
+  position: relative;
+  z-index: 4;
+  left:170rpx;
+  top:50rpx;
+}
+.select_box .select{
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  padding: 0 10rpx;
+}
+.select_box .select .select_text{
+  font-size: 26rpx;
+  color: #777777;
+  line-height: 28rpx;
+  flex: 1;
+}
+.select_box .select .select_img{
+  width: 30rpx;
+  height: 30rpx;
+  display: block;
+  transition:transform 0.3s;
+}
+.select_box .select .select_img_rotate{
+  transform:rotate(180deg); 
+}
+.select_box .option_box{
+  position: absolute;
+  top: calc(100% - 1px);
+  width: 100%;
+  box-sizing: border-box;
+  height: 0;
+  overflow-y: auto;
+  background: #fff;
+  transition: height 0.3s;
+  border-left:1px solid #efefef;
+  border-right:1px solid #efefef;
+}
+.select_box .option_box .option{
+  display: block;
+  line-height: 30rpx; 
+  font-size: 26rpx;
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+  padding: 10rpx;
+}
+.option{
+  position:relative;
+  height: 40rpx;
+}
+ .groupColor{
+  height: 30rpx;
+  width: 30rpx;
+  border-radius: 50%;
+  margin: 5rpx;
+  left:10rpx;
+  top:5rpx;
+  position:relative;
+}
+
+.groupName{
+  position: relative;
+  top: -30rpx;
+  left:15rpx;
+}
+
+.rightbox{
+  position:absolute;
+  left:30rpx;
+  top:110rpx;
+  font-size: 28rpx;
+}
+
+.leftbox{
+  text-align: center;
+  position:absolute;
+  right: -20rpx;
+  top:100rpx;
+  border:1rpx solid #eee;
+}

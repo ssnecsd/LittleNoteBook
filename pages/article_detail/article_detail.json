@@ -1,3 +1,12 @@
 {
-  "usingComponents": {}
+  "navigationBarTitleText": "文章详情",
+  "usingComponents": {
+    "colorChoose":"../colorChoose/colorChoose",
+    "wux-button": "../../dist/button/index",
+    "wux-dialog": "../../dist/dialog/index",
+    "wux-cell-group": "../../dist/cell-group/index",
+    "wux-cell": "../../dist/cell/index",
+    "wux-textarea": "../../dist/textarea/index"
+    
+  }
 }

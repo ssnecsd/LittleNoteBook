@@ -210,7 +210,6 @@ Page({
         }
       })
     }
-    //向服务器发送更改内容
   },
   /**
    * 关闭弹出的新建分类和重命名窗口
@@ -323,7 +322,7 @@ Page({
         success: function (res) {
           console.log(res.data)
           that.setData({
-            article_group_list: res.data.article_group_lists
+            article_group_list: res.data.article_group_list
           })
         }
       })

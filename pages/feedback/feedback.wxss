@@ -1,0 +1,9 @@
+/* pages/feedback/feedback.wxss */
+.submit{
+  position:relative;
+  top:20rpx;
+  width:300rpx;
+  text-align: center;
+  background: #20B2AA;
+  color:aliceblue;
+}

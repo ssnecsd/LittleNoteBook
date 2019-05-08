@@ -1,7 +1,7 @@
 {
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "摘抄列表",
-  "backgroundColor": "#fff",
+  "navigationBarTitleText": "摘抄分享",
+  "backgroundColor": "#eeeeee",
   "backgroundTextStyle": "light"
 }

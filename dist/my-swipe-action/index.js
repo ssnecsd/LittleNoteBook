@@ -204,9 +204,10 @@ baseComponent({
         const deltaX = this.end.x - this.start.x;
         if (deltaX == 0) {
           //console.log("899")
-          wx.navigateTo({
-            url: '../article_detail/article_detail'
-          })
+          this.triggerEvent("navigateToDetail",{},{});
+          // wx.navigateTo({
+          //   url: '../article_detail/article_detail'
+          // })
         }
           //console.log(deltaX);
             if (this.data.disabled || getPointsNumber(e) > 1 || !this.swiping) return

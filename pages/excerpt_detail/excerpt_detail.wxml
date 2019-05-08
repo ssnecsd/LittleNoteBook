@@ -1,0 +1,18 @@
+<!--pages/excerpt_detail/excerpt_detail.wxml-->
+<view class='topTitle'>
+  <view class='timeView'>{{excerpt_info[0].create_time}}</view>
+  <view class='titleView'>{{excerpt_info[0].title}}</view>
+</view>
+<view class='excerpt'>{{excerpt_detail}}</view>
+
+<!-- <wux-fab-button position="bottomRight" theme="calm" direction="horizontal" reverse="{{ reverse }}" spaceBetween="{{ spaceBetween }}" sAngle="{{ sAngle }}" eAngle="{{ eAngle }}" buttons="{{ buttons }}" bind:click="onClick" catchtap="onShare" bind:delete="onDelete" bind:edit="onEdit"/> -->
+
+<view>
+  <button class='edit' catchtap='onEdit'>编辑</button>
+  <button class='delete' catchtap='onDelete'>删除</button>
+  <button class='share' catchtap='onShare' open-type='getUserInfo'>分享</button>
+</view>
+
+
+
+

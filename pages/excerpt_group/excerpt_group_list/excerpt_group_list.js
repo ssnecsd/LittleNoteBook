@@ -1,6 +1,7 @@
-// pages/article_group/article_group_list/article_group_list.js
 //全局变量用来确定点击事件点击的哪一个按钮
 var y = 0
+var serverUrl = 'http://148.70.115.138:8000'
+var app = getApp()
 Page({
 
   /**
@@ -8,22 +9,8 @@ Page({
    */
   data: {
     //--------------------测试用数据----------------------
-    article_group_list: [
-      {
-        'group_name': '最近',
-        'group_color': 'ccffcc',
-        'article_count': 10
-      },
-      {
-        'group_name': '文学',
-        'group_color': 'ef7a82',
-        'article_count': 12
-      },
-      {
-        'group_name': '旅游',
-        'group_color': 'ffcccc',
-        'article_count': 12
-      },
+    excerpt_group_list: [
+      
     ],
     //---------------------滑动组件绑定数据----------------------
     right: [{
@@ -76,7 +63,7 @@ Page({
 
   onClick(e) {
     console.log('onClick', e);
-    //定位点击的是哪一个，y是article_group_list数组的角标
+    //定位点击的是哪一个，y是excerpt_group_list数组的角标
     y = e.target.dataset.y
     //定位点击的是重命名还是删除,0重命名，1删除
     var index = e.detail.index
@@ -84,24 +71,34 @@ Page({
       this.setData({
         type: '重命名',
         show_window: 1,
-        contentInInput: this.data.article_group_list[y].group_name,
+        contentInInput: this.data.excerpt_group_list[y].group_name,
       })
     }
     if (index == 1) {
       //删除失败
-      if (this.data.article_group_list[y].article_count > 0) {
+      if (this.data.excerpt_group_list[y].article_count > 0) {
         this.setData({
           show_fail_delete: 1,
         })
       }
       //删除成功
       else {
-        this.data.article_group_list.splice(y, 1)
+        this.data.excerpt_group_list.splice(y, 1)
         this.setData({
           show_success_delete: 1,
-          article_group_list: this.data.article_group_list,
+          excerpt_group_list: this.data.excerpt_group_list,
         })
         //向服务器发送通知
+        wx.request({
+          url: serverUrl + '/delete_excerpt_group',
+          data: {
+            'user_id': app.globalData.user_id,
+            'group_name': group_name,
+          },
+          success: function (res) {
+            console.log(res.data)
+          }
+        })
       }
     }
   },
@@ -144,15 +141,31 @@ Page({
     }
     //重命名
     if (this.data.type == '重命名') {
-      this.data.article_group_list[y].group_name = this.data.contentInInput
-      this.data.article_group_list[y].group_color = this.data.color[this.data.cur]
+      var old_group_name = this.data.excerpt_group_list[y].group_name
+      var new_group_name = this.data.contentInInput
+      var group_color = this.data.color[this.data.cur]
+      this.data.excerpt_group_list[y].group_name = this.data.contentInInput
+      this.data.excerpt_group_list[y].group_color = this.data.color[this.data.cur]
       console.log(y)
-      console.log(this.data.article_group_list)
+      console.log(this.data.excerpt_group_list)
       this.setData({
-        article_group_list: this.data.article_group_list,
+        excerpt_group_list: this.data.excerpt_group_list,
         show_window: 0,
       })
     }
+    //向服务器发送通知
+    wx.request({
+      url: serverUrl + '/reset_excerpt_group',
+      data: {
+        'user_id': app.globalData.user_id,
+        'new_group_name': new_group_name,
+        'group_color': group_color,
+        'old_group_name': old_group_name
+      },
+      success: function (res) {
+        console.log(res.data)
+      }
+    })
     //新建分类
     if (this.data.type == '新建分类') {
       var newitem = [{
@@ -160,13 +173,24 @@ Page({
         'group_color': this.data.color[this.data.cur],//颜色待定
         'article_count': 0
       }]
-      this.data.article_group_list = this.data.article_group_list.concat(newitem)
+      this.data.excerpt_group_list = this.data.excerpt_group_list.concat(newitem)
       this.setData({
-        article_group_list: this.data.article_group_list,
+        excerpt_group_list: this.data.excerpt_group_list,
         show_window: 0,
       })
     }
     //向服务器发送更改内容
+    wx.request({
+      url: serverUrl + '/new_excerpt_group',
+      data: {
+        'user_id': app.globalData.user_id,
+        'group_name': newitem[0].group_name,
+        'group_color': newitem[0].group_color
+      },
+      success: function (res) {
+        console.log(res.data)
+      }
+    })
   },
   /**
    * 关闭弹出的新建分类和重命名窗口
@@ -259,7 +283,24 @@ Page({
     //   group_color：分组颜色（string），
     //   article_count：分类中文章数量（int）
     // }
-
+    //初始化页面数据
+    var that = this
+    if (app.globalData.user_id != null) {
+      wx.request({
+        url: serverUrl + '/initial_ excerpt _group_list',
+        data: {
+          'user_id': app.globalData.user_id
+        },
+        success: function (res) {
+          console.log(res.data)
+          that.setData({
+            excerpt_group_list: res.data.excerpt_group_list
+          })
+        }
+      })
+    } else {
+      //处理user_id获取异常的错误
+    }
   },
 
   /**

@@ -11,7 +11,7 @@
             <wux-cell  thumb="/pages/icon/paiming.png" title="统计排名" is-link></wux-cell>
             <wux-cell  thumb="/pages/icon/lajitong.png" title="回收站" is-link></wux-cell>
             <wux-cell  thumb="/pages/icon/pifu.png" title="皮肤" is-link></wux-cell>
-            <wux-cell  thumb="/pages/icon/duihua.png" title="意见反馈" is-link></wux-cell>
+            <wux-cell  thumb="/pages/icon/duihua.png" title="意见反馈" is-link url="/pages/feedback/feedback"></wux-cell>
         </wux-cell-group>
 
 
