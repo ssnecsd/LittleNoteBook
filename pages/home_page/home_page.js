@@ -226,6 +226,13 @@ Page({
           spinning:0,
         })
         //跳转到其他页面
+        //console.log(e);
+        var id = res.data.article_id;
+        console.log(res.data);
+        wx.navigateTo({
+          url: '../article_detail/article_detail' + '?article_id=' + id,
+        })
+        
       }
     })
   },

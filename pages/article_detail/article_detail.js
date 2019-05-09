@@ -92,9 +92,9 @@ Page({
     var that = this;
     console.log("----", user_id);
     wx.request({
-      url: serverUrl + '/load_article',
+      url: serverUrl + '/get_article_info',
       data: {
-        'url': 'https://mp.weixin.qq.com/s/G11wlj1tVg8A-7o4NKR-aQ',
+        'article_id': that.data.article_id,
         'user_id': user_id
       },
       success: function (res) {
