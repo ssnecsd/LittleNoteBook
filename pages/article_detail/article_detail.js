@@ -63,7 +63,18 @@ Page({
     user_id = app.globalData.user_id;
     //console.log(options);
     var that = this;
-    this.setData({article_id:options.article_id});
+    //调用load_article接口
+    if (options.article_url){
+      var article_url = options.article_url
+      this.load_article(article_url);
+      console.log(options)
+    }
+    //调用get_article_info接口
+    if (options.article_id){
+      var article_id = options.article_id
+      this.get_article_info(article_id)
+      console.log(options)
+    }
     wx.getSystemInfo({
       success: function (res) {
         //console.log(res.windowWidth)
@@ -71,8 +82,7 @@ Page({
         that.setData({ windowHeight: res.windowHeight, windowWidth: res.windowWidth});//设备宽高
       }
     });
-    //zhende
-    this.load_articletest();
+    
 
   },
   // 点击下拉显示框
@@ -88,18 +98,20 @@ Page({
       selectShow: !this.data.selectShow
     });
   },
-  load_articletest: function () {
+  load_article: function (article_url) {
     var that = this;
     console.log("----", user_id);
     wx.request({
-      url: serverUrl + '/get_article_info',
+      url: serverUrl + '/load_article',
       data: {
-        'article_id': that.data.article_id,
+        'url': article_url,
         'user_id': user_id
       },
       success: function (res) {
         //console.log(res.data)
-        that.setData({title: res.data.article_dic.title,
+        that.setData({
+          article_id:res.data.article_id,
+          title: res.data.article_dic.title,
           author: res.data.article_dic.profile_nickname,
           content:res.data.article_dic.content,
           marker: res.data.mark_list});
@@ -107,7 +119,27 @@ Page({
       }
     })
   },
+  get_article_info: function (article_id) {
+    var that = this;
+    wx.request({
+      url: serverUrl + '/get_article_info',
+      data: {
+        'article_id': article_id,
+        'user_id': user_id
+      },
+      success: function (res) {
+        //console.log(res.data)
+        that.setData({
+          article_id: article_id,
+          title: res.data.article_dic.title,
+          author: res.data.article_dic.profile_nickname,
+          content: res.data.article_dic.content,
+          marker: res.data.mark_list
+        });
 
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

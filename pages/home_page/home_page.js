@@ -209,31 +209,10 @@ Page({
     var that = this
     this.setData({
       show_window: 0,
-      //等待框
-      spinning:1,
     });
-    //发送请求给服务器
-    wx.request({
-      url: serverUrl + '/load_article',
-      data: {
-        'user_id': app.globalData.user_id,
-        'url':this.data.contentInInput,
-      },
-      success: function (res) {
-        //得到数据
-        console.log(res.data)
-        that.setData({
-          spinning:0,
-        })
-        //跳转到其他页面
-        //console.log(e);
-        var id = res.data.article_id;
-        console.log(res.data);
-        wx.navigateTo({
-          url: '../article_detail/article_detail' + '?article_id=' + id,
-        })
-        
-      }
+    var article_url = this.data.contentInInput
+    wx.navigateTo({
+      url: '../article_detail/article_detail' + '?article_url=' + article_url,
     })
   },
   /**
