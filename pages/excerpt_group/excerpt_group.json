@@ -1,7 +1,7 @@
 {
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "文章列表",
+  "navigationBarTitleText": "摘抄分类",
   "backgroundColor": "#fff",
   "backgroundTextStyle": "light",
   "usingComponents": {
@@ -9,7 +9,8 @@
     "wux-cell": "../../dist/cell/index",
     "wux-button": "../../dist/button/index",
     "wux-popup": "../../dist/popup/index",
-    "wux-spin": "../../dist/spin/index"
-
+    "wux-input": "../../dist/input/index",
+    "wux-dialog": "../../dist/dialog/index",
+    "wux-fab-button": "../../dist/fab-button/index"
   }
 }

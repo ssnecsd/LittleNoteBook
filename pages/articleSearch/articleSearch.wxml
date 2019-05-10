@@ -27,7 +27,7 @@
   <view class="resView" >
   <!-- 时间轴列表显示 -->
     <view class="articleList"  hidden="{{resHidden}}">
-      <block wx:for="{{articles}}" wx:key="{{index}}" >
+      <block wx:for="{{article_list}}" wx:key="{{index}}" >
        <my-wux-swipe-action style="height:175rpx" autoClose right="{{ right }}" catch:click="leftAction" data-id="{{item.article_id}}" data-index="{{index}}">
         <view class="itemView">
           <view class="dateLine"></view>
@@ -47,4 +47,5 @@
   </view>
 
  </view>
+ 
 </view>

@@ -1,12 +1,12 @@
-<!--pages/article_group/article_group_list/article_group_list.wxml-->
+<!--pages/excerpt_group/excerpt_group.wxml-->
 <view class="mainContent">
-  <view class="articleList">
-    <block wx:for="{{article_group_list}}" wx:key="{{index}}" >
+  <view class="excerptList">
+    <block wx:for="{{excerpt_group_list}}" wx:key="{{index}}" >
       <wux-swipe-action autoClose right="{{ right }}" bind:click="onClick" data-y="{{index}}">
         <view class='itemView'>
           <view class='group_color'style="background-color:#{{item.group_color}}"></view>
           <view class='group_name'>{{item.group_name}} </view>
-          <view class='article_count'>({{item.article_count}})</view>
+          <view class='excerpt_count'>({{item.excerpt_count}})</view>
         </view>
       </wux-swipe-action>
     </block>
@@ -25,7 +25,7 @@
 
     <view class="totalContainer">
       <view class="imageView prevView" catchtap='prevTap'>
-        <image src="../image/prev.png" mode="scaleToFill" class="imageView"></image>
+        <image src="../icon/prev.png" mode="scaleToFill" class="imageView"></image>
       </view>
       <scroll-view id="colorset"class="circleContainer" scroll-x scroll-left="{{scroll}}">
         <block wx:for="{{color}}" wx:key="*this">
@@ -33,7 +33,7 @@
         </block>
       </scroll-view>
       <view class="imageView nextView" catchtap='nextTap'>
-        <image src="../image/next.png" mode="scaleToFill" class="imageView"></image>
+        <image src="../icon/next.png" mode="scaleToFill" class="imageView"></image>
       </view>
     </view>
 
@@ -61,3 +61,7 @@
       <button bindtap='onClose5'class='close_button2'>确定</button>
   </wux-popup>
 </view>
+
+
+
+

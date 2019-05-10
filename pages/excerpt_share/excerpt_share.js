@@ -1,20 +1,27 @@
-// pages/prize/prize.js
+import { $wuxActionSheet } from '../../dist/index'
+
 const app = getApp()
+var user_id;
+var serverUrl = 'https://xwnotebook.cn:8000';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    img: "../icon/gobg.png",
+    img: "../icon/gobg.png",//用户选择的图片，默认有一张
+    imgH:240,
+    imgW:320,
+    color:"#FFDEAD",
     wechat: "../icon/weixin.png",
     quan: "../icon/moments.png",
     inputValue: "",
     maskHidden: false,
     name: "",
     touxiang: "",
-    title: "旅行智能好物分享",
-    excerpt_detail: "hhhhh"
+    title: "",
+    excerpt_detail: ""
   },
   //获取输入框的值
   bindKeyInput: function (e) {
@@ -35,6 +42,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('-----'+options);
+    this.setData({excerpt_detail:options.excerpt_content,title:options.title});
     var that = this;
     wx.getUserInfo({
       success: res => {
@@ -58,72 +67,125 @@ Page({
     })
 
   },
-  //将canvas转换为图片保存到本地，然后将图片路径传给image图片的src
+  //将canvas转换为图片保存到本地
   createNewImg: function () {
     var that = this;
-    var context = wx.createCanvasContext('mycanvas');
-    context.setFillStyle("#ffe200")
-    context.fillRect(0, 0, 375, 667)
-    var path = "/images/gobg.png";
-    //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
-    //不知道是什么原因，手机环境能正常显示
-    context.drawImage(path, 0, 0, 375, 183);
-    var path1 = that.data.touxiang;
-    console.log(path1, "path1")
-    //将模板图片绘制到canvas,在开发工具中drawImage()函数有问题，不显示图片
-    var path2 = "/images/txquan.png";
-    var path3 = "/images/heise.png";
-    var path4 = "/images/wenziBg.png";
-    var path5 = "/images/wenxin.png";
-    context.drawImage(path2, 126, 186, 120, 120);
-    //不知道是什么原因，手机环境能正常显示
-    // context.save(); // 保存当前context的状态
+    var color = that.data.color;
+    var canvasW=375;
+    var canvasH=667;
+    var context = wx.createCanvasContext('mycanvas');//创建画布
+    context.setFillStyle("#fff");
+    context.fillRect(0, 0, canvasW, canvasH)//长宽写死？？
+    //头顶的框
+    //小的
+    context.beginPath();
+    context.setFillStyle(color);
+    context.fillRect(30,90,35,35);
+    
+    //大的
+    context.beginPath();
+    context.setFillStyle(color);
+    context.fillRect(100, 20, 55, 55);
 
-    var name = that.data.name;
-    //绘制名字
-    context.setFontSize(24);
+    //小程序图片或者二维码
+    var path = "../icon/logo.png";
+    context.drawImage(path, 250, 10,100,100 );
+    context.save();
+    //中间
+    //矩形
+    context.beginPath();
+    
+    //图片
+    // var sx=0;
+    // var sy=0;
+    // if(that.data.imgH>=240){
+    //   sy=0.5*that.data.imgH-120;
+    // }
+    // if(that.data.imgW>=320){
+    //   sx=0.5*that.data.imgW-160;
+    // }
+   
+    // if(sx==0||sy==0){//大小不够
+    //   //drawImage(imageResource, dx, dy, dWidth, dHeight)
+    //   var dx = 160-0.5*that.data.imgW;
+    //   var dy = 120 - 0.5 * that.data.imgH;
+    //   console.log(dx,dy);
+    //   context.drawImage(that.data.img, 27.5+dx, 150+dy);
+    // }else if(sx!=0&&sy!=0){//太大
+    //   context.drawImage(that.data.img, sx, sy, 320, 240, 27.5, 150, 320, 240);
+    // }
+    var bottomStartX = 0;
+    var bottomStartY=0;
+
+    if(that.data.imgH==that.data.imgW){
+      context.rect(37.5, 140, 300, 300);
+      context.fill();
+      context.clip();
+      context.drawImage(that.data.img, 0, 0, that.data.imgW, that.data.imgH, 37.5, 140, 300, 300);
+      bottomStartX = 47.5;
+      bottomStartY=440;
+    }
+    else{
+      context.setStrokeStyle("#fff");
+      context.rect(27.5, 150, 320, 240);
+      context.fill();
+      context.clip();
+      context.drawImage(that.data.img, 0, 0, that.data.imgW, that.data.imgH, 27.5, 150, 320, 240);
+      bottomStartX = 37.5;
+      // if (320 * that.data.imgH / that.data.imgW>240){
+      //   bottomStartY = 150 +240; 
+      // }
+      // else{
+      //   bottomStartY = 150 + 320 * that.data.imgH / that.data.imgW;
+      //   console.log("shenme"); 
+      // }
+      bottomStartY = 390;
+      
+    }
+    context.restore();
+
+    //底部
+    //线条
+    context.beginPath();
+    context.moveTo(bottomStartX,bottomStartY);
+    console.log(bottomStartX, bottomStartY);
+    context.lineTo(bottomStartX,canvasH-25);
+    context.setStrokeStyle(color);
+    context.setLineWidth(3);
+    context.stroke();
+    //圆点
+    context.beginPath();
+    context.arc(bottomStartX, canvasH-25, 5, 0, 2 * Math.PI);
+    context.setFillStyle(color);
+    context.fill();
+    // context.fillRect(30, 100, 40, 40);
+    
+
+    //摘抄
+    var excerpt = that.data.excerpt_detail;
+    console.log(excerpt);
+    var len = excerpt.toString().length;
+    var times = len/13;
+    console.log(len,times);
+    var start = 0;
+    context.setFontSize(20);
     context.setFillStyle('#333333');
-    context.setTextAlign('center');
-    context.fillText(name, 185, 340);
-    context.stroke();
-    //绘制一起吃面标语
-    context.setFontSize(14);
-    context.setFillStyle('#333333');
-    context.setTextAlign('center');
-    context.fillText("邀请你一起去吃面", 185, 370);
-    context.stroke();
-    //绘制验证码背景
-    context.drawImage(path3, 48, 390, 280, 84);
-    //绘制code码
-    context.setFontSize(40);
-    context.setFillStyle('#ffe200');
-    context.setTextAlign('center');
-    // context.fillText(that.data.code, 185, 435);
-    context.stroke();
-    //绘制左下角文字背景图
-    context.drawImage(path4, 25, 520, 184, 82);
-    context.setFontSize(12);
-    context.setFillStyle('#333');
     context.setTextAlign('left');
-    context.fillText("进入小程序输入朋友的邀请", 35, 540);
+    for(var i=0;i<times&&start<len-1;i++){
+      var char = excerpt[start + 13];
+      if (char == ',' || char == '；' || char == '、' || char == '：' || char == ':' ){
+        context.fillText(excerpt.substring(start, start + 14), bottomStartX + 20, bottomStartY + 40 + 20 * i);
+        start += 14;
+      }else{
+        context.fillText(excerpt.substring(start, start + 13), bottomStartX + 20, bottomStartY + 40 + 20 * i);
+        start += 13;
+      }
+      context.stroke();
+    }
+
+    context.fillText(excerpt.substring(start), bottomStartX + 20, bottomStartY + 40 + 20 * times);
     context.stroke();
-    context.setFontSize(12);
-    context.setFillStyle('#333');
-    context.setTextAlign('left');
-    context.fillText("码，朋友和你各自获得通用", 35, 560);
-    context.stroke();
-    context.setFontSize(12);
-    context.setFillStyle('#333');
-    context.setTextAlign('left');
-    context.fillText("优惠券1张哦~", 35, 580);
-    context.stroke();
-    //绘制右下角扫码提示语
-    context.drawImage(path5, 248, 578, 90, 25);
-    //绘制头像
-    context.arc(186, 246, 50, 0, 2 * Math.PI) //画出圆
-    context.strokeStyle = "#ffe200";
-    context.clip(); //裁剪上面的圆形
-    context.drawImage(path1, 136, 196, 100, 100); // 在刚刚裁剪的园上画图
+    
     context.draw();
     //将生成好的图片保存到本地，需要延迟一会，绘制期间耗时
     setTimeout(function () {
@@ -132,7 +194,7 @@ Page({
         success: function (res) {
           var tempFilePath = res.tempFilePath;
           that.setData({
-            imagePath: tempFilePath,
+            imagePath: tempFilePath,//图片路径
             canvasHidden: true
           });
         },
@@ -161,10 +223,76 @@ Page({
                 maskHidden: false
               })
             }
-          }, fail: function (res) {
-            console.log(11111)
+          }, 
+          fail: function (res) {
+            console.log(11111);
           }
         })
+      }
+
+    })
+  },
+  /**
+   * 点击相册
+   */
+  shareToAlbum:function(e){
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['album'],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        console.log("图片临时路径：",res.tempFilePaths[0]);
+        that.setData({img:res.tempFilePaths[0]});
+        //获取图片的宽高
+        wx.getImageInfo({
+          src: res.tempFilePaths[0],
+          success(res) {
+            console.log(res.width)
+            console.log(res.height)
+            that.setData({imgW:res.width,imgH:res.height});
+            that.formSubmit();
+          },
+          fail(){
+            console.log("获取图片宽高失败");
+          }
+        })
+      },
+      fail() {
+        console.log("获取图片失败");
+      }
+    })
+  },
+  /**
+   * 相机生成
+   */
+  shareToCamera: function (e) {
+    var that = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['original', 'compressed'],
+      sourceType: ['camera'],
+      success(res) {
+        // tempFilePath可以作为img标签的src属性显示图片
+        console.log("图片临时路径：", res.tempFilePaths[0]);
+        that.setData({ img: res.tempFilePaths[0] });
+        //获取图片的宽高
+        wx.getImageInfo({
+          src: res.tempFilePaths[0],
+          success(res) {
+            console.log(res.width)
+            console.log(res.height)
+            that.setData({ imgW: res.width, imgH: res.height });
+            that.formSubmit();
+          },
+          fail() {
+            console.log("获取图片宽高失败");
+          }
+        })
+      },
+      fail() {
+        console.log("获取图片失败");
       }
     })
   },
@@ -175,7 +303,7 @@ Page({
       maskHidden: false
     });
     wx.showToast({
-      title: '装逼中...',
+      title: '图片生成中...',
       icon: 'loading',
       duration: 1000
     });
@@ -202,7 +330,7 @@ Page({
     var that = this;
     wx.getUserInfo({
       success: res => {
-        console.log(res.userInfo, "huoqudao le ")
+        //console.log(res.userInfo, "huoqudao le ")
         this.setData({
           name: res.userInfo.nickName,
         })
@@ -211,7 +339,7 @@ Page({
           success: function (res) {
             // 只要服务器有响应数据，就会把响应内容写入文件并进入 success 回调，业务需要自行判断是否下载到了想要的内容
             if (res.statusCode === 200) {
-              console.log(res, "reererererer")
+              //console.log(res, "reererererer")
               that.setData({
                 touxiang: res.tempFilePath
               })
@@ -254,8 +382,12 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
+    console.log(1);
     return {
-      title: "这个是我分享出来的东西",
+      //小程序的名字？
+      title: "好咖啡要和朋友一起品尝，好句子也要和朋友一起分享。",
+      path:'pages/home_page/home_page',//转发页面?????邀请码
+     //imageUrl:'',//转发的图片路径
       success: function (res) {
         console.log(res, "转发成功")
       },
@@ -263,5 +395,44 @@ Page({
         console.log(res, "转发失败")
       }
     }
-  }
+  },
+  cancle(){
+    this.setData({ maskHidden:false});
+  },
+
+  showActionSheet() {
+    var that=this;
+    const hideSheet = $wuxActionSheet().showSheet({
+      theme: 'wx',
+      titleText: '选择图片',
+      buttons: [{
+        text: '相机'
+      },
+        {
+          text: '图库'
+        },
+      {
+        text: '从手机相册选择'
+      }
+      ],
+      buttonClicked(index, item) {
+        hideSheet();
+        if(index==0){
+          //相机
+          that.shareToCamera();
+        }
+        else if(index==1){
+          //图库shareToImage
+          //this.
+        }
+        else if(index==2){
+          //相册
+          that.shareToAlbum();
+        }
+      },
+    })
+
+  },
+
 })
+

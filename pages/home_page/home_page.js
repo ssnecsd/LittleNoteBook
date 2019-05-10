@@ -1,6 +1,7 @@
 // pages/home_page/home_page.js
 var app = getApp();
-var serverUrl = 'http://xwnotebook.cn:8000';
+var serverUrl = 'https://xwnotebook.cn:8000';
+var sign_in_times=0;
 Page({
 
   /**
@@ -15,21 +16,20 @@ Page({
     evilHidden: false,
     selectShow: false,
     //------------------新增一篇文章的对话框------------------------------
-    show_window:0,
+    show_window: 0,
     //输入框中默认出现的文字
     contentInInput: '',
     //-----------------得到最近的文章--------------------------------------------
-    recent_article_list:[],
+    recent_article_list: [],
   },
 
   /**
    * 初始化数据
    */
-  initial_data:function (that){
-    var user_id=app.globalData.user_id
-    var that=this
+  initial_data: function (that) {
+    var user_id = app.globalData.user_id
     console.log('initial_data')
-    console.log('user_id',user_id)
+    console.log('user_id', user_id)
     //得到最近的文章
     wx.request({
       url: serverUrl + '/get_recent_articles',
@@ -39,12 +39,21 @@ Page({
       success: function (res) {
         console.log(res.data)
         that.setData({
-          recent_article_list:res.data['recent_article_list']
+          recent_article_list: res.data['recent_article_list']
         })
       }
     })
     //得到最近的摘抄
-    
+
+  },
+  /**
+   * sign_in失败以后的回调函数
+   */
+  sign_in_fail: function (that) {
+    sign_in_times += 1
+    console.log("sign_in失败，正在重试")
+    console.log("重试次数", sign_in_times)
+    this.sign_in()
   },
   /**
      * 向服务器发送请求登录
@@ -88,7 +97,7 @@ Page({
                       'language': app.globalData.userInfo.language,
                       'test': 'test'
                     },
-                    method: 'post',
+                    method: 'get',
                     dataType: 'json',
                     responseType: 'text',
                     success: res => {
@@ -109,6 +118,9 @@ Page({
                       //初始化数据
                       that.initial_data(that)
 
+                    },
+                    fail:res=>{
+                      that.sign_in_fail(that)
                     }
                   })
                 }
@@ -140,7 +152,7 @@ Page({
                   'city': '',
                   'language': ''
                 },
-                method: 'post',
+                method: 'get',
                 dataType: 'json',
                 responseType: 'text',
                 success: res => {
@@ -159,6 +171,9 @@ Page({
                   //初始化数据
                   that.initial_data(that)
 
+                },
+                fail: res => {
+                  that.sign_in_fail(that)
                 }
               })
             }
@@ -183,17 +198,18 @@ Page({
     //用户与服务器登陆
     this.sign_in()
   },
+  
   /*
   *  点击增加新的文章
   */
   add_article(e) {
     //将show_window设置为1
     // console.log(e)
-    var that=this
+    var that = this
     wx.getClipboardData({
       success(res) {
         that.setData({
-          contentInInput:res.data
+          contentInInput: res.data
         })
       }
     })
@@ -205,7 +221,7 @@ Page({
   /**
    * 点击确定键 
    */
-  confirm(e){
+  confirm(e) {
     var that = this
     this.setData({
       show_window: 0,
@@ -213,6 +229,14 @@ Page({
     var article_url = this.data.contentInInput
     wx.navigateTo({
       url: '../article_detail/article_detail' + '?article_url=' + article_url,
+    })
+  },
+  /**
+   * 点击文章到详细文章
+   */
+  navigateToDetail(e){
+    wx.navigateTo({
+      url: '../article_detail/article_detail' + '?article_id=' + e.currentTarget.dataset.article_id,
     })
   },
   /**
@@ -283,7 +307,8 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var that=this
+    this.initial_data(that)
   },
 
   /**

@@ -2,14 +2,12 @@
   "pages": [
     "pages/home_page/home_page",
     "pages/article/article",
-    "pages/index/index",
     "pages/excerpt/excerpt",
     "pages/mine/mine",
-    "pages/test/test",
     "pages/article_group/article_group_list/article_group_list",
     "pages/article_detail/article_detail",
     "pages/articleSearch/articleSearch",
-    "pages/excerpt_detail/excerpt_detail",
+    "pages/excerpt_group/excerpt_group",
     "pages/excerpt_share/excerpt_share",
     "pages/feedback/feedback"
   ],
@@ -65,7 +63,7 @@
     "wux-button": "dist/button/index",
     "wux-upload": "dist/upload/index",
     "wux-dialog": "../../dist/dialog/index",
-    "wux-toptips": "dist/toptips/index"
+    "wux-toptips":"dist/toptips/index"
   },
   "sitemapLocation": "sitemap.json"
 }

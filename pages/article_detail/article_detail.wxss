@@ -23,7 +23,7 @@
 }
 .menuView{
   font-size:32rpx;
-  width: 430rpx;
+  width: 390rpx;
   position: absolute;
   background-color: lightpink;
 }

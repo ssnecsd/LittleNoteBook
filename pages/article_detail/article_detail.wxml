@@ -69,6 +69,28 @@
     <button type="default"  class = "cancel" catchtap='refresh'>取消</button>
     <button type="primary" class = "confirm" catchtap='save'>保存</button>
   </view>
+
+  <!-- 保存摘抄 -->
+  <view class = "savabox" hidden='{{excerptHidden}}'>
+    <text>保存摘抄</text>
+    <view class="rightbox"><text>选择分组</text></view>
+    <view class='select_box'>
+    <view class='select' catchtap='selectTap2'>
+        <text class='select_text'>{{excerpt_group_list[index].group_name}}</text>
+        <image class='select_img {{selectShow&&"select_img_rotate"}}' src='../icon/icon-arrow-bottom2.png'  background-size="contain"></image> 
+    </view>
+    <view class='option_box' style='height:{{selectShow?(excerpt_group_list.length>5?325:excerpt_group_list.length*50):0}}rpx;'>
+      <block wx:for='{{excerpt_group_list}}' wx:key='this' >
+      <view class='option' data-index='{{index}}' catchtap='optionTap2'>
+        <view class='groupColor' style="background:#{{exceprt_group_list[index].group_color}}"></view>
+        <text class='groupName'>{{excerpt_group_list[index].group_name}}({{excerpt_group_list[index].excerpt_count}})</text>
+      </view>
+     </block>
+    </view>
+    </view>
+    <button type="default"  class = "cancel" catchtap='refresh'>取消</button>
+    <button type="primary" class = "confirm" catchtap='save_excerpt'>保存</button>
+  </view>
   <!-- <wux-dialog id="wux-dialog" /> -->
   <!-- 保存成功提示view -->
   <view>

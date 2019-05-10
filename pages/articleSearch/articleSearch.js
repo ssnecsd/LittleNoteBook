@@ -1,6 +1,8 @@
 // pages/articleSearch/articleSearch.js
-var appInstance = getApp();
 import { $wuxToptips } from '../../dist/index'
+var appInstance = getApp();
+var serverUrl = 'https://xwnotebook.cn:8000';
+var user_id;
 
 Page({
 
@@ -11,28 +13,15 @@ Page({
     /* 设备高度 */
     btnHidden:true,
     cclHidden:true,
-    resHidden: false,
+    resHidden: true,
     hintHidden:true,
     inputWidth:"width:96%",
     inputValue:"",
     valid:false,
     blank:"",
     focus:false,
-    article_list:null,
     hint: "没有更多了 (ฅ• . •ฅ)",
-    articles: [
-      {
-        title: '我长这么大，还没做过飞机，需要自卑吗',
-        image_url: "../icon/icon_ren.png",
-        article_id: null,
-        create_time: null
-      }, {
-        title: '中山',
-        image_url: "../icon/icon_ren.png",
-        article_id: null,
-        create_time: null
-      }
-    ],
+    article_list: [ ],
     right: [{
       text: '取消',
       style: 'background-color: #ddd; color: white;font-size:16px',
@@ -101,37 +90,7 @@ Page({
    * 回车完成，输入完成
    */
   finishInput: function (e) { 
-    console.log("--finish--");
-    var that=this;
-    console.log(e.detail.value)
-    if(e.detail.value!=""){
-        wx.request({
-          url: 'localhost/search_article_by_key',
-          data:{
-            user_id: appInstance.globalData.user_id,
-            article_key: that.data.inputValue
-          },
-          success:function(res){
-            if(res!=null){
-              //设置数据并显示
-              that.setData({ article_list: res.article_list, resHidden: false, resHidden: true});
-            }
-            else{
-              this.setData({ hint: "没有找到鸭(。•́︿•̀。)", resHidden: true});
-            }
-          }
-        })
-    }
-    else{
-      /*加组件,提示框*/
-      $wuxToptips().show({
-        icon: 'cancel',
-        hidden: false,
-        text: '请输入文章名或者关键字',
-        duration: 2000,
-        success() { },
-      })
-    }
+    this.search(e);
   },
 
   /**
@@ -177,19 +136,22 @@ Page({
     //console.log(value);
     if (value != "") {
       wx.request({
-        url: 'localhost/search_article_by_key',
+        url:serverUrl+ '/search_article_by_key',
         data: {
           user_id: appInstance.globalData.user_id,
           article_key: value  //搜索数据
         },
         success: function (res) {
-          if (res != null) {
+          console.log('----',res.data);
+          console.log('====',that.data.article_list);
+          if (res.data.article_list.length!=0) {
             //设置数据并显示
-            that.setData({ article_list: res.article_list, resHidden: false, hintHidden: false });
+            that.setData({ article_list: res.data.article_list, resHidden: false, hintHidden: false });
           }
           else {
             //只显示没有找到
-            this.setData({ hint: "没有找到鸭(。•́︿•̀。)", resHidden: true, hintHidden: false });
+            console.log('meile');
+            that.setData({ hint: "没有找到鸭(。•́︿•̀。)", resHidden: true, hintHidden: false });
           }
         }
       })
@@ -213,17 +175,19 @@ Page({
     var index = e.target.dataset.index;
     // 取消
     if (e.detail.index == 0) {}
-    // 删除
+    
     else if (e.detail.index == 1) {
-      
+      // 删除
        wx.request({
-         url: 'localhost/delete_article',
+         url: serverUrl+'/delete_article',
          data:{
            user_id: appInstance.globalData.user_id,
            article_id:e.target.dataset.id
          },
          success:function(res){
-           if (res.state_code==1){
+           console.log(res.data);
+           console.log('XXXX', res.data.status_code == 1);
+           if (res.data.status_code==1){
              $wuxToptips().success({
                hidden: false,
                text: '删除成功',
@@ -231,10 +195,9 @@ Page({
                success() { },
              });
              //前端删除 
-            var array = that.data.articles;
-            //console.log(array);
-            //console.log(array.pop(array[index]));
-            that.setData({ articles: array });
+            var array = that.data.article_list;
+            array.pop(array[index]);
+            that.setData({ article_list: array });
             //that.setData({article_list:res.article_list});
            }
            else{

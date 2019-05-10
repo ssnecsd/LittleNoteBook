@@ -1,8 +1,8 @@
-// pages/article_group/article_group_list/article_group_list.js
+// pages/excerpt_group/excerpt_group
 //全局变量用来确定点击事件点击的哪一个按钮
-var y=0
+var y = 0
 var serverUrl = 'https://xwnotebook.cn:8000'
-var app=getApp()
+var app = getApp()
 
 Page({
 
@@ -11,8 +11,8 @@ Page({
    */
   data: {
     //--------------------测试用数据----------------------
-    article_group_list:[
-      
+    excerpt_group_list: [
+
     ],
     //---------------------滑动组件绑定数据----------------------
     right: [{
@@ -25,77 +25,77 @@ Page({
     }],
     //---------------------测试用颜色-----------------------------------
     color: ["ccffcc", "ef7a82", "ffcccc", "ffffcc", "99ffcc",
-     "99ffee", "66ffcc", "3f9", "3fc", "c9e", "FFFAF0"],
+      "99ffee", "66ffcc", "3f9", "3fc", "c9e", "FFFAF0"],
     //---------------------弹出修改和新建的窗口--------------------------------
     //0是不弹出，1是弹出
-    show_window:0,
+    show_window: 0,
     //修改还是新建
-    tpye:'',
+    tpye: '',
     //输入框中默认出现的文字
-    contentInInput:'',
+    contentInInput: '',
     //名字过长警告框
-    show_long_name:0,
+    show_long_name: 0,
     //名字重复警告框
-    show_name_exist:0,
+    show_name_exist: 0,
     //删除成功提示框
-    show_success_delete:0,
+    show_success_delete: 0,
     //删除失败提示框
-    show_fail_delete:0,
+    show_fail_delete: 0,
     //-----------------------颜色选择器-----------------------------------------------
     cur: 0,
     scroll: 0,
     //------------------------------------------------------------------------------
   },
-  
+
   /*
   *  点击增加新的分类
   */
-  add_group(e){
+  add_group(e) {
     //将show_window设置为1
     // console.log(e)
     this.setData({
-      show_window:1,
-      type:'新建分类',
-      contentInInput:'分类名称',
+      show_window: 1,
+      type: '新建分类',
+      contentInInput: '分类名称',
     });
-    
+
   },
 
   /**
    * 右滑出现的两个按钮
    */
 
-  onClick(e){
+  onClick(e) {
     // console.log('onClick', e);
-    //定位点击的是哪一个，y是article_group_list数组的角标
-    y=e.target.dataset.y
+    //定位点击的是哪一个，y是excerpt_group_list数组的角标
+    y = e.target.dataset.y
     //定位点击的是编辑还是删除,0编辑，1删除
-    var index=e.detail.index
-    if (index==0){
+    var index = e.detail.index
+    if (index == 0) {
       this.setData({
-        type:'编辑',
+        type: '编辑',
         show_window: 1,
-        contentInInput:this.data.article_group_list[y].group_name,
+        contentInInput: this.data.excerpt_group_list[y].group_name,
       })
     }
-    if(index==1){
-      var group_name = this.data.article_group_list[y].group_name
+    if (index == 1) {
+      var group_name = this.data.excerpt_group_list[y].group_name
       //删除失败
-      if (this.data.article_group_list[y].article_count>0){
+      if (this.data.excerpt_group_list[y].excerpt_count > 0) {
         this.setData({
-          show_fail_delete:1,
+          show_fail_delete: 1,
         })
       }
       //删除成功
-      else{
-        this.data.article_group_list.splice(y, 1)
+      else {
+        this.data.excerpt_group_list.splice(y, 1)
         this.setData({
           show_success_delete: 1,
-          article_group_list: this.data.article_group_list,
+          excerpt_group_list: this.data.excerpt_group_list,
         })
         //向服务器发送通知
         wx.request({
-          url: serverUrl + '/delete_article_group',
+          url: serverUrl + '/delete_excerpt_group',
           data: {
             'user_id': app.globalData.user_id,
             'group_name': group_name,
@@ -108,11 +108,11 @@ Page({
     }
   },
 
-  
+
   /**
    * 输入框失去焦点时
    */
-  onBlur(e){
+  onBlur(e) {
     // console.log(e)
     // console.log(e.detail.value)
     this.setData({
@@ -123,7 +123,7 @@ Page({
   /**
    * 点击取消键
    */
-  cancle(e){
+  cancle(e) {
     this.setData({
       show_window: 0,
     })
@@ -131,48 +131,48 @@ Page({
   /**
    * 点击确定键
    */
-  confirm(e){
+  confirm(e) {
     //检查组名长度
-    if (this.data.contentInInput.length>10){
+    if (this.data.contentInInput.length > 10) {
       this.setData({
-        show_long_name:1,
-        })
+        show_long_name: 1,
+      })
       return
-      }else{
-        this.setData({
-          show_long_name: 0,
-        })
-      }
+    } else {
+      this.setData({
+        show_long_name: 0,
+      })
+    }
     //检查是否重名
-    for (var index in this.data.article_group_list){
-      var item = this.data.article_group_list[index]
-      if (this.data.contentInInput == item.group_name){
+    for (var index in this.data.excerpt_group_list) {
+      var item = this.data.excerpt_group_list[index]
+      if (this.data.contentInInput == item.group_name) {
         this.setData({
-          show_name_exist:1,
+          show_name_exist: 1,
         })
         return
-      }else{
+      } else {
         this.setData({
           show_name_exist: 0,
         })
       }
     }
     //编辑
-    if(this.data.type=='编辑'){
-      var old_group_name = this.data.article_group_list[y].group_name
+    if (this.data.type == '编辑') {
+      var old_group_name = this.data.excerpt_group_list[y].group_name
       var new_group_name = this.data.contentInInput
       var group_color = this.data.color[this.data.cur]
-      this.data.article_group_list[y].group_name=this.data.contentInInput
-      this.data.article_group_list[y].group_color = this.data.color[this.data.cur]
+      this.data.excerpt_group_list[y].group_name = this.data.contentInInput
+      this.data.excerpt_group_list[y].group_color = this.data.color[this.data.cur]
       // console.log(y)
-      // console.log(this.data.article_group_list)
+      // console.log(this.data.excerpt_group_list)
       this.setData({
-        article_group_list: this.data.article_group_list,
+        excerpt_group_list: this.data.excerpt_group_list,
         show_window: 0,
       })
       //向服务器发送通知
       wx.request({
-        url: serverUrl + '/reset_article_group',
+        url: serverUrl + '/reset_excerpt_group',
         data: {
           'user_id': app.globalData.user_id,
           'new_group_name': new_group_name,
@@ -185,21 +185,21 @@ Page({
       })
     }
     //新建分类
-    if(this.data.type=='新建分类'){
-      var newitem=[{
+    if (this.data.type == '新建分类') {
+      var newitem = [{
         'group_name': this.data.contentInInput,
         'group_color': this.data.color[this.data.cur],//颜色待定
-        'article_count': 0
+        'excerpt_count': 0
       }]
-      this.data.article_group_list = this.data.article_group_list.concat(newitem)
+      this.data.excerpt_group_list = this.data.excerpt_group_list.concat(newitem)
       this.setData({
-        article_group_list: this.data.article_group_list,
+        excerpt_group_list: this.data.excerpt_group_list,
         show_window: 0,
       })
       //向服务器端发送新建分类的通知
       // console.log(newitem)
       wx.request({
-        url: serverUrl + '/new_article_group',
+        url: serverUrl + '/new_excerpt_group',
         data: {
           'user_id': app.globalData.user_id,
           'group_name': newitem[0].group_name,
@@ -291,8 +291,8 @@ Page({
       scrollOffset: true,
     }, function (res) {
       res.scrollLeft
-    }).exec(function (e){
-      scroll=e[0].scrollLeft;
+    }).exec(function (e) {
+      scroll = e[0].scrollLeft;
       // console.log(that.data.scroll)
       if (scroll + 60 < 300) {
         scroll += 60;
@@ -308,29 +308,29 @@ Page({
    */
   onLoad: function (options) {
     //   request获取list里面是一个字典{
-  //   group_name：分组名称（string），
-  //   group_color：分组颜色（string），
-  //   article_count：分类中文章数量（int）
-  // }
+    //   group_name：分组名称（string），
+    //   group_color：分组颜色（string），
+    //   excerpt_count：分类中文章数量（int）
+    // }
     //初始化页面数据
-    var that=this
-    if (app.globalData.user_id!=null){
+    var that = this
+    if (app.globalData.user_id != null) {
       wx.request({
-        url: serverUrl + '/initial_article_group_list',
+        url: serverUrl + '/initial_excerpt_group_list',
         data: {
           'user_id': app.globalData.user_id
         },
         success: function (res) {
           console.log(res.data)
           that.setData({
-            article_group_list: res.data.article_group_list
+            excerpt_group_list: res.data.excerpt_group_list
           })
         }
       })
-    }else{
+    } else {
       //处理user_id获取异常的错误
     }
-    
+
   },
 
   /**
@@ -338,7 +338,7 @@ Page({
    */
   onReady: function () {
 
-  
+
 
   },
 

@@ -1,5 +1,4 @@
-/* pages/article_group/article_group_list/article_group_list.wxss */
-/*一个方框加一个名字加数字*/
+/* pages/excerpt_group/excerpt_group.wxss */
 .itemView{
   position:relative;
   padding-left: 5rpx;
@@ -23,7 +22,7 @@
   font-size:inherit;
   height: 40rpx;
 }
-.article_count{
+.excerpt_count{
   top: -95rpx;
   left: 550rpx;
   position: relative;
