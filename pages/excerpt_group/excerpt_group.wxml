@@ -1,0 +1,67 @@
+<!--pages/excerpt_group/excerpt_group.wxml-->
+<view class="mainContent">
+  <view class="excerptList">
+    <block wx:for="{{excerpt_group_list}}" wx:key="{{index}}" >
+      <wux-swipe-action autoClose right="{{ right }}" bind:click="onClick" data-y="{{index}}">
+        <view class='itemView'>
+          <view class='group_color'style="background-color:#{{item.group_color}}"></view>
+          <view class='group_name'>{{item.group_name}} </view>
+          <view class='excerpt_count'>({{item.excerpt_count}})</view>
+        </view>
+      </wux-swipe-action>
+    </block>
+    <image src='/pages/icon/add.png' 
+        class='add_group_image'
+        bindtap='add_group' >
+    </image>
+    
+
+  </view>
+  <view>
+    <wux-popup closable visible="{{ show_window }}" title="{{type}}"bind:close="onClose1"class='popup'>
+    <wux-cell hover-class="none">
+      <wux-input wux-input label="分组名字" placeholder="{{contentInInput}}" bind:blur="onBlur"/>
+    </wux-cell>
+
+    <view class="totalContainer">
+      <view class="imageView prevView" catchtap='prevTap'>
+        <image src="../icon/prev.png" mode="scaleToFill" class="imageView"></image>
+      </view>
+      <scroll-view id="colorset"class="circleContainer" scroll-x scroll-left="{{scroll}}">
+        <block wx:for="{{color}}" wx:key="*this">
+          <view class="circle {{index==cur?'active':''}}" style="background-color:#{{item}}" catchtap='choose' data-index="{{index}}"></view>
+        </block>
+      </scroll-view>
+      <view class="imageView nextView" catchtap='nextTap'>
+        <image src="../icon/next.png" mode="scaleToFill" class="imageView"></image>
+      </view>
+    </view>
+
+    <view class='buttonsOfPopup'>
+      <button class='cancelButton' bindtap='cancle'>
+        取消
+      </button>
+      <button class='confirmButton'bindtap='confirm'>
+        确定
+      </button>
+    </view>
+    </wux-popup>
+    
+  </view>
+  <wux-popup closable visible="{{ show_long_name }}" title="提示"content="名字不能超过10个字"bind:close="onClose2"class='popup'>
+      <button bindtap='onClose2'class='close_button2'>确定</button>
+  </wux-popup>
+  <wux-popup closable visible="{{ show_fail_delete }}" title="删除失败"content="分类中数量不为0不能删除"bind:close="onClose3"class='popup'>
+      <button bindtap='onClose3'class='close_button2'>确定</button>
+  </wux-popup>
+  <wux-popup closable visible="{{ show_success_delete }}" title="删除成功"bind:close="onClose4"class='popup'>
+      <button bindtap='onClose4'class='close_button2'>确定</button>
+  </wux-popup>
+  <wux-popup closable visible="{{ show_name_exist }}" title="提示"content="名字已经存在请重新命名"bind:close="onClose5"class='popup'>
+      <button bindtap='onClose5'class='close_button2'>确定</button>
+  </wux-popup>
+</view>
+
+
+
+

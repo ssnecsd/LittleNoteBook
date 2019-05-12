@@ -1,0 +1,39 @@
+<!--pages/excerpt_share/excerpt_share.wxml-->
+<view>
+  <image src="../icon/gobg.png" class='bgImg'></image>
+  <view>
+    <text class='mine'>{{title}}</text>
+    <view class="excerpt">
+      <text >{{excerpt_detail}}</text>
+    </view>
+  </view>
+  <view  class='imgBox'>
+    <text class='shareText'>分享至</text>
+    <view>
+    <button class="shageBtn" open-type='share'>
+      <view class="wechat" catchtap='shareToWechat'>
+          <view class="iamgebox"><image src="../icon/weixin.png" class='img'></image></view>
+          <text>微信</text>
+      </view>
+    </button>
+      
+      <view class="album" catchtap='showActionSheet'>
+        <view class="iamgebox"><image src="../icon/image.png" class='img' style="width:90rpx;height:90rpx;margin:10rpx" mode="scaleToFill"></image></view>
+        <text>相册</text>
+      </view>   
+    </view>
+  </view>
+
+  <!--生成海报  -->
+
+    <view class='imagePathBox' hidden="{{maskHidden == false}}">
+      <image src="{{imagePath}}" class='shengcheng'></image>
+      <button class='baocun' catchtap='baocun'>保存到手机</button>
+      <button class="cancal" catchtap='cancle'>取消保存</button>
+    </view>
+   <view hidden="{{maskHidden == false}}" class="mask"></view> 
+  <view class="canvas-box">
+      <canvas  style="width: 375px;height: 667px;position:fixed;top:9999px" canvas-id="mycanvas"/>
+  </view>  
+  <wux-actionsheet id="wux-actionsheet" />
+</view>

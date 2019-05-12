@@ -1,0 +1,83 @@
+/* pages/home_page/home_page.wxss */
+/*授权登陆小程序*/
+.close_button2{
+  height: 40%;
+  width: 40%;
+  margin-top:100rpx;
+}
+/*蒙版相关*/
+.evil{
+  background-color: #000;
+  opacity: 0.5;
+  position:fixed;
+  left:0px;
+  top:0px;
+  z-index: 3;
+}
+/*旋转等待提示*/
+.spinning{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+/*增加一个文章的按钮*/
+.add_article{
+  position: fixed;
+  height: 100rpx;
+  width: 100rpx;
+  margin-left: 80%;
+  top:800rpx
+}
+/*弹窗的确定按钮和取消按钮*/
+.buttonsOfPopup{
+  margin-top: 0rpx;
+}
+.confirmButton{
+  width: 200rpx;
+  height: 100rpx;
+  margin-left: 300rpx;
+  position: relative;
+  top:0rpx;
+  background:#20B2AA;
+}
+
+.cancelButton{
+   width: 200rpx;
+  height: 100rpx;
+  margin-left: 50rpx;
+  position: relative;
+  top:100rpx;
+}
+/*最近文章*/
+.articleItem{
+  position: relative;
+  width: 410rpx;
+  height: 125rpx;
+  top:-60rpx;
+  left:280rpx;
+  /* background-color: #ccffcc; */
+  border-radius: 10rpx;
+  z-index: 2;
+}
+.titleText{
+  width: 280rpx;
+  height:90rpx;
+  overflow: hidden;
+  font-size: 30rpx;
+  position: relative;
+  top:20rpx;
+  left:10rpx;
+}
+.article_image{
+  width:100rpx;
+  height:100rpx;
+  position:relative;
+  left:300rpx;
+  top:-75rpx;
+}
+
+.recent_article{
+  position:relative;
+  left:50rpx;
+  font-size: 30rpx;
+}

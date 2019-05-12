@@ -1,0 +1,42 @@
+<view>
+  <image src="../icon/rili.png" class="calander"></image>
+  <view class='select_box'>
+    <view class='select' catchtap='selectTap'>
+        <text class='select_text'>{{article_group_list[index].group_name}}</text>
+        <image class='select_img {{selectShow&&"select_img_rotate"}}' src='../icon/icon-arrow-bottom2.png'  background-size="contain"></image> 
+    </view>
+    <view class='option_box' style='height:{{selectShow?(article_group_list.length>5?325:article_group_list.length*50):0}}rpx;'>
+      <block wx:for='{{article_group_list}}' wx:key='this' >
+      <view class='option' wx:if="{{index!=last}}"  data-index='{{index}}' catchtap='optionTap'>
+        <view class='groupColor' style="background:#{{article_group_list[index].group_color}}"></view>
+        <text class='groupName'>{{article_group_list[index].group_name}}({{article_group_list[index].article_count}})</text>
+      </view>
+        <text wx:else catchtap="navigateToGroup" class='option'>{{item}}</text>
+     </block>
+    </view>
+  <image src="../icon/sousuo.png" class="search" catchtap="navigateToSearch"></image>
+</view>
+  <view class="mainContent">
+    
+    <view class="articleList">
+      <block wx:for="{{article_list}}" wx:key="{{index}}" >
+       <my-wux-swipe-action style="height:175rpx" autoClose right="{{ right }}" bind:click="onClick" data-index='{{index}}' bindnavigateToDetail="navigateToDetail">
+        <view class="itemView">
+          <view class="dateLine"></view>
+          <view class="timeItem" wx:if="item.create_time">{{item.create_time}}</view>
+          <view class="timeItem" wx:if="item.last_modify_time">{{item.last_modify}}</view>
+          <view class="smallCircle"></view>
+ <view class="articleItem" style="background:#{{item.group_color}}" bindtap='navigateToDetail'>
+            <view class="titleText"><text>{{item.title}}</text></view>
+            <image src="{{item.image_url}}" class="article_image" mode="scaleToFill"/>
+          </view>
+        </view>
+      </my-wux-swipe-action>
+      </block>
+    </view>
+    <view class='no_more'>
+      <text>没有更多了 (ฅ• . •ฅ)</text>
+    </view>
+  </view>
+  <wux-toptips  id="wux-toptips" />
+</view>

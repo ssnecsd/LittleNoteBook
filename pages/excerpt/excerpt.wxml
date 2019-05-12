@@ -1,0 +1,37 @@
+<view>
+  <view class='select_box'>
+    <view class='select' catchtap='selectTap'>
+        <text class='select_text'>{{excerpt_group_list[index].group_name}}</text>
+        <image class='select_img {{selectShow&&"select_img_rotate"}}' src='../icon/icon-arrow-bottom2.png'  background-size="contain"></image> 
+    </view>
+   <view class='option_box' style='height:{{selectShow?(excerpt_group_list.length>5?325:excerpt_group_list.length*50):0}}rpx;'>
+      <block wx:for='{{excerpt_group_list}}' wx:key='this' >
+      <view class='option' wx:if="{{index!=last}}"  data-index='{{index}}' catchtap='optionTap'>
+        <view class='groupColor' style="background:#{{excerpt_group_list[index].group_color}}"></view>
+        <text class='groupName'>{{excerpt_group_list[index].group_name}}({{excerpt_group_list[index].excerpt_count}})</text>
+      </view>
+        <text wx:else catchtap="navigateToGroup" class='option'>{{item}}</text>
+     </block>
+    </view>
+    </view>
+
+  <view class="mainContent">
+    
+      <block wx:for="{{excerpt_list}}" wx:key="{{index}}">
+             <my-wux-swipe-action style="height:175rpx" autoClose right="{{ right }}" bind:click="onClick" data-index='{{index}}' bindnavigateToDetail="navigateToDetail">
+      <view class='excerptView' style="background:#{{item.group_color}}">
+        <view class='excerptTitle'>{{item.title}}</view>
+        <view class='excerptContent' > <text space="emsp">{{item.excerpt_content}} </text></view>
+        <view class='createTime'>{{item.create_time}}</view>
+        <view class='excerptGroup'>{{item.group_name}}</view>
+         </view>
+         </my-wux-swipe-action>
+         <view class='empty'></view>
+      </block>
+    <view class='no_more'>
+      <text>没有更多了 (ฅ• . •ฅ)</text>
+    </view>
+
+  </view>
+   <wux-toptips  id="wux-toptips" />
+</view>

@@ -1,0 +1,96 @@
+/* pages/excerpt_group/excerpt_group.wxss */
+.itemView{
+  position:relative;
+  padding-left: 5rpx;
+  height:90rpx;
+  font-size: 30rpx;
+}
+.group_color{
+  position:relative;
+  width:50rpx;
+  height:50rpx;
+  font-size: 30rpx;
+  border-radius: 50%;
+  left:50rpx;
+  /* border-width:1rpx; */
+  border-color: black;
+}
+.group_name{
+  left: 150rpx;
+  top:-52rpx;
+  position: relative;
+  font-size:inherit;
+  height: 40rpx;
+}
+.excerpt_count{
+  top: -95rpx;
+  left: 550rpx;
+  position: relative;
+  font-size:inherit;
+}
+/*增加一个分组的按钮*/
+.add_group_image{
+  height: 100rpx;
+  width: 100rpx;
+  margin-left: 75%;
+  top:800rpx;
+}
+
+/*弹窗的确定按钮和取消按钮*/
+.buttonsOfPopup{
+  margin-top: -250rpx;
+}
+.confirmButton{
+  width: 200rpx;
+  height: 100rpx;
+  margin-left: 300rpx;
+  position: relative;
+  top:0rpx;
+  background: #20B2AA;
+}
+
+.cancelButton{
+   width: 200rpx;
+  height: 100rpx;
+  margin-left: 50rpx;
+  position: relative;
+  top:100rpx;
+}
+/*提示名字太长的消息窗口确定键*/
+.close_button2{
+  height: 40%;
+  width: 40%;
+  margin-top:100rpx;
+}
+/*颜色选择器*/
+.totalContainer{
+  position: relative;
+  margin-top: 30rpx;
+}
+.circleContainer{
+  width:340rpx;
+  height:120rpx;
+  white-space: nowrap;
+  position:relative;
+  top:-100rpx;
+  left:100rpx;
+}
+.imageView{
+  width:100rpx;
+  height:100rpx;
+}
+.circle{
+  width:100rpx;
+  height:100rpx;
+  border-radius: 50%;
+  margin: 10rpx;
+  display: inline-block;
+}
+.active{
+  border:1rpx solid red;
+}
+.nextView{
+  position:relative;
+  top:-210rpx;
+  left:430rpx;
+}

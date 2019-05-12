@@ -1,0 +1,33 @@
+/*滑动部分*/
+.totalContainer{
+  position:relative;
+  width: 90%;
+  background-color: white;
+}
+.circleContainer{
+  width:82%;
+  height:80rpx;
+  white-space: nowrap;
+  position:relative;
+  top:-70rpx;
+  left:60rpx;
+}
+.imageView{
+  width:60rpx;
+  height:60rpx;
+}
+.circle{
+  width:60rpx;
+  height:60rpx;
+  border-radius: 50%;
+  margin: 10rpx;
+  display: inline-block;
+}
+.active{
+  border:1rpx solid red;
+}
+.nextView{
+  position:relative;
+  top:-140rpx;
+  left:620rpx;
+}
