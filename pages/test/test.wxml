@@ -1,3 +1,0 @@
-<block wx:for="{{color}}" wx:key="index">
-  <view style="background-color:#{{item}}"></view>
-</block>

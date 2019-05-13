@@ -2,6 +2,7 @@
 import json
 import socket
 import re
+import ssl
 
 from multiprocessing import Process
 
@@ -18,17 +19,21 @@ class HTTPServer(object):
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         # 使用SSL前先获得证书 cert.pem就是证书文件
         # 参考网站http://blog.sina.com.cn/s/blog_5d18f85f0102xg3e.html
-        # self.server_socket=ssl.wrap_socket(self.server_socket, certfile='cert.pem', server_side=True)
+        self.server_socket=ssl.wrap_socket(self.server_socket, certfile='1_xwnotebook.cn_bundle.crt',keyfile='2_xwnotebook.cn.key', server_side=True)
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
     def start(self):
         self.server_socket.listen(128)
         while True:
-            client_socket, client_address = self.server_socket.accept()
-            print("[%s, %s]用户连接上了" % client_address)
-            handle_client_process = Process(target=self.handle_client, args=(client_socket,))
-            handle_client_process.start()
-            client_socket.close()
+            try:
+                client_socket, client_address = self.server_socket.accept()
+                client_socket.settimeout(60)
+                print("[%s, %s]用户连接上了" % client_address)
+                handle_client_process = Process(target=self.handle_client, args=(client_socket,))
+                handle_client_process.start()
+                client_socket.close()
+            except:
+                print("接收到http请求，请查证")
 
     def handle_client(self, client_socket):
         """
@@ -59,15 +64,29 @@ class HTTPServer(object):
                 return result
 
         # 获取客户端请求数据
-        request_data = client_socket.recv(1024)
-        request_lines = request_data.splitlines()
+        #request_data=client_socket.recv(1024)
+        total_data=[]
+        while 1:
+            try:
+                data=client_socket.recv(1024)
+            except:
+                break
+            #print(data)
+            total_data.append(data)
+            if(len(data)<1024):
+                break
+        request_data=b''.join(total_data)
 
+        request_lines = request_data.splitlines()
         # # 打印调试信息
-        # for line in request_lines:
-        #     print(line)
+        #print("打印报文段信息")
+        #for line in request_lines:
+        #    print(line)
 
         # 解析请求报文
         request_start_line = request_lines[0]
+        #print("打印请求头")
+        #print(request_start_line)
         # 提取用户请求的文件名
         file_name = re.match(r"\w+ +(/[^ ]*) ", request_start_line.decode("utf-8")).group(1)
 
@@ -81,7 +100,7 @@ class HTTPServer(object):
         response = fm.response_maker()
 
         # 打印调试信息
-        # print("\nresponse data:", response)
+        print("\nresponse data:", response)
 
         # 向客户端返回响应数据
         client_socket.send(bytes(response, "utf-8"))

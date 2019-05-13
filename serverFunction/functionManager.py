@@ -1,24 +1,33 @@
+from serverFunction.functions.excerpt.get_recent_excerpt import get_recent_excerpt
 from serverFunction.functions.login import login
 from serverFunction.functions.testSpider import testSpider
-from serverFunction.functions.get_article_group import get_article_group
-from serverFunction.functions.get_article_info import get_article_info
-from serverFunction.functions.get_articles_by_group import get_articles_by_group
-from serverFunction.functions.get_recent_articles import get_recent_articles
-from serverFunction.functions.load_article import load_article
-from serverFunction.functions.search_article_by_date import search_article_by_date
-from serverFunction.functions.search_article_by_key import search_article_by_key
+from serverFunction.functions.article.get_article_group import get_article_group
+from serverFunction.functions.article.get_article_info import get_article_info
+from serverFunction.functions.article.get_articles_by_group import get_articles_by_group
+from serverFunction.functions.article.get_recent_articles import get_recent_articles
+from serverFunction.functions.article.load_article import load_article
+from serverFunction.functions.article.search_article_by_date import search_article_by_date
+from serverFunction.functions.article.search_article_by_key import search_article_by_key
 from serverFunction.functions.sign_in import sign_in
-from serverFunction.functions.delete_article_group import delete_article_group
-from serverFunction.functions.initial_article_group_list import initial_article_group_list
-from serverFunction.functions.new_article_group import new_article_group
-from serverFunction.functions.reset_article_group import reset_article_group
-from serverFunction.functions.save_article import save_article
-from serverFunction.functions.delete_article import delete_article
-from serverFunction.functions.move_article import move_article
+from serverFunction.functions.article.delete_article_group import delete_article_group
+from serverFunction.functions.article.initial_article_group_list import initial_article_group_list
+from serverFunction.functions.article.new_article_group import new_article_group
+from serverFunction.functions.article.reset_article_group import reset_article_group
+from serverFunction.functions.article.save_article import save_article
+from serverFunction.functions.article.delete_article import delete_article
+from serverFunction.functions.article.move_article import move_article
+
+from serverFunction.functions.excerpt.delete_excerpt_group import delete_excerpt_group
+from serverFunction.functions.excerpt.delete_excerpt import delete_excerpt
+from serverFunction.functions.excerpt.get_excerpt_by_group import get_excerpt_by_group
+from serverFunction.functions.excerpt.new_excerpt_group import new_excerpt_group
+from serverFunction.functions.excerpt.reset_excerpt_group import reset_excerpt_group
+from serverFunction.functions.excerpt.save_excerpt import save_excerpt
+from serverFunction.functions.excerpt.initial_excerpt_group_list import initial_excerpt_group_list
 
 
 class FunctionManager(object):
-    def __init__(self,file_name,request_params):
+    def __init__(self, file_name, request_params):
         self.file_name = file_name
         self.request_params = request_params
 
@@ -36,7 +45,7 @@ class FunctionManager(object):
             response_body = get_articles_by_group(self.request_params)
 
         elif '/get_recent_articles' == file_name:
-            response_body  = get_recent_articles(self.request_params)
+            response_body = get_recent_articles(self.request_params)
 
         elif '/load_article' == file_name:
             response_body = load_article(self.request_params)
@@ -76,6 +85,32 @@ class FunctionManager(object):
 
         elif '/move_article' == file_name:
             response_body = move_article(self.request_params)
+
+        elif '/delete_excerpt' == file_name:
+            response_body = delete_excerpt(self.request_params)
+
+        elif '/delete_excerpt_group' == file_name:
+            response_body = delete_excerpt_group(self.request_params)
+
+        elif '/get_excerpt_by_group' == file_name:
+            response_body = get_excerpt_by_group(self.request_params)
+
+        elif '/initial_excerpt_group_list' == file_name:
+            response_body = initial_excerpt_group_list(self.request_params)
+
+        elif '/new_excerpt_group' == file_name:
+            response_body = new_excerpt_group(self.request_params)
+
+        elif '/reset_excerpt_group' == file_name:
+            response_body = reset_excerpt_group(self.request_params)
+
+        elif '/save_excerpt' == file_name:
+            response_body = save_excerpt(self.request_params)
+
+        elif '/get_recent_excerpt' == file_name:
+            response_body = get_recent_excerpt(self.request_params)
+
+
 
         else:
             response_body = 0

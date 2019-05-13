@@ -3,7 +3,7 @@ import re
 
 import requests
 
-
+file_number=0
 def get_text_picture(url):
     page = requests.get(url).text
     pattern_p = re.compile(r'(<p.*?>.+?</p>)|(<img.+?>)')  # 用于提取p标签和img标签
@@ -52,14 +52,14 @@ def get_text_picture(url):
             img = pattern_img.findall(item[1])
             if not len(img) == 0:
                 result_1.append([0,img[0]])
-    with open('测试用的list文件.txt','w',encoding='utf-8')as f:
+    with open('测试用的list文件'+str(file_number)+'.txt','w',encoding='utf-8')as f:
         for it in result_1:
             f.write(str(result_1))
     return result_1;
 
 def get_title(url):
     page = requests.get(url).text
-    pattern_t = re.compile(r'<title>((.*?\n*?)*?)</title>')
+    pattern_t = re.compile(r'<h2.*?>((.*?\n*?)*?)</h2>')
     res = pattern_t.findall(page)
     result = []
     for item in res:
@@ -70,7 +70,10 @@ def get_profile_nickname(url):
     page = requests.get(url).text
     pattern_n = re.compile(r'<.*?profile_nickname.*?>(.+?)<.*?>')
     res = pattern_n.findall(page)
-    return res[0]
+    try:
+        return res[0]
+    except:
+        return ''
 
 def Spider(url):
     title=get_title(url)
@@ -99,11 +102,31 @@ if __name__ == '__main__':
                 'https://mp.weixin.qq.com/s/ySOaEEvCVM38wLmXGhHFQg',
                 'https://mp.weixin.qq.com/s/D0btteJiKrDaVKpPbeTb4g',
                 'https://mp.weixin.qq.com/s/E7VLtZLT7cUoP-hBNrJixQ',
+                'https://mp.weixin.qq.com/s/HEg1ZuXB7rKTOQ6i0AMKKw',
+                'https://mp.weixin.qq.com/s/82Y5a3ZwplKg4eIZvgAsEw',
+                'https://mp.weixin.qq.com/s/HbiFXEh1hDc-6YT7OR4pGg',
+                'https://mp.weixin.qq.com/s/D8-NRU_eny6LUJ_uBd_Mhg',
+                'https://mp.weixin.qq.com/s/50iHOLGfl1RZEnUkzR-Cdg',
+                'https://mp.weixin.qq.com/s/ZdQ6Rhp6hUCX-6DqYgbGwg',
+                'https://mp.weixin.qq.com/s/uqwBanYt7KJ2C-1y8qhFkA',
+                'https://mp.weixin.qq.com/s/US6y3y1560zJD9IYmQOEqg',
+                'https://mp.weixin.qq.com/s/0f_r-5Jg153Euty_QbPKnQ',
+                'https://mp.weixin.qq.com/s/76tF-6eVKfPUuQqRNv8kMw',
+                'https://mp.weixin.qq.com/s/Up8aTdW32REPE5cEDiOsYg',
+                'https://mp.weixin.qq.com/s/doL2ZtUOoHi5cgz_9Ev1Iw',
+                'https://mp.weixin.qq.com/s/ZAQQuPVKOAMwQvKf25o1Jw',
+                'https://wqs.jd.com/event/promote/51jiadian2019/index.shtml?ptag=17005.41.1779&scene=0&xtrack=1',
+                'https://mp.weixin.qq.com/s/ayf3sIWMEZMyOyV7vZ6aTQ',
+                'https://mp.weixin.qq.com/s/piWPWRdwhcNTNSn7eWjL1w',
+                'https://mp.weixin.qq.com/s/NheUtlB_MDqiHyMTg-Rbzg',
+                'https://mp.weixin.qq.com/s/n-yblL67MjaL2SqwLicbTg',
                 ]
-    url = url_list[0]
-    result = get_text_picture(url)
-    result_json = json.dumps(result)
-    for item in result:
-        print(item)
-    print(get_title(url))
-    print(Spider(url))
+    for i in range(len(url_list)):
+        file_number=i
+        url = url_list[i]
+        result = get_text_picture(url)
+        result_json = json.dumps(result)
+        # for item in result:
+        #     print(item)
+        print(str(i)+get_title(url))
+        #print(Spider(url))

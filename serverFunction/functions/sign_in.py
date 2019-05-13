@@ -3,7 +3,7 @@ import random
 import requests
 from serverFunction.dbHelper import db_excute_select
 from serverFunction.dbHelper import db_excute_insert
-
+from serverFunction.functions.excerpt.set_default_group import set_default_group
 
 
 def sign_in(request_params):
@@ -28,7 +28,7 @@ def sign_in(request_params):
 
     state_code = 1  # （1 成功，0 失败）
     # 查询openid是否存在于数据库中，如果存在直接返回
-    sql = "SELECT * FROM userdb.user_info where open_id='%s'" % openid
+    sql = "SELECT * FROM user_info where open_id='%s'" % openid
     res = db_excute_select(sql)
     if len(res) > 0:
         user_id = res[0][0]
@@ -38,29 +38,33 @@ def sign_in(request_params):
         }
         response_body = json.dumps(response)
         return response_body
+    else:
+        # 查询生成的user_id是否存在
+        while True:
+            print("执行了循环")
+            user_id = get_a_user_id()
+            sql = "SELECT * FROM userdb.user_info where user_id='%s'"%user_id
+            res = db_excute_select(sql)
+            if len(res) == 0:
+                break
 
-    # 查询生成的user_id是否存在
-    while True:
-        print("执行了循环")
-        user_id = get_a_user_id()
-        sql = "SELECT * FROM userdb.user_info where user_id='%s'"%user_id
-        res = db_excute_select(sql)
-        if len(res) == 0:
-            break
+        # 新建默认的摘抄分组
+        state_code = set_default_group(user_id)
 
-    # 将用户信息插入数据库
-    sql = "insert into user_info values( '%s','%s','%s','%s',%s,'%s','%s','%s','%s')" % \
-        (user_id, openid, user_nickname, avatar_url, gender, country, province, city, language)
+        # 将用户信息插入数据库
+        sql = "insert into user_info values( '%s','%s','%s','%s',%s,'%s','%s','%s','%s')" % \
+            (user_id, openid, user_nickname, avatar_url, gender, country, province, city, language)
 
-    if not db_excute_insert(sql):
-        state_code = 0
+        if not db_excute_insert(sql):
+            state_code = 0
 
-    response = {
-        'user_id': user_id,
-        'status_code': state_code
-    }
-    response_body = json.dumps(response)
-    return response_body
+
+        response = {
+            'user_id': user_id,
+            'status_code': state_code
+        }
+        response_body = json.dumps(response)
+        return response_body
 
 
 #生成一个唯一的user_id
