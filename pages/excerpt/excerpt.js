@@ -45,9 +45,9 @@ Page({
           article_id: excerpt_list[index].article_id
         },
         success: function (res) {
-          console.log(res.data);
+          console.log(res.data.excerpt_list);
           console.log('XXXX', res.data.status_code == 1);
-          if (res.data.state_code == 1) {
+          if (res.data.status_code == 1) {
             $wuxToptips().success({
               hidden: false,
               text: '删除成功',
@@ -174,6 +174,17 @@ Page({
           excerpt_group_list: array,
           last: last - 1
         });
+      }
+    })
+    wx.request({
+      url: serverUrl + '/get_recent_excerpt',
+      data: {
+        user_id: user_id
+      },
+      success: function (res) {
+        that.setData({
+          excerpt_list: res.data.recent_excerpt_list
+        })
       }
     })
   },

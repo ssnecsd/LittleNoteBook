@@ -9,7 +9,8 @@
     "pages/articleSearch/articleSearch",
     "pages/excerpt_group/excerpt_group",
     "pages/excerpt_share/excerpt_share",
-    "pages/feedback/feedback"
+    "pages/feedback/feedback",
+    "pages/about/about"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -63,7 +64,7 @@
     "wux-button": "dist/button/index",
     "wux-upload": "dist/upload/index",
     "wux-dialog": "../../dist/dialog/index",
-    "wux-toptips":"dist/toptips/index"
+    "wux-toptips": "dist/toptips/index"
   },
   "sitemapLocation": "sitemap.json"
 }

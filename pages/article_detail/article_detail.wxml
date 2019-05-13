@@ -60,7 +60,7 @@
     <view class='option_box' style='height:{{selectShow?(article_group_list.length>5?325:article_group_list.length*50):0}}rpx;'>
       <block wx:for='{{article_group_list}}' wx:key='this' >
       <view class='option' data-index='{{index}}' catchtap='optionTap'>
-        <view class='groupColor' style="background:#{{article_group_list[index].group_color}}"></view>
+        <view class='groupColor' style="background:{{article_group_list[index].group_color}}"></view>
         <text class='groupName'>{{article_group_list[index].group_name}}({{article_group_list[index].article_count}})</text>
       </view>
      </block>
@@ -82,7 +82,7 @@
     <view class='option_box' style='height:{{selectShow?(excerpt_group_list.length>5?325:excerpt_group_list.length*50):0}}rpx;'>
       <block wx:for='{{excerpt_group_list}}' wx:key='this' >
       <view class='option' data-index='{{index}}' catchtap='optionTap2'>
-        <view class='groupColor' style="background:#{{exceprt_group_list[index].group_color}}"></view>
+        <view class='groupColor' style="background:{{excerpt_group_list[index].group_color}}"></view>
         <text class='groupName'>{{excerpt_group_list[index].group_name}}({{excerpt_group_list[index].excerpt_count}})</text>
       </view>
      </block>

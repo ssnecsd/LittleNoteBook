@@ -22,8 +22,8 @@ Page({
       style: 'background-color: #CD2626; color: white;font-size:16px',
     }],
     //---------------------测试用颜色-----------------------------------
-    color: ["ccffcc", "ef7a82", "ffcccc", "ffffcc", "99ffcc",
-      "99ffee", "66ffcc", "3f9", "3fc", "c9e", "FFFAF0"],
+    color: ["#ccffcc", "#ef7a82", "#ffcccc", "#ffffcc", "#99ffcc",
+      "#99ffee", "#66ffcc", "#3f9", "#3fc", "#c9e", "#FFFAF0"],
     //---------------------弹出修改和新建的窗口--------------------------------
     //0是不弹出，1是弹出
     show_window: 0,

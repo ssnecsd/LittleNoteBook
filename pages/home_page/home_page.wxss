@@ -52,7 +52,7 @@
 .articleItem{
   position: relative;
   width: 410rpx;
-  height: 125rpx;
+  margin-top: 40rpx;
   top:-60rpx;
   left:280rpx;
   /* background-color: #ccffcc; */
@@ -61,7 +61,6 @@
 }
 .titleText{
   width: 280rpx;
-  height:90rpx;
   overflow: hidden;
   font-size: 30rpx;
   position: relative;

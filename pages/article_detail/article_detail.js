@@ -149,21 +149,21 @@ Page({
     var excerpt_group_list = this.data.excerpt_group_list;
     let Index = e.currentTarget.dataset.index;//获取点击的下拉列表的下标
     this.setData({
-      index2: Index,
+      index: Index,
       selectShow: !this.data.selectShow
     });
-    // wx.request({
-    //   url: serverUrl + '/get_excerpt_by_group',
-    //   data: {
-    //     user_id: app.globalData.user_id,
-    //     group_name: excerpt_group_list[Index].group_name
-    //   },
-    //   success: function (res) {
-    //     that.setData({
-    //       excerpt_list: res.data.excerpt_list
-    //     })
-    //   }
-    // })
+    wx.request({
+      url: serverUrl + '/get_excerpt_by_group',
+      data: {
+        user_id: app.globalData.user_id,
+        group_name: excerpt_group_list[Index].group_name
+      },
+      success: function (res) {
+        that.setData({
+          excerpt_list: res.data.excerpt_list
+        })
+      }
+    })
   },
  
   load_article: function (article_url) {
@@ -514,7 +514,7 @@ Page({
     wx.request({
       url: serverUrl+'/initial_article_group_list',
       data: { user_id: user_id},
-      method: "POST",
+      method: "GET",
       success:function(res){
         var group_index = that.data.index;
         console.log('---save');
@@ -525,7 +525,7 @@ Page({
         console.log("==", that.data.article_id);
         wx.request({
           url: serverUrl+'/save_article',
-          method:"POST",
+          method:"GET",
           data: {
             mark_list: that.data.marker,
             user_id: user_id,

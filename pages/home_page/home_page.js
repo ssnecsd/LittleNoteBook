@@ -21,6 +21,8 @@ Page({
     contentInInput: '',
     //-----------------得到最近的文章--------------------------------------------
     recent_article_list: [],
+    //-----------------得到最近的摘抄--------------------------------------------
+    recent_excerpt_list:[],
   },
 
   /**
@@ -44,7 +46,18 @@ Page({
       }
     })
     //得到最近的摘抄
-
+    wx.request({
+      url: serverUrl + '/get_recent_excerpt',
+      data: {
+        'user_id': app.globalData.user_id,
+      },
+      success: function (res) {
+        console.log(res.data)
+        that.setData({
+          recent_excerpt_list: res.data['recent_excerpt_list']
+        })
+      }
+    })
   },
   /**
    * sign_in失败以后的回调函数
@@ -53,7 +66,13 @@ Page({
     sign_in_times += 1
     console.log("sign_in失败，正在重试")
     console.log("重试次数", sign_in_times)
+    if (sign_in_times > 3) {
+
+      return
+    }
     this.sign_in()
+    
+      
   },
   /**
      * 向服务器发送请求登录

@@ -197,6 +197,39 @@ Page({
         });
       }
     })
+    wx.request({
+      url: serverUrl + '/get_recent_articles',
+      data: {
+        user_id: user_id
+      },
+      success: function (res) {
+        that.setData({
+          article_list: res.data.recent_article_list
+        })
+        //console.log(that.data.article_list)
+      }
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0
+
+
+
+
+
+      
   },
 
   /**

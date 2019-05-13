@@ -1,6 +1,7 @@
 <!--pages/home_page/home_page.wxml-->
 
 <view>
+  <!--最近文章显示-->
   <view >
     <view class='recent_article'>最近文章</view>
     <block wx:for="{{recent_article_list}}" wx:key="{{index}}" >
@@ -8,6 +9,17 @@
         <view class="articleItem" style="background:#{{article_group_list[index].group_color}}" bindtap="navigateToDetail" data-article_id="{{item.article_id}}">
           <view class="titleText"><text>{{item.title}}</text></view>
           <image src="{{item.image_url}}" class="article_image" mode="scaleToFill"/>
+        </view>
+      </view>
+    </block>
+  </view>
+  <!--最近摘抄显示-->
+  <view >
+    <view class='recent_article'>最近摘抄</view>
+    <block wx:for="{{recent_excerpt_list}}" wx:key="{{index}}" >
+      <view wx:if="{{index<2}}"class='itemView'>
+        <view class="articleItem" style="background:#{{article_group_list[index].group_color}}">
+          <view class="titleText"><text>{{item.excerpt_content}}</text></view>
         </view>
       </view>
     </block>

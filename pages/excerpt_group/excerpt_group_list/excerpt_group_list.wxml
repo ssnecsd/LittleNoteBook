@@ -4,7 +4,7 @@
     <block wx:for="{{excerpt_group_list}}" wx:key="{{index}}" >
       <wux-swipe-action autoClose right="{{ right }}" bind:click="onClick" data-y="{{index}}">
         <view class='itemView'>
-          <view class='group_color'style="background-color:#{{item.group_color}}"></view>
+          <view class='group_color'style="background-color:{{item.group_color}}"></view>
           <view class='group_name'>{{item.group_name}} </view>
           <view class='article_count'>({{item.article_count}})</view>
         </view>
@@ -30,7 +30,7 @@
       </view>
       <scroll-view id="colorset"class="circleContainer" scroll-x scroll-left="{{scroll}}">
         <block wx:for="{{color}}" wx:key="*this">
-          <view class="circle {{index==cur?'active':''}}" style="background-color:#{{item}}" catchtap='choose' data-index="{{index}}"></view>
+          <view class="circle {{index==cur?'active':''}}" style="background-color:{{item}}" catchtap='choose' data-index="{{index}}"></view>
         </block>
       </scroll-view>
       <view class="imageView nextView" catchtap='nextTap'>
