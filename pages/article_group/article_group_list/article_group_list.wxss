@@ -57,12 +57,7 @@
   position: relative;
   top:100rpx;
 }
-/*提示名字太长的消息窗口确定键*/
-.close_button2{
-  height: 40%;
-  width: 40%;
-  margin-top:100rpx;
-}
+
 /*颜色选择器*/
 .totalContainer{
   position: relative;

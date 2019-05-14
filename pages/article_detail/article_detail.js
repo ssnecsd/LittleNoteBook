@@ -38,7 +38,7 @@ Page({
     noteValue:'',
     promptstyle:'',
     note:'',
-    chooseColor:'',
+    chooseColor:'#FFFF00',
     title:'',
     author:'',
     content: [],
@@ -51,8 +51,6 @@ Page({
    */
   onLoad: function (options) {
     user_id = app.globalData.user_id;
-    //console.log(options);
-    //console.log(options);
     var that = this;
     //调用load_article接口
     if (options.article_url) {
@@ -69,8 +67,6 @@ Page({
    
     wx.getSystemInfo({
       success: function (res) {
-        //console.log(res.windowWidth)
-        //console.log(res.windowHeight)
         that.setData({ windowHeight: res.windowHeight, windowWidth: res.windowWidth});//设备宽高
       }
     });
@@ -377,8 +373,8 @@ Page({
   //确认颜色
   confirm:function(e){
     console.log("--confirm");
-    var index = this.data.cur;
-    var color = this.data.chooseColor;
+    var index = this.data.cur;//选择话
+    var color = this.data.chooseColor;//颜色
     //写到marker中
     var array = this.data.marker;
     array[index].key1 = 1;
@@ -534,6 +530,8 @@ Page({
           },
           success: function (res) {
             //tishi
+            //console.log(res.data)
+            //console.log(res.data.state_code);
             if (res.data.state_code==1){
               that.toptipSuccess();
               that.refresh();

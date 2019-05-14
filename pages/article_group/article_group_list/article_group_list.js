@@ -1,4 +1,5 @@
 // pages/article_group/article_group_list/article_group_list.js
+import { $wuxToptips } from '../../../dist/index'
 //全局变量用来确定点击事件点击的哪一个按钮
 var y=0
 var serverUrl = 'https://xwnotebook.cn:8000'
@@ -56,7 +57,6 @@ Page({
     this.setData({
       show_window:1,
       type:'新建分类',
-      contentInInput:'分类名称',
     });
     
   },
@@ -66,6 +66,7 @@ Page({
    */
 
   onClick(e){
+    var that = this
     // console.log('onClick', e);
     //定位点击的是哪一个，y是article_group_list数组的角标
     y=e.target.dataset.y
@@ -80,31 +81,41 @@ Page({
     }
     if(index==1){
       var group_name = this.data.article_group_list[y].group_name
-      //删除失败
-      if (this.data.article_group_list[y].article_count>0){
-        this.setData({
-          show_fail_delete:1,
-        })
-      }
-      //删除成功
-      else{
-        this.data.article_group_list.splice(y, 1)
-        this.setData({
-          show_success_delete: 1,
-          article_group_list: this.data.article_group_list,
-        })
-        //向服务器发送通知
-        wx.request({
-          url: serverUrl + '/delete_article_group',
-          data: {
-            'user_id': app.globalData.user_id,
-            'group_name': group_name,
-          },
-          success: function (res) {
-            console.log(res.data)
+      //向服务器发送通知
+      wx.request({
+        url: serverUrl + '/delete_article_group',
+        data: {
+          'user_id': app.globalData.user_id,
+          'group_name': group_name,
+        },
+        success: function (res) {
+          console.log(res.data)
+          //删除成功
+          if(res.data.state_code==1){
+            //显示删除成功提示
+            $wuxToptips().success({
+              hidden: false,
+              text: '删除成功',
+              duration: 2000,
+              success() { },
+            });
+            that.data.article_group_list.splice(y, 1)
+            that.setData({
+              article_group_list: that.data.article_group_list,
+            })
+          }else{
+            //删除失败
+            //显示删除失败提示
+            $wuxToptips().show({
+              hidden: false,
+              text: '删除失败，无法删除不为空的分组',
+              duration: 2000,
+              success() { },
+            })
           }
-        })
-      }
+        }
+      })
+      
     }
   },
 
@@ -132,44 +143,12 @@ Page({
    * 点击确定键
    */
   confirm(e){
-    //检查组名长度
-    if (this.data.contentInInput.length>10){
-      this.setData({
-        show_long_name:1,
-        })
-      return
-      }else{
-        this.setData({
-          show_long_name: 0,
-        })
-      }
-    //检查是否重名
-    for (var index in this.data.article_group_list){
-      var item = this.data.article_group_list[index]
-      if (this.data.contentInInput == item.group_name){
-        this.setData({
-          show_name_exist:1,
-        })
-        return
-      }else{
-        this.setData({
-          show_name_exist: 0,
-        })
-      }
-    }
+    var that=this
     //编辑
     if(this.data.type=='编辑'){
       var old_group_name = this.data.article_group_list[y].group_name
       var new_group_name = this.data.contentInInput
       var group_color = this.data.color[this.data.cur]
-      this.data.article_group_list[y].group_name=this.data.contentInInput
-      this.data.article_group_list[y].group_color = this.data.color[this.data.cur]
-      // console.log(y)
-      // console.log(this.data.article_group_list)
-      this.setData({
-        article_group_list: this.data.article_group_list,
-        show_window: 0,
-      })
       //向服务器发送通知
       wx.request({
         url: serverUrl + '/reset_article_group',
@@ -180,7 +159,42 @@ Page({
           'old_group_name': old_group_name
         },
         success: function (res) {
-          console.log(res.data)
+          console.log('/reset_article_group',res.data)
+          //编辑成功
+          if(res.data.state_code==1){
+            //显示编辑成功提示
+            $wuxToptips().success({
+              hidden: false,
+              text: '编辑成功',
+              duration: 2000,
+              success() { },
+            });
+
+            that.data.article_group_list[y].group_name = that.data.contentInInput
+            that.data.article_group_list[y].group_color = that.data.color[that.data.cur]
+            that.setData({
+              article_group_list: that.data.article_group_list,
+              show_window: 0,
+            })
+          }else{
+            //检查是否重名
+            if(res.data.state_code==2){
+              //显示重名提示
+              $wuxToptips().show({
+                hidden: false,
+                text: '名字重复，请重命名',
+                duration: 2000,
+                success() { },
+              })
+            }
+            //显示编辑失败提示
+            $wuxToptips().show({
+              hidden: false,
+              text: '编辑失败',
+              duration: 2000,
+              success() { },
+            })
+          }
         }
       })
     }
@@ -188,14 +202,9 @@ Page({
     if(this.data.type=='新建分类'){
       var newitem=[{
         'group_name': this.data.contentInInput,
-        'group_color': this.data.color[this.data.cur],//颜色待定
+        'group_color': this.data.color[this.data.cur],
         'article_count': 0
       }]
-      this.data.article_group_list = this.data.article_group_list.concat(newitem)
-      this.setData({
-        article_group_list: this.data.article_group_list,
-        show_window: 0,
-      })
       //向服务器端发送新建分类的通知
       // console.log(newitem)
       wx.request({
@@ -207,10 +216,43 @@ Page({
         },
         success: function (res) {
           console.log(res.data)
+          //新建成功
+          if(res.data.state_code==1){
+            //显示新建成功提示
+            $wuxToptips().success({
+              hidden: false,
+              text: '新建成功',
+              duration: 2000,
+              success() { },
+            });
+
+            that.data.article_group_list = that.data.article_group_list.concat(newitem)
+            that.setData({
+              article_group_list: that.data.article_group_list,
+              show_window: 0,
+            })
+          }else{
+            //检查是否重名
+            if (res.data.state_code == 2) {
+              //显示重名提示
+              $wuxToptips().show({
+                hidden: false,
+                text: '名字重复，请重命名',
+                duration: 2000,
+                success() { },
+              })
+            }
+            //显示新建失败提示
+            $wuxToptips().show({
+              hidden: false,
+              text: '新建失败',
+              duration: 2000,
+              success() { },
+            })
+          }
         }
       })
     }
-    //向服务器发送更改内容
   },
   /**
    * 关闭弹出的新建分类和编辑窗口
@@ -221,42 +263,10 @@ Page({
     }
     )
   },
-  /**
-   * 关闭弹出的名字过长窗口
-   */
-  onClose2() {
-    this.setData({
-      show_long_name: 0,
-    }
-    )
-  },
-  /**
-   * 关闭删除失败窗口
-   */
-  onClose3() {
-    this.setData({
-      show_fail_delete: 0,
-    }
-    )
-  },
-  /**
-   * 关闭删除成功窗口
-   */
-  onClose4() {
-    this.setData({
-      show_success_delete: 0,
-    }
-    )
-  },
-  /**
-   * 关闭名字存在提示窗口
-   */
-  onClose5() {
-    this.setData({
-      show_name_exist: 0,
-    }
-    )
-  },
+  
+  
+  
+  
   /*颜色选择器*/
   choose: function (e) {
     var that = this;

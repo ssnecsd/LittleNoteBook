@@ -2,7 +2,7 @@
 <view class="mainContent">
   <view class="articleList">
     <block wx:for="{{article_group_list}}" wx:key="{{index}}" >
-      <wux-swipe-action autoClose right="{{ right }}" bind:click="onClick" data-y="{{index}}">
+      <wux-swipe-action autoClose right="{{ right }}" bind:click="onClick" data-y="{{index}}" style="height:200px">
         <view class='itemView'>
           <view class='group_color'style="background-color:{{item.group_color}}"></view>
           <view class='group_name'>{{item.group_name}} </view>
@@ -17,10 +17,11 @@
     
 
   </view>
+  <!-- 新建一个分类 -->
   <view>
     <wux-popup closable visible="{{ show_window }}" title="{{type}}"bind:close="onClose1"class='popup'>
     <wux-cell hover-class="none">
-      <wux-input wux-input label="分组名字" placeholder="{{contentInInput}}" bind:blur="onBlur"/>
+      <wux-input wux-input label="分组名字" placeholder="分类名称" bind:blur="onBlur"/>
     </wux-cell>
 
     <view class="totalContainer">
@@ -48,16 +49,6 @@
     </wux-popup>
     
   </view>
-  <wux-popup closable visible="{{ show_long_name }}" title="提示"content="名字不能超过10个字"bind:close="onClose2"class='popup'>
-      <button bindtap='onClose2'class='close_button2'>确定</button>
-  </wux-popup>
-  <wux-popup closable visible="{{ show_fail_delete }}" title="删除失败"content="分类中数量不为0不能删除"bind:close="onClose3"class='popup'>
-      <button bindtap='onClose3'class='close_button2'>确定</button>
-  </wux-popup>
-  <wux-popup closable visible="{{ show_success_delete }}" title="删除成功"bind:close="onClose4"class='popup'>
-      <button bindtap='onClose4'class='close_button2'>确定</button>
-  </wux-popup>
-  <wux-popup closable visible="{{ show_name_exist }}" title="提示"content="名字已经存在请重新命名"bind:close="onClose5"class='popup'>
-      <button bindtap='onClose5'class='close_button2'>确定</button>
-  </wux-popup>
+  <!-- 顶部提示 -->
+  <wux-toptips  id="wux-toptips" />
 </view>

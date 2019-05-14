@@ -16,7 +16,7 @@
         <template is="actions" data="{{ classes, actions: right, type: 'right' }}" wx:if="{{ !useSlots }}" />
         <slot name="right" wx:else></slot>
     </view>
-    <view class="{{ classes.content }}" catchtouchstart="onTouchStart" catchtouchmove="onTouchMove" catchtouchend="onTouchEnd" style="{{ offsetStyle }}">
+    <view class="{{ classes.content }}" bindtouchstart="onTouchStart" bindtouchmove="onTouchMove" bindtouchend="onTouchEnd" style="{{ offsetStyle }}">
         <slot></slot>
     </view>
 </view>

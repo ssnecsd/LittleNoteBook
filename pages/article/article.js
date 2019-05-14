@@ -25,7 +25,7 @@ Page({
   },
 // 处理左滑事件
   onClick(e) {
-    //console.log('onClick', e.detail);
+    console.log('1.==onClick');
     // 取消
     if(e.detail.index == 0)
     {
@@ -75,6 +75,7 @@ Page({
   },
   // 点击下拉显示框
   selectTap() {
+    console.log('2.==selectTap');
     var article_group_list = this.data.article_group_list;
     this.setData({ 
       selectShow: !this.data.selectShow,
@@ -84,6 +85,7 @@ Page({
   },
   // 点击下拉列表
   optionTap(e) {
+    console.log('3.==selectTap');
     var that = this;
     var article_group_list = this.data.article_group_list;
     let Index = e.currentTarget.dataset.index;//获取点击的下拉列表的下标
@@ -128,6 +130,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    console.log('2.==onLoad');
     selectShow:false;
     var that = this;
     user_id = app.globalData.user_id;
@@ -278,10 +281,11 @@ Page({
     })
   },
   navigateToDetail:function(e){
-    //console.log(e);
+    console.log("****navigateToDetail");
+    console.log(e);
     var that=this;
     var index=e.target.dataset.index;
-    //console.log(index);
+    console.log(index);
     var id = this.data.article_list[index].article_id;
     //console.log(id);
     wx.navigateTo({
