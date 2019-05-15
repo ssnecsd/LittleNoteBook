@@ -43,7 +43,7 @@ def sign_in(request_params):
         while True:
             print("执行了循环")
             user_id = get_a_user_id()
-            sql = "SELECT * FROM userdb.user_info where user_id='%s'"%user_id
+            sql = "SELECT * FROM user_info where user_id='%s'"%user_id
             res = db_excute_select(sql)
             if len(res) == 0:
                 break

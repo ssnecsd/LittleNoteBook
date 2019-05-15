@@ -34,7 +34,7 @@ def reset_article_group(request_params):
         status_code = 0
 
     response = {
-        'status_code': status_code,
+        'state_code': status_code,
     }
     response_body = json.dumps(response)
     return response_body

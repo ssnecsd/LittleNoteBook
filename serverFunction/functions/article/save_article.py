@@ -6,6 +6,11 @@ import os
 
 def save_article(request_params):
     mark_list = request_params['mark_list']
+    # 暂时这样
+    if(isinstance(mark_list,str)):
+        print("-------------进入判断")
+        mark_list=json.loads(mark_list)
+      
     user_id= request_params['user_id']
     group_name = request_params['group_name']
     article_id = request_params['article_id']

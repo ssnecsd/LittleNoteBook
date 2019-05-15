@@ -22,7 +22,7 @@ def reset_excerpt_group(request_params):
     if not db_excute_insert(sql):
         status_code = 0
 
-    # 改文章表的分组
+    # 改摘抄表的分组
     sql = "update excerpt_info set group_name = '%s' where group_name ='%s' and user_id = '%s'" \
         % (new_group_name, old_group_name, user_id)
     if not db_excute_insert(sql):

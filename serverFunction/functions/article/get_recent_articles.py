@@ -28,8 +28,8 @@ def get_recent_articles(request_params):
         # 将时间转为时间戳格式
         timearry = time.strptime(item[5].strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
         time_stamp = time.mktime(timearry)
-        # 取近七天的记录
-        if (time_stamp + float(60 * 60 * 24 * 7)) > time.time():
+        # 取近一年的记录
+        if (time_stamp + float(60 * 60 * 24 * 365)) > time.time():
 
             # 时间只需要精确到天
             last_modify = time.strftime("%Y-%m-%d", timearry)

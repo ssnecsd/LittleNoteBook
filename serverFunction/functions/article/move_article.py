@@ -7,7 +7,7 @@ from serverFunction.functions.article.initial_article_group_list import initial_
 def move_article(request_params):
     user_id = request_params['user_id']
     article_id = request_params['article_id']
-    group_name  = request_params['group_name']
+    group_name = request_params['group_name']
     status_code = 1
 
 

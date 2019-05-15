@@ -19,7 +19,7 @@ def load_article(request_params):
     # 查询生成的article_id是否存在
     while True:
         article_id = get_a_article_id()
-        sql = "SELECT * FROM userdb.article_info where article_id='%s'" % article_id
+        sql = "SELECT * FROM article_info where article_id='%s'" % article_id
         res = db_excute_select(sql)
         if len(res) == 0:
             break
@@ -31,7 +31,7 @@ def load_article(request_params):
     group_color = '#FFFFFF'
     group_count = 1
     # 未分类 是否已经存在
-    sql = "SELECT * FROM userdb.article_group where group_name ='未分类' and user_id = '%s'" % user_id
+    sql = "SELECT * FROM article_group where group_name ='未分类' and user_id = '%s'" % user_id
     res = db_excute_select(sql)
     if len(res) == 0:
         # 分类不存在

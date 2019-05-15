@@ -26,16 +26,22 @@ def get_recent_excerpt(request_params):
         # 将时间转为时间戳格式
         timearry = time.strptime(item[3].strftime("%Y-%m-%d %H:%M:%S"), "%Y-%m-%d %H:%M:%S")
         time_stamp = time.mktime(timearry)
-        # 取近十天的记录
-        if (time_stamp + float(60*60*24*10)) >time.time():
+        # 取近一年的记录
+        if (time_stamp + float(60*60*24*365)) > time.time():
             excerpt_dic = {}
             path = item[5]
             with open(path + '.txt', 'r') as f:
                 excerpt_content = json.loads(f.read())
                 f.close()
 
+            sql = "SELECT * FROM excerpt_group where user_id='%s' and group_name = '%s'" \
+                  % (user_id, item[6])
+            result = db_excute_select(sql)
+
             # 时间只需要精确到天
             create_time = time.strftime("%Y-%m-%d", timearry)
+            excerpt_dic['group_color'] = result[0][2]
+            excerpt_dic['group_name'] = item[6]
             excerpt_dic['title'] = item[1]
             excerpt_dic['excerpt_id'] = item[0]
             excerpt_dic['create_time'] = create_time
