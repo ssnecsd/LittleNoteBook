@@ -106,7 +106,8 @@
   font-weight: bold;
   color:midnightblue;
   top:5rpx;
-  left:10%;
+  /* left:5%; */
+  text-align: center;
 }
 
 .excerptContent{

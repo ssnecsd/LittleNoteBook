@@ -38,7 +38,7 @@ Page({
     noteValue:'',
     promptstyle:'',
     note:'',
-    chooseColor:'#FFFF00',
+    chooseColor:'',
     title:'',
     author:'',
     content: [],
@@ -51,6 +51,8 @@ Page({
    */
   onLoad: function (options) {
     user_id = app.globalData.user_id;
+    //console.log(options);
+    //console.log(options);
     var that = this;
     //调用load_article接口
     if (options.article_url) {
@@ -67,6 +69,8 @@ Page({
    
     wx.getSystemInfo({
       success: function (res) {
+        //console.log(res.windowWidth)
+        //console.log(res.windowHeight)
         that.setData({ windowHeight: res.windowHeight, windowWidth: res.windowWidth});//设备宽高
       }
     });
@@ -148,18 +152,18 @@ Page({
       index: Index,
       selectShow: !this.data.selectShow
     });
-    wx.request({
-      url: serverUrl + '/get_excerpt_by_group',
-      data: {
-        user_id: app.globalData.user_id,
-        group_name: excerpt_group_list[Index].group_name
-      },
-      success: function (res) {
-        that.setData({
-          excerpt_list: res.data.excerpt_list
-        })
-      }
-    })
+    // wx.request({
+    //   url: serverUrl + '/get_excerpt_by_group',
+    //   data: {
+    //     user_id: app.globalData.user_id,
+    //     group_name: excerpt_group_list[Index].group_name
+    //   },
+    //   success: function (res) {
+    //     that.setData({
+    //       excerpt_list: res.data.excerpt_list
+    //     })
+    //   }
+    // })
   },
  
   load_article: function (article_url) {
@@ -181,8 +185,20 @@ Page({
           marker: res.data.mark_list
         });
 
-      }
+      },
+      fail:function(){
+        //加载文章失败时候的处理
+        var pages = getCurrentPages();
+        var prevPage = pages[pages.length - 2]
+        prevPage.setData({
+          load_article_fail_flag:1,
+        })
+        wx.navigateBack({
+          delta: 1
+        })
+      },
     })
+    
   },
   get_article_info: function (article_id) {
     var that = this;
@@ -373,8 +389,8 @@ Page({
   //确认颜色
   confirm:function(e){
     console.log("--confirm");
-    var index = this.data.cur;//选择话
-    var color = this.data.chooseColor;//颜色
+    var index = this.data.cur;
+    var color = this.data.chooseColor;
     //写到marker中
     var array = this.data.marker;
     array[index].key1 = 1;
@@ -417,7 +433,7 @@ Page({
   save_excerpt: function (e) {
     var index = this.data.cur;
     //console.log(index);
-    var group_index = this.data.index2;
+    var group_index = this.data.index;
     //console.log(group_index);
     var that = this;
     var excerpt = that.data.content[index][1];
@@ -530,8 +546,6 @@ Page({
           },
           success: function (res) {
             //tishi
-            //console.log(res.data)
-            //console.log(res.data.state_code);
             if (res.data.state_code==1){
               that.toptipSuccess();
               that.refresh();

@@ -23,7 +23,7 @@
 }
 .menuView{
   font-size:32rpx;
-  width: 390rpx;
+  width: 420rpx;
   position: absolute;
   background-color: lightpink;
 }
@@ -69,6 +69,7 @@
   position: absolute;
   top:0px;
   right: 0px;
+  z-index: 2;
 }
 .noteText{
   border-bottom:2rpx dashed rgb(38, 50, 161);

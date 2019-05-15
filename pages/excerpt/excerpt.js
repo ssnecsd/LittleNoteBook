@@ -46,8 +46,8 @@ Page({
         },
         success: function (res) {
           console.log(res.data.excerpt_list);
-          console.log('XXXX', res.data.status_code == 1);
-          if (res.data.status_code == 1) {
+          console.log('XXXX', res.data.state_code == 1);
+          if (res.data.state_code == 1) {
             $wuxToptips().success({
               hidden: false,
               text: '删除成功',
@@ -111,15 +111,17 @@ Page({
     selectShow: false;
     var that = this;
     user_id = app.globalData.user_id;
+    var recent_excerpt_list;
     wx.request({
       url: serverUrl + '/get_recent_excerpt',
       data: {
-        user_id: user_id
+        user_id: user_id,
       },
       success: function (res) {
         that.setData({
           excerpt_list: res.data.recent_excerpt_list
         })
+        
       }
     })
 
@@ -169,10 +171,12 @@ Page({
         console.log(res.data)
         var array = res.data.excerpt_group_list;
         array.push("编辑分组");
+        array.push("最近");
         var last = array.length;
         that.setData({
           excerpt_group_list: array,
-          last: last - 1
+          index:last-1,
+          last: last-2
         });
       }
     })

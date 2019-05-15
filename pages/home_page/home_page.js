@@ -1,4 +1,5 @@
 // pages/home_page/home_page.js
+import { $wuxToptips } from '../../dist/index'
 var app = getApp();
 var serverUrl = 'https://xwnotebook.cn:8000';
 var sign_in_times=0;
@@ -23,6 +24,8 @@ Page({
     recent_article_list: [],
     //-----------------得到最近的摘抄--------------------------------------------
     recent_excerpt_list:[],
+    //-----------------加载文章失败标记--------------------------------------------
+    load_article_fail_flag:0,
   },
 
   /**
@@ -313,6 +316,19 @@ Page({
         }
       }
     });
+    wx.getNetworkType({
+      success(res){
+        console.log('wx.getNetworkType',res.networkType)
+        if (res.networkType =="none"){
+          $wuxToptips().show({
+            hidden: false,
+            text: '当前无可用网络，请在网络下重试',
+            duration: 2000,
+            success() { },
+          })
+        }
+      }
+    })
   },
 
   /**
@@ -328,6 +344,19 @@ Page({
   onShow: function () {
     var that=this
     this.initial_data(that)
+    //从上个页面返回回来，如果文章加载失败
+    if(this.data.load_article_fail_flag==1){
+      $wuxToptips().show({
+        icon: 'cancel',
+        hidden: false,
+        text: '添加文章失败',
+        duration: 3000,
+        success() { },
+      })
+      this.setData({
+        load_article_fail_flag:0
+      })
+    }
   },
 
   /**

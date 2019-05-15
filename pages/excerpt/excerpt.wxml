@@ -6,11 +6,13 @@
     </view>
    <view class='option_box' style='height:{{selectShow?(excerpt_group_list.length>5?325:excerpt_group_list.length*50):0}}rpx;'>
       <block wx:for='{{excerpt_group_list}}' wx:key='this' >
-      <view class='option' wx:if="{{index!=last}}"  data-index='{{index}}' catchtap='optionTap'>
+       <text wx:if="{{index == last}}" catchtap="navigateToGroup" class='option'>{{item}}</text>
+        <text wx:if="{{index == last+1}}" class='option'>{{item}}</text>
+      <view class='option' wx:else  data-index='{{index}}' catchtap='optionTap'>
         <view class='groupColor' style="background:{{excerpt_group_list[index].group_color}}"></view>
         <text class='groupName'>{{excerpt_group_list[index].group_name}}({{excerpt_group_list[index].excerpt_count}})</text>
       </view>
-        <text wx:else catchtap="navigateToGroup" class='option'>{{item}}</text>
+       
      </block>
     </view>
     </view>
@@ -28,6 +30,7 @@
          </my-wux-swipe-action>
          <view class='empty'></view>
       </block>
+
     <view class='no_more'>
       <text>没有更多了 (ฅ• . •ฅ)</text>
     </view>

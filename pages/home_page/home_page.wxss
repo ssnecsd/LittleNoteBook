@@ -26,7 +26,7 @@
   height: 100rpx;
   width: 100rpx;
   margin-left: 80%;
-  top:800rpx
+  top:900rpx
 }
 /*弹窗的确定按钮和取消按钮*/
 .buttonsOfPopup{
@@ -51,32 +51,39 @@
 /*最近文章*/
 .articleItem{
   position: relative;
-  width: 410rpx;
-  margin-top: 40rpx;
+  width: 90%;
   top:-60rpx;
-  left:280rpx;
-  /* background-color: #ccffcc; */
-  border-radius: 10rpx;
+  left:0rpx;
   z-index: 2;
 }
-.titleText{
-  width: 280rpx;
+.excerptText{
+  width: 90%;
   overflow: hidden;
   font-size: 30rpx;
   position: relative;
+  /* text-align: center; */
   top:20rpx;
   left:10rpx;
 }
 .article_image{
-  width:100rpx;
-  height:100rpx;
+  width:200rpx;
+  height:200rpx;
   position:relative;
-  left:300rpx;
-  top:-75rpx;
+  top:20rpx;
+  left:450rpx;
+  border-radius: 50%;
 }
 
-.recent_article{
+.empty{
+  width:100%;
+  height:20rpx;
   position:relative;
-  left:50rpx;
+}
+
+.titleText{
+  position: relative;
+  top:140rpx;
+  left:10rpx;
+  width:80%;
   font-size: 30rpx;
 }
