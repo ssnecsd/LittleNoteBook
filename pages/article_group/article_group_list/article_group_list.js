@@ -113,6 +113,14 @@ Page({
               success() { },
             })
           }
+        },
+        fail:function(res){
+          $wuxToptips().show({
+            hidden: false,
+            text: '删除文章失败，服务器异常请稍后重试',
+            duration: 2000,
+            success() { },
+          })
         }
       })
       
@@ -195,6 +203,14 @@ Page({
               success() { },
             })
           }
+        },
+        fail:function(res){
+          $wuxToptips().show({
+            hidden: false,
+            text: '编辑文章失败，服务器异常请稍后重试',
+            duration: 2000,
+            success() { },
+          })
         }
       })
     }
@@ -250,6 +266,14 @@ Page({
               success() { },
             })
           }
+        },
+        fail:function(res){
+          $wuxToptips().show({
+            hidden: false,
+            text: '新建分类失败，服务器异常请稍后重试',
+            duration: 2000,
+            success() { },
+          })
         }
       })
     }
@@ -334,6 +358,14 @@ Page({
           console.log(res.data)
           that.setData({
             article_group_list: res.data.article_group_list
+          })
+        },
+        fail:function(res){
+          $wuxToptips().show({
+            hidden: false,
+            text: '初始化分类列表失败，服务器异常请稍后重试',
+            duration: 2000,
+            success() { },
           })
         }
       })

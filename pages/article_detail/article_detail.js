@@ -177,14 +177,36 @@ Page({
       },
       success: function (res) {
         //console.log(res.data)
-        that.setData({
-          article_id: res.data.article_id,
-          title: res.data.article_dic.title,
-          author: res.data.article_dic.profile_nickname,
-          content: res.data.article_dic.content,
-          marker: res.data.mark_list
-        });
-
+        if(res.data.state_code==1){
+          that.setData({
+            article_id: res.data.article_id,
+            title: res.data.article_dic.title,
+            author: res.data.article_dic.profile_nickname,
+            content: res.data.article_dic.content,
+            marker: res.data.mark_list
+          });
+        } else if (res.data.state_code == 2){
+          //链接无效时处理
+          var pages = getCurrentPages();
+          var prevPage = pages[pages.length - 2]
+          prevPage.setData({
+            load_article_fail_flag: 2,
+          })
+          wx.navigateBack({
+            delta: 1
+          })
+        }else{
+          //服务器异常处理
+          var pages = getCurrentPages();
+          var prevPage = pages[pages.length - 2]
+          prevPage.setData({
+            load_article_fail_flag: 1,
+          })
+          wx.navigateBack({
+            delta: 1
+          })
+        }
+        
       },
       fail:function(){
         //加载文章失败时候的处理

@@ -33,16 +33,6 @@
    
       
   
-  <!-- <view >
-    <view class='recent_article'>最近摘抄</view>
-    <block wx:for="{{recent_excerpt_list}}" wx:key="{{index}}" >
-      <view wx:if="{{index<2}}"class='itemView'>
-        <view class="articleItem" style="background:#{{excerpt_group_list[index].group_color}}">
-          <view class="titleText"><text>{{item.excerpt_content}}</text></view>
-        </view>
-      </view>
-    </block>
-  </view> -->
   <!--授权登录小程序的弹框-->
   <wux-popup closable visible="{{ show_authorize }}" title="提示"content="请授权登陆小程序"bind:close="onClose2"class='popup'>
         <button bindtap='onClose1'open-type="getUserInfo" bindgetuserinfo="getUserInfo"class='close_button2'>确定</button>

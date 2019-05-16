@@ -2,7 +2,7 @@
 import { $wuxToptips } from '../../dist/index'
 var app = getApp();
 var serverUrl = 'https://xwnotebook.cn:8000';
-var sign_in_times=0;
+var sign_in_times=0;//登录重试次数
 Page({
 
   /**
@@ -12,6 +12,7 @@ Page({
     //--------------授权登陆微信小程序-------------------------
     show_authorize: 0,//0表示不显示授权登陆页面，1表示显示授权登陆页面
     spinning: 1,//等待窗口0表示不显示，1表示显示
+    //蒙版相关的变量
     windowHeight: null,
     windowWidth: null,
     evilHidden: false,
@@ -46,6 +47,14 @@ Page({
         that.setData({
           recent_article_list: res.data['recent_article_list']
         })
+      },
+      fail:function(res){
+        $wuxToptips().show({
+          hidden: false,
+          text: '获取最近文章失败',
+          duration: 2000,
+          success() { },
+        })
       }
     })
     //得到最近的摘抄
@@ -58,6 +67,14 @@ Page({
         console.log(res.data)
         that.setData({
           recent_excerpt_list: res.data['recent_excerpt_list']
+        })
+      },
+      fail:function(res){
+        $wuxToptips().show({
+          hidden: false,
+          text: '获取最近摘抄失败',
+          duration: 2000,
+          success() { },
         })
       }
     })
@@ -215,7 +232,16 @@ Page({
     }
     //请求权限失败
     else {
-
+      var userInfo={
+        'user_nickname': '',
+        'avatar_url': '',
+        'gender': '',
+        'country': '',
+        'province': '',
+        'city': '',
+        'language': '',
+      }
+      app.globalData.userInfo = userInfo
     }
     //用户与服务器登陆
     this.sign_in()
@@ -249,6 +275,7 @@ Page({
       show_window: 0,
     });
     var article_url = this.data.contentInInput
+    //跳转到文章详情页面
     wx.navigateTo({
       url: '../article_detail/article_detail' + '?article_url=' + article_url,
     })
@@ -257,6 +284,7 @@ Page({
    * 点击文章到详细文章
    */
   navigateToDetail(e){
+    //跳转到文章详情页面
     wx.navigateTo({
       url: '../article_detail/article_detail' + '?article_id=' + e.currentTarget.dataset.article_id,
     })
@@ -349,12 +377,23 @@ Page({
       $wuxToptips().show({
         icon: 'cancel',
         hidden: false,
-        text: '添加文章失败',
+        text: '添加文章失败，服务器异常请稍后再试',
         duration: 3000,
         success() { },
       })
       this.setData({
         load_article_fail_flag:0
+      })
+    } else if (this.data.load_article_fail_flag == 2){
+      $wuxToptips().show({
+        icon: 'cancel',
+        hidden: false,
+        text: '添加文章失败，文章链接不可用，请检查后重试',
+        duration: 3000,
+        success() { },
+      })
+      this.setData({
+        load_article_fail_flag: 0
       })
     }
   },
