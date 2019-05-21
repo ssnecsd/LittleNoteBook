@@ -1,7 +1,7 @@
 // pages/articleSearch/articleSearch.js
 import { $wuxToptips } from '../../dist/index'
-var appInstance = getApp();
-var serverUrl = 'https://xwnotebook.cn:8000';
+var app = getApp();
+var serverUrl = app.globalData.serverUrl;
 var user_id;
 
 Page({
@@ -10,6 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    url: '../article_detail/article_detail',
     /* 设备高度 */
     btnHidden:true,
     cclHidden:true,
@@ -138,7 +139,7 @@ Page({
       wx.request({
         url:serverUrl+ '/search_article_by_key',
         data: {
-          user_id: appInstance.globalData.user_id,
+          user_id: app.globalData.user_id,
           article_key: value  //搜索数据
         },
         success: function (res) {
@@ -181,7 +182,7 @@ Page({
        wx.request({
          url: serverUrl+'/delete_article',
          data:{
-           user_id: appInstance.globalData.user_id,
+           user_id: app.globalData.user_id,
            article_id:e.target.dataset.id
          },
          success:function(res){
@@ -211,5 +212,19 @@ Page({
          }
        })
     }
+  },
+
+  // 连接到详情
+  navigateToDetail: function (e) {
+    console.log("****navigateToDetail");
+    console.log(e);
+    var that = this;
+    var index = e.target.dataset.index;
+    console.log(index);
+    var id = this.data.article_list[index].article_id;
+    //console.log(id);
+    wx.navigateTo({
+      url: that.data.url + '?article_id=' + id,
+    })
   }
 })

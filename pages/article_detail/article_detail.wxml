@@ -2,7 +2,7 @@
 <!-- 页面view -->
   <view>
     <text class="title">{{title}}\n</text>
-    <text class="author">{{author}}</text>
+    <text class="author">{{author}}\n</text>
     <block wx:for="{{content}}" wx:key='{{index}}'>
       <view wx:if="{{item[0]==0}}" class="contentImage">
         <image src="{{item[1]}}"></image>
@@ -67,7 +67,7 @@
     </view>
     </view>
     <button type="default"  class = "cancel" catchtap='refresh'>取消</button>
-    <button type="primary" class = "confirm" catchtap='save'>保存</button>
+    <button  class = "confirm" catchtap='save'>保存</button>
   </view>
 
   <!-- 保存摘抄 -->
@@ -89,7 +89,7 @@
     </view>
     </view>
     <button type="default"  class = "cancel" catchtap='refresh'>取消</button>
-    <button type="primary" class = "confirm" catchtap='save_excerpt'>保存</button>
+    <button  class = "confirm" catchtap='save_excerpt'>保存</button>
   </view>
   <!-- <wux-dialog id="wux-dialog" /> -->
   <!-- 保存成功提示view -->
@@ -98,11 +98,13 @@
   </view>
 </view>
 <!-- style = "{{editStyle}}" bindfocus="modifyStyle"   -->
-  <view class="editView" style="{{editStyle}}" hidden='{{editHidden}}'>
-    <textarea class="editdetail" style="{{editStyle}}" value = "{{noteValue}}" maxlength="512" placeholder='不多于512个字'   style="{{editStyle}}" show-confirm-bar='{{false}}' bindfocus="modifyStyle" bindinput="update" bindblur='losefocus'></textarea>
-    <!-- <wux-textarea hasCount rows="4" cursorSpacing="80"  placeholder='不多于512个字'  /> -->
-    <image src='../icon/ok.png' class="imageView noteImagePos" catchtap="finishNote"></image>
-  </view>
+  <!-- 编辑框  style="position:fixed;bottom:{{bottom}}rpx;"-->
+    <view class="editView" style="bottom:{{bottom}}px;"  hidden='{{editHidden}}'>
+      <!-- <textarea class="editdetail"  value = "{{noteValue}}" maxlength="512" placeholder='不多于512个字'   bindconfirm="finishNote" bindfocus="modifyStyle" bindinput="update" bindblur='losefocus' fixed='{{true}}' adjust-position="{{false}}" ></textarea> -->
+      <wux-textarea hasCount   value="{{noteValue}}" placeholder="写下想法，记录思绪" rows="3" cursorSpacing="80"  maxlength="512"  bind:change="update" bind:confirm="finishNote"  fixed="{{true}}" bind:focus="modifyStyle" bind:blur="losefocus" class="editdetail"
+  />
+  <!-- <image src='../icon/ok.png' class="imageView noteImagePos" catchtap="finishNote"></image> -->
+</view>
 
 
 

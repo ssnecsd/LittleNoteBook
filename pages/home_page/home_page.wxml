@@ -16,7 +16,11 @@
         </wux-wing-blank>
     </block>
     <view class='empty'></view>
-
+<view class='info' wx:if="{{recent_article_list.length==0}}">
+      <text>复制微信公众号文章链接后\n</text>
+      <text>点击加号添加一篇文章吧（＾ω＾)</text>
+      <image src="/pages/icon/kong.jpg" class="kong"></image>
+    </view>
         
     <!--最近摘抄显示-->
     <block wx:for="{{recent_excerpt_list}}" wx:key="{{index}}" >

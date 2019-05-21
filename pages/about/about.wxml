@@ -3,20 +3,19 @@
   <view class="topView">
     <!-- 小程序logo -->
     <view class = "imageView"><image src="../icon/logo1.jpg" mode="scaleToFill" class = "imageView"></image></view>
-    <view class="name"><text >小程序名字</text></view>
-    <view class="version"><text >Version 小程序版本</text></view>
+    <view class="name"><text >小微阅读</text></view>
+    <view class="version"><text >Version 1.0</text></view>
   </view>
 
   <!-- 中间部分 -->
   <view class="midView">
     <wux-cell-group>
-      <wux-cell title="关于我们" is-link catchtap="aboutUs"></wux-cell>
-      <wux-cell title="操作指南" is-link catchtap="diretion"></wux-cell>
-      <wux-cell   title="跳转到首页" is-link url="../home_page/home_page"></wux-cell>
+      <wux-cell title="关于我们" is-link url="../aboutUs/aboutUs"></wux-cell>
+      <wux-cell title="操作指南" is-link bind:click="showToptips3"></wux-cell>
     </wux-cell-group>
   </view>
 
   <!-- 下面部分 -->
-  <button  class="shareBtn" open-type='share' type="primary">分享小程序</button>
-
+  <button  class="shareBtn" open-type='share'>分享小程序</button>
 </view>
+<wux-toptips id="wux-toptips" />

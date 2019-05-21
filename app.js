@@ -1,5 +1,4 @@
 //app.js
-var serverUrl = 'http://xwnotebook.cn:8000'
 App({
   onLaunch: function () {
     // 展示本地存储能力
@@ -10,7 +9,8 @@ App({
 
   globalData: {
     userInfo: null,
-    user_id: null   //存的是用户id
+    user_id: null,   //存的是用户id
+    serverUrl : 'https://xwnotebook.cn:7999'
   },
 
 })

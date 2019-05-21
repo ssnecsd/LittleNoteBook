@@ -9,7 +9,7 @@
     "wux-cell": "../../dist/cell/index",
     "wux-button": "../../dist/button/index",
     "wux-popup": "../../dist/popup/index",
-    "wux-spin": "../../dist/spin/index"
-
+    "wux-spin": "../../dist/spin/index",
+    "wux-toptips": "../../dist/toptips/index"
   }
 }

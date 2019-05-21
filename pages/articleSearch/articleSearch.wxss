@@ -20,7 +20,7 @@
   border-radius: 10rpx;
   height:100rpx;
   position: relative;
-  background-color: #fed;
+  background-color: #D1EAF5;
 }
 
 .searchIconView,.searchIconImg,.cancelIconView,.cancelIconImg{
@@ -52,7 +52,7 @@
 
 .searchBtnView{
   position: absolute;
-  top:6rpx;
+  top:4rpx;
   right:2%;
   height:100rpx;
 }
@@ -61,11 +61,12 @@
 }
 .searchBtn{
   width:100%;
-  height:100%
+  height:100%;
+  color:aliceblue;
+  background-color: #20B2AA;
 }
 
 /*文件列表*/
-
 
 .itemView{
   position:relative;
@@ -86,6 +87,7 @@
   width: 200rpx;
   position:relative;
   top:32rpx;
+  left:10rpx;
 }
 
 .smallCircle{
@@ -102,10 +104,9 @@
 .articleItem{
   position: relative;
   width: 410rpx;
-  height: 125rpx;
+  height: 150rpx;
   top:-60rpx;
   left:280rpx;
-  background-color: #ccffcc;
   border-radius: 10rpx;
 }
 .titleText{
@@ -118,8 +119,8 @@
   left:10rpx;
 }
 .article_image{
-  width:100rpx;
-  height:100rpx;
+  width:120rpx;
+  height:120rpx;
   position:relative;
   left:300rpx;
   top:-75rpx;

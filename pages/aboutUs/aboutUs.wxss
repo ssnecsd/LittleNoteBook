@@ -1,0 +1,89 @@
+/* pages/aboutUs/aboutUs.wxss */
+.titleBox{
+  position:relative;
+  text-align: center;
+  top:30rpx;
+  left:200rpx;
+  border-radius: 3%;
+  width: 50%;
+  height: 100rpx;
+  background:#20B2AA;
+  color: aliceblue;
+}
+
+.title{
+  position:relative;
+  text-align: center;
+  top:20rpx;
+  font-size: 40rpx;
+  color:aliceblue;
+}
+
+.Introduction{
+  position: relative;
+  text-align: center;
+  color: black;
+  /* background:#20B2AA; */
+  border: 3rpx;
+  border-radius: 10%;
+  border-color:#20B2AA;
+  top:100rpx;
+  width:90%;
+  left:50rpx;
+}
+
+.empty{
+  height: 50rpx;
+  width: 100%;
+  position:relative;
+}
+
+.user1{
+  position: relative;
+  width:50%;
+  height: 240rpx;
+  left:80rpx;
+}
+
+.user2{
+  position: relative;
+  width:50%;
+  height: 240rpx;
+  left: 400rpx;
+  top:-240rpx;
+}
+
+.user3{
+  position: relative;
+  width:50%;
+  height: 240rpx;
+  left:80rpx;
+  top:-200rpx;
+}
+
+.user4{
+  position: relative;
+  width:50%;
+  height: 240rpx;
+  left:400rpx;
+  top:-440rpx;
+}
+
+.avater{
+  border-radius: 50%;
+  height:200rpx;
+  width:200rpx;
+}
+
+.name{
+  position:relative;
+  font-size: 30rpx;
+  left:70rpx;
+}
+
+.name2{
+  position:relative;
+  font-size: 30rpx;
+  left:60rpx;
+}
+

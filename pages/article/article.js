@@ -1,6 +1,6 @@
 import { $wuxToptips } from '../../dist/index'
 var app = getApp();
-var serverUrl = 'https://xwnotebook.cn:8000';
+var serverUrl = app.globalData.serverUrl;
 var user_id;
 Page({
   
@@ -32,19 +32,21 @@ Page({
       
     }
     // 删除
-    else if(e.detail.index == 1){
+    else if (e.detail.index == 1) {
       user_id = app.globalData.user_id;
       //获取列表中要删除项的下标
       var index = e.target.dataset.index;
       var article_list = this.data.article_list;
+      console.log(article_list)
       wx.request({
         url: serverUrl + '/delete_article',
         data: {
-          user_id: user_id,
+          user_id: app.globalData.user_id,
+          article_id: article_list[index].article_id,
           article_id: article_list[index].article_id
         },
         success: function (res) {
-          console.log(res.data);
+          console.log(res.data.article_list);
           console.log('XXXX', res.data.status_code == 1);
           if (res.data.status_code == 1) {
             $wuxToptips().success({
@@ -53,7 +55,7 @@ Page({
               duration: 2000,
               success() { },
             });
-            
+
           }
           else {
             $wuxToptips().show({
@@ -71,6 +73,7 @@ Page({
       this.setData({
         article_list: article_list
       });
+
     }
   },
   // 点击下拉显示框
@@ -104,6 +107,16 @@ Page({
           article_list:res.data.article_list
         })
       }
+    })
+  },
+
+  // 日历功能
+  showToptips3() {
+    $wuxToptips().info({
+      hidden: false,
+      text: '按照日期搜索功能暂未开放(´･_･`)',
+      duration: 3000,
+      success() { },
     })
   },
 
@@ -216,17 +229,6 @@ Page({
 
 
 
-
-
-
-
-
-
-
-
-
-
-0
 
 
 

@@ -1,12 +1,12 @@
 import { $wuxToptips } from '../../dist/index'
 var app = getApp();
 var user_id;
-var serverUrl = 'https://xwnotebook.cn:8000';
+var serverUrl = app.globalData.serverUrl;
 
 Page({
   data: {
     selectShow: false,
-    url:'../excerpt_share/excerpt_share?excerpt_content=',
+    url: '../excerpt_share/excerpt_share?excerpt_content=',
     excerpt_group_list: [
     ],//下拉列表的数据
     index: 0,
@@ -14,8 +14,8 @@ Page({
     excerpt_list: [
     ],
     right: [{
-      text: '取消',
-      style: 'background-color: #ddd; color: white;font-size:16px',
+      text: '分享',
+      style: 'background-color: #8EE5EE; color: white;font-size:16px',
     },
     {
       text: '删除',
@@ -28,7 +28,14 @@ Page({
     console.log('onClick', e.detail);
     // 取消
     if (e.detail.index == 0) {
-
+      var index = e.target.dataset.index;
+      var id = this.data.excerpt_list[index].excerpt_id;
+      var excerpt = this.data.excerpt_list[index].excerpt_content;
+      var title = this.data.excerpt_list[index].title;
+      var that = this;
+      wx.navigateTo({
+        url: that.data.url + excerpt + '&title=' + title,
+      })
     }
     // 删除
     else if (e.detail.index == 1) {
@@ -38,9 +45,9 @@ Page({
       var excerpt_list = this.data.excerpt_list;
       console.log(excerpt_list)
       wx.request({
-        url: serverUrl +'/delete_excerpt',
-        data:{
-          user_id:app.globalData.user_id,
+        url: serverUrl + '/delete_excerpt',
+        data: {
+          user_id: app.globalData.user_id,
           excerpt_id: excerpt_list[index].excerpt_id,
           article_id: excerpt_list[index].article_id
         },
@@ -72,7 +79,7 @@ Page({
       this.setData({
         excerpt_list: excerpt_list
       });
-     
+
     }
   },
   // 点击下拉显示框
@@ -111,17 +118,15 @@ Page({
     selectShow: false;
     var that = this;
     user_id = app.globalData.user_id;
-    var recent_excerpt_list;
     wx.request({
       url: serverUrl + '/get_recent_excerpt',
       data: {
-        user_id: user_id,
+        user_id: user_id
       },
       success: function (res) {
         that.setData({
           excerpt_list: res.data.recent_excerpt_list
         })
-        
       }
     })
 
@@ -171,12 +176,10 @@ Page({
         console.log(res.data)
         var array = res.data.excerpt_group_list;
         array.push("编辑分组");
-        array.push("最近");
         var last = array.length;
         that.setData({
           excerpt_group_list: array,
-          index:last-1,
-          last: last-2
+          last: last - 1
         });
       }
     })
@@ -233,25 +236,4 @@ Page({
     })
   },
 
-  navigateToDetail: function (e) {
-    console.log("==navigates");
-    var index = e.target.dataset.index;
-    var id = this.data.excerpt_list[index].excerpt_id;
-    var excerpt = this.data.excerpt_list[index].excerpt_content;
-    var title = this.data.excerpt_list[index].title;
-    var that = this;
-    wx.navigateTo({
-      url: that.data.url+excerpt+'&title='+title,
-    })
-  },
-  navigate:function(e){
-    //console.log("==navigates");
-    var index=e.target.dataset.index;
-    var id = this.data.excerpt_list[index].excerpt_id;
-    var excerpt = this.data.excerpt_list[index].excerpt_content;
-    console.log("==",index);
-    wx.navigateTo({
-      url: 'pages/excerpt_share/excerpt_share?id=0',
-    })
-  }
 })

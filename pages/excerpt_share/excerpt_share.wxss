@@ -4,18 +4,29 @@
   width: 100%;
   height: 366rpx;
 }
-.mine{
-  display: block;
+.excerptItem{
+  position:relative;
+  width:100%;
+  height:500rpx;
+}
+.excerptTitle{
   text-align: center;
   color: #333;
-  margin-top: 44rpx;
+  top: 50rpx;
+  position: relative;
+  font-size: 35rpx;
+  width: 70%;
+  margin-left: 15%;
 }
 .excerpt{
   display: block;
-  margin-top: 80rpx;
-  font-size: 32rpx;
+  font-size: 30rpx;
   color: #333;
   text-align: center;
+  top:70rpx;
+  position:relative;
+  padding:50rpx 100rpx 50rpx 100rpx; 
+  width:70%;
 }
 
 button[class="btn"]::after {
@@ -88,7 +99,7 @@ button[class="zfbtn m_l"]::after {
   position: fixed;
   bottom: 50rpx;
   left: 55%;
-  background: #ffe200;
+  background: #20B2AA;
   color: #333;
   font-size: 32rpx;
   border-radius: 44rpx;
@@ -103,7 +114,7 @@ button[class="zfbtn m_l"]::after {
   position: fixed;
   bottom: 50rpx;
   left: 10%;
-  background: #ffe200;
+  background: #20B2AA;
   color: #333;
   font-size: 32rpx;
   border-radius: 44rpx;
@@ -127,12 +138,11 @@ button[class="baocun"]::after{
   width: 160rpx;
   height: 160rpx;
   text-align: center;
-  background-color: pink;
+  background-color: white;
   position: relative;
+  border-radius: 10%;
 }
-.wechat{
-  
-}
+
 .album{
   top:-160rpx;
   left:60%;
@@ -142,6 +152,7 @@ button[class="baocun"]::after{
   height: 120rpx;
   position: relative;
   left:20rpx;
+  
 }
 .shageBtn{
   width: 160rpx;
@@ -149,7 +160,7 @@ button[class="baocun"]::after{
   background-color:white;
   position: relative;
   border:0rpx;
-  border-radius:0%;
+  border-radius:10%;
   padding: 0rpx;
   line-height: 36rpx;
   left:-20%;

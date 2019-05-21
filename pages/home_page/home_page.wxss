@@ -1,5 +1,15 @@
 /* pages/home_page/home_page.wxss */
 /*授权登陆小程序*/
+.info{
+  text-align: center;
+  position: relative;
+  font-size: 30rpx;
+}
+.kong{
+  position:relative;
+  height: 800rpx;
+  width:100%;
+}
 .close_button2{
   height: 40%;
   width: 40%;
@@ -26,7 +36,7 @@
   height: 100rpx;
   width: 100rpx;
   margin-left: 80%;
-  top:900rpx
+  top:900rpx;
 }
 /*弹窗的确定按钮和取消按钮*/
 .buttonsOfPopup{
@@ -51,27 +61,27 @@
 /*最近文章*/
 .articleItem{
   position: relative;
-  width: 90%;
+  width: 60%;
   top:-60rpx;
   left:0rpx;
   z-index: 2;
 }
-.excerptText{
+.titleText{
   width: 90%;
   overflow: hidden;
   font-size: 30rpx;
   position: relative;
   /* text-align: center; */
-  top:20rpx;
+  top:150rpx;
   left:10rpx;
 }
 .article_image{
   width:200rpx;
   height:200rpx;
   position:relative;
-  top:20rpx;
   left:450rpx;
   border-radius: 50%;
+  top:40rpx;
 }
 
 .empty{
@@ -80,10 +90,10 @@
   position:relative;
 }
 
-.titleText{
+.excerptText{
   position: relative;
-  top:140rpx;
-  left:10rpx;
-  width:80%;
-  font-size: 30rpx;
+  height:auto;
+  width: 95%;
+  text-align: center;
+
 }

@@ -118,6 +118,8 @@
   position: absolute;
   bottom: 0rpx;
   right:0rpx;
+  color: aliceblue;
+  background: #20B2AA;
 }
 .evil{
   background-color: #000;

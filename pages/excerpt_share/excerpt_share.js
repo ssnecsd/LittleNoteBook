@@ -1,8 +1,9 @@
 import { $wuxActionSheet } from '../../dist/index'
+import { $wuxToptips } from '../../dist/index'
 
 const app = getApp()
 var user_id;
-var serverUrl = 'https://xwnotebook.cn:8000';
+var serverUrl = app.globalData.serverUrl;
 
 Page({
 
@@ -88,7 +89,7 @@ Page({
     context.fillRect(100, 20, 55, 55);
 
     //小程序图片或者二维码
-    var path = "../icon/logo.png";
+    var path = "../icon/xwlogo.jpeg";
     context.drawImage(path, 250, 10,100,100 );
     context.save();
     //中间
@@ -296,6 +297,15 @@ Page({
       }
     })
   },
+  //未开通智能图库
+  showToptips3() {
+    $wuxToptips().info({
+      hidden: false,
+      text: '智能图库功能稍后更新(*¯︶¯*)',
+      duration: 2000,
+      success() { },
+    })
+  },
   //点击生成
   formSubmit: function (e) {
     var that = this;
@@ -423,7 +433,7 @@ Page({
         }
         else if(index==1){
           //图库shareToImage
-          //this.
+          that.showToptips3();
         }
         else if(index==2){
           //相册

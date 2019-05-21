@@ -27,4 +27,6 @@
   width: 80%;
   height:100rpx;
   margin: 10%; 
+  background: #20B2AA;
+  color:aliceblue;
 }

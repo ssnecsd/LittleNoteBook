@@ -1,8 +1,8 @@
 import { $wuxSelect } from '../../dist/index'
 import { $wuxToptips } from '../../dist/index'
 
-var serverUrl = 'https://xwnotebook.cn:8000';
 var app = getApp();
+var serverUrl = app.globalData.serverUrl;
 var user_id ;
 
 Page({
@@ -377,6 +377,7 @@ Page({
       noteStyle: '',
       menuStyle: '',
       promptStyle:'',
+      noteValue:'',
       bottom:0,
       note: ''})
   },
@@ -448,6 +449,12 @@ Page({
       //没有笔记，新建笔记
       that.note();
     }
+    },
+  /**
+   * 取消输入
+   */
+  clearInput:function(e){
+    this.setdata({noteValue:''});
   },
   /**
    * 摘抄事件

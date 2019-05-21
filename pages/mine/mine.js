@@ -1,3 +1,4 @@
+import { $wuxToptips } from '../../dist/index'
 Page({
 
   /**
@@ -5,6 +6,14 @@ Page({
    */
   data: {
     
+  },
+  showToptips3() {
+    $wuxToptips().info({
+      hidden: false,
+      text: '更多功能 敬请期待(´･_･`)',
+      duration: 2000,
+      success() { },
+    })
   },
 
   /**

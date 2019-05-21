@@ -1,0 +1,34 @@
+<!--pages/aboutUs/aboutUs.wxml-->
+<view class="titleBox">
+<view class="title">关于我们</view>
+</view>
+<view class="empty"></view>
+<wux-wing-blank size="default">
+            <wux-card title="小程序简介"  thumb="/pages/icon/shuji.png" thumb-style="border-radius: 50%;">
+                <view slot="body">小微阅读是一款帮助你管理公众号文章，对文章做笔记、摘抄的小程序。在这里，你可以添加你喜爱的文章，对文章进行分类管理，对喜爱的句子进行摘抄分享。希望小微阅读可以成为你生活的小助手！</view>
+            </wux-card>
+        </wux-wing-blank>
+<view class="empty"></view>
+
+<wux-wing-blank size="default">
+            <wux-card title="制作人员"  thumb="/pages/icon/zhishi.png" thumb-style="border-radius: 50%;">
+                <view slot="body">
+                <view class="user1">
+                <image src="/pages/icon/fengbo.jpg" class="avater"></image>
+                <view class="name">冯博</view>
+                </view>
+                <view class="user2">
+                <image src="/pages/icon/luobiao.jpg" class="avater  "></image>
+                <view class="name">罗彪</view>
+                </view>
+                <view class="user3">
+                <image src="/pages/icon/huangmenglin.jpg" class="avater"></image>
+                <view class="name2">黄梦林</view>
+                </view>
+                <view class="user4">
+                <image src="/pages/icon/dengyiran.jpg" class="avater"></image>
+                <view class="name2"> 邓怡然</view>
+                </view>
+                </view>
+            </wux-card>
+        </wux-wing-blank>

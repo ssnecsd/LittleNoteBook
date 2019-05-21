@@ -32,12 +32,6 @@ Page({
       value: '',
     })
   },
-  onError() {
-    wx.showModal({
-      title: 'Please enter 11 digits',
-      showCancel: !1,
-    })
-  },
 
   onChange2(e) {
     console.log('onChange', e)

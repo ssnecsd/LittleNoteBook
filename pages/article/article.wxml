@@ -1,5 +1,5 @@
 <view>
-  <image src="../icon/rili.png" class="calander"></image>
+  <image src="../icon/rili.png" class="calander" catchtap="showToptips3"></image>
   <view class='select_box'>
     <view class='select' catchtap='selectTap'>
         <text class='select_text'>{{article_group_list[index].group_name}}</text>
@@ -21,7 +21,7 @@
     <!-- 文章列表 -->
     <view class="articleList">
       <block wx:for="{{article_list}}" wx:key="{{index}}" >
-       <my-wux-swipe-action style="height:175rpx;background-color:pink;" autoClose right="{{ right }}" data-index='{{index}}' bindnavigateToDetail="navigateToDetail">
+       <my-wux-swipe-action autoClose right="{{ right }}" data-index='{{index}}' bindnavigateToDetail="navigateToDetail" bind:click="onClick">
         <view class="itemView">
           <view class="dateLine"></view>
           <view class="timeItem" wx:if="item.create_time">{{item.create_time}}</view>

@@ -1,4 +1,5 @@
 // pages/about/about.js
+import { $wuxToptips } from '../../dist/index'
 Page({
 
   /**
@@ -57,22 +58,23 @@ Page({
 
   },
 
+  showToptips3() {
+    $wuxToptips().info({
+      hidden: false,
+      text: '操作指南稍后更新(*¯︶¯*)',
+      duration: 2000,
+      success() { },
+    })
+  },
+
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function (res) {
     return {
-      title:'转发标题',
+      title:'小微阅读',
       path:'/pages/home_page/home_page'//进入首页
     }
-  },
-  aboutUs:function(e) {
-    wx.navigateTo({
-      url: '/pages/aboutUs/aboutUs',
-      success: function (res) { },
-      fail: function (res) { },
-      complete: function (res) { },
-    })
   },
   diretion(){
     wx.navigateTo({
@@ -82,12 +84,13 @@ Page({
       complete: function (res) { },
     })
   },
-  // navigateToHome(){
-  //   wx.navigateTo({
-  //     url: '/pages/home_page/home_page',
-  //     success: function(res) {},
-  //     fail: function(res) {},
-  //     complete: function(res) {},
-  //   })
-  // }
+  navigateToHome(){
+    console.log('navigateToHome')
+    wx.navigateTo({
+      url: '/pages/home_page/home_page',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  }
 })

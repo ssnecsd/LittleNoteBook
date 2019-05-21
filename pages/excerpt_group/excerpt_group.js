@@ -2,8 +2,8 @@
 import { $wuxToptips } from '../../dist/index'
 //全局变量用来确定点击事件点击的哪一个按钮
 var y = 0
-var serverUrl = 'https://xwnotebook.cn:8000'
 var app = getApp()
+var serverUrl = app.globalData.serverUrl;
 
 Page({
 
@@ -25,8 +25,7 @@ Page({
       style: 'background-color: #ff9999; color: white;font-size:16px',
     }],
     //---------------------测试用颜色-----------------------------------
-    color: ["#ccffcc", "#ef7a82", "#ffcccc", "#ffffcc", "#99ffcc",
-      "#99ffee", "#66ffcc", "#3f9", "#3fc", "#c9e", "#FFFAF0"],
+    color: ["#DCF4F5", "#FEEBF2", "#FBEDC9", "#E1F7E7", "#E8EAAA", "#D2E9E1", "#C3D6F2"],
     //---------------------弹出修改和新建的窗口--------------------------------
     //0是不弹出，1是弹出
     show_window: 0,
@@ -66,8 +65,8 @@ Page({
    */
 
   onClick(e) {
-    var that=this
-    // console.log('onClick', e);
+    var that=this;
+    console.log('onClick', e);
     //定位点击的是哪一个，y是excerpt_group_list数组的角标
     y = e.target.dataset.y
     //定位点击的是编辑还是删除,0编辑，1删除

@@ -1,7 +1,7 @@
 // pages/home_page/home_page.js
 import { $wuxToptips } from '../../dist/index'
 var app = getApp();
-var serverUrl = 'https://xwnotebook.cn:8000';
+var serverUrl = app.globalData.serverUrl;
 var sign_in_times=0;//登录重试次数
 Page({
 
@@ -275,9 +275,10 @@ Page({
       show_window: 0,
     });
     var article_url = this.data.contentInInput
+    console.log('home_page article_url', article_url)
     //跳转到文章详情页面
     wx.navigateTo({
-      url: '../article_detail/article_detail' + '?article_url=' + article_url,
+      url: '../article_detail/article_detail' + '?article_url=' + encodeURIComponent(article_url),
     })
   },
   /**
@@ -330,6 +331,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+var that=this;
+    wx.getSystemInfo({
+      success: function (res) {
+        //console.log(res.windowWidth)
+        //console.log(res.windowHeight)
+        that.setData({ windowHeight: res.windowHeight, windowWidth: res.windowWidth });//设备宽高
+      }
+    });
     //查看是否有用户信息权限
     var that = this
     wx.getSetting({

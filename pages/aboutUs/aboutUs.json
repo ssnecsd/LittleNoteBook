@@ -1,11 +1,12 @@
 {
   "navigationBarBackgroundColor": "#ffffff",
   "navigationBarTextStyle": "black",
-  "navigationBarTitleText": "我的",
+  "navigationBarTitleText": "关于我们",
   "backgroundColor": "#fff",
   "backgroundTextStyle": "light",
+  "component": true,
   "usingComponents": {
-    "wux-button": "../../dist/button/index",
-    "wux-toptips": "/dist/toptips/index"
+    "wux-card": "../../dist/card/index",
+    "wux-wing-blank": "../../dist/wing-blank/index"
   }
 }

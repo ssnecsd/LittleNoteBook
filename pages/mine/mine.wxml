@@ -3,15 +3,17 @@
 </view>
  
 <view style='margin:40rpx auto;text-align:center;display:flex;justify-content: center;'>
-昵称：<open-data class="open-data-userNickName line1" type="userNickName" lang="zh_CN"></open-data>
+<open-data class="open-data-userNickName line1" type="userNickName" lang="zh_CN"></open-data>
 </view>
 
         
         <wux-cell-group>
-            <wux-cell  thumb="/pages/icon/paiming.png" title="统计排名" is-link></wux-cell>
-            <wux-cell  thumb="/pages/icon/lajitong.png" title="回收站" is-link></wux-cell>
+            <wux-cell  thumb="/pages/icon/paiming.png" title="统计排名" is-link bind:click="showToptips3"></wux-cell>
+            <wux-cell  thumb="/pages/icon/lajitong.png" title="回收站" is-link bind:click="showToptips3"></wux-cell>
             <wux-cell thumb='/pages/icon/guanyu.png' title="关于" is-link url='/pages/about/about'></wux-cell>
             <wux-cell  thumb="/pages/icon/duihua.png" title="意见反馈" is-link url="/pages/feedback/feedback"></wux-cell>
         </wux-cell-group>
+
+        <wux-toptips id="wux-toptips" />
 
 
